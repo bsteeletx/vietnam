@@ -30,11 +30,11 @@ Sprite::Sprite(Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumb
 	create(assignedSpriteNumber);
 }
 
-Sprite::Sprite(unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
+/*Sprite::Sprite(unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Image(assignedImageNumber, Filename, blackIsAlpha)
 {
 	create(assignedSpriteNumber);
-}
+}*/
 
 Sprite::Sprite(unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
 	: Image(SubImageFilename, parentImage)
@@ -42,11 +42,11 @@ Sprite::Sprite(unsigned int parentImage, Text SubImageFilename, unsigned int ass
 	create(assignedSpriteNumber);
 }
 
-Sprite::Sprite(unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
+/*Sprite::Sprite(unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
 	: Image(assignedImageNumber, parentImage, SubImageFilename)
 {
 	create(assignedSpriteNumber);
-}
+}*/
 
 Sprite::Sprite(File FileToInit, Text PathToParent)
 	: Image(FileToInit, PathToParent)
@@ -65,7 +65,7 @@ Sprite::Sprite(File FileToInit, Text PathToParent)
 
 		if (Start == Text("Size"))
 		{
-			setSize(atof(End.getString()));
+			setSize(agk::ValFloat(End.getString()));
 			break;
 		}
 	}

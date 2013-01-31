@@ -17,7 +17,7 @@ Text::Text(std::string textString)
 {
 	char newString[64] = {NULL};
 
-	for (int i = 0; i < textString.size(); i++)
+	for (unsigned int i = 0; i < textString.size(); i++)
 		newString[i] = textString[i];
 	
 	textNumber = agk::CreateText(newString);
@@ -194,7 +194,7 @@ unsigned short Text::getColorRed(void)
 
 short Text::getDelimiterIndex(char separator)
 {
-	for (int i = 0; i < getLength(); i++)
+	for (unsigned int i = 0; i < getLength(); i++)
 	{
 		if (storedString[i] == separator)
 			return i;
@@ -222,6 +222,11 @@ bool Text::getHitTest(Point Location)
 		return true;
 	
 	return false;
+}
+
+unsigned int Text::getID(void)
+{
+	return textNumber;
 }
 
 unsigned int Text::getLength(void)
@@ -516,7 +521,7 @@ bool Text::splitAtDelimeter(Text *Part1, Text *Part2, char delimeter)
 
 	Part1->storedString[index] = '\0';
 
-	for (int i = index + 1; i < getLength(); i++)
+	for (unsigned int i = index + 1; i < getLength(); i++)
 		Part2->storedString[j++] = storedString[i];
 
 	Part2->storedString[j] = '\0';

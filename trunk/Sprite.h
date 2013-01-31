@@ -14,9 +14,9 @@ public:
 	Sprite (Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber);
 	Sprite (Point Begin, Point End, unsigned int assignedSpriteNumber = 0);
 	Sprite (Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0); 
-	Sprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);
+	//Sprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);
 	Sprite (unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
-	Sprite (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
+	//Sprite (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
 	Sprite (File FileToInit, Text PathToParent);
 		
 	Sprite& operator= (const Sprite& newSprite);

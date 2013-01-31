@@ -11,9 +11,9 @@ public:
 	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber = 0);
 	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, Point Begin, Point End, unsigned int assignedSpriteNumber = 0);
 	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);	
-	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);
+	//AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);
 	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
-	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
+	//AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
 	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int spriteNumberToClone);
 	AnimatedSprite(File FileToInit, Text PathToParent);
 	
@@ -21,8 +21,9 @@ public:
 	
 	unsigned int getCurrentFrame(void);
 	unsigned int getFrameCount(void);
-	unsigned short getPlaySpeed(void);
-	//bool getVisible(void);
+	float getPlaySpeed(void);
+	
+	void incrementFrame(void);
 
 	void play(float fps = 10.0f, bool loop = true, unsigned int start = 1, unsigned int end = 0);
 	

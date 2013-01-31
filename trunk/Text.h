@@ -6,6 +6,7 @@
 #include <string>
 
 class Image;
+class Point;
 
 class Text
 {
@@ -40,6 +41,7 @@ public:
 	short getDelimiterIndex(char separator);
 	bool getExists(void);
 	bool getHitTest(Point Location);
+	unsigned int getID(void);
 	unsigned int getLength(void);
 	float getLineSpacing(void);
 	unsigned int getNextID(void);

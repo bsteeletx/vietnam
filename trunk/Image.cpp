@@ -97,7 +97,7 @@ Image::Image(File FileToInit, Text PathToParent)
 	//no parent image, bad doggy! no treat for you!
 	if (ParentImage == Text(""))
 	{
-		for (int i = 0; i < NonParentFileNames.size(); i++)
+		for (unsigned int i = 0; i < NonParentFileNames.size(); i++)
 		{
 			if (NonParentFileNames[i] == Filename)
 			{
@@ -113,7 +113,7 @@ Image::Image(File FileToInit, Text PathToParent)
 	else
 	{
 		//check to see if we've already loaded the parent image in memory
-		for (int i = 0; i < ParentImages.size(); i++)
+		for (unsigned int i = 0; i < ParentImages.size(); i++)
 		{
 			//checking each individual element
 			if (ParentImages[i] == ParentImage)

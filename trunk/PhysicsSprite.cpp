@@ -27,11 +27,11 @@ PhysicsSprite::PhysicsSprite (Text Filename, bool blackIsAlpha, unsigned int ass
 	setOn(mode);
 }
 
-PhysicsSprite::PhysicsSprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber, short mode)
+/*PhysicsSprite::PhysicsSprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber, short mode)
 	: Sprite(assignedImageNumber, Filename, blackIsAlpha, assignedSpriteNumber)
 {
 	setOn(mode);
-}
+}*/
 
 PhysicsSprite::PhysicsSprite (unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber, short mode)
 	: Sprite(parentImage, SubImageFilename, assignedSpriteNumber)
@@ -39,11 +39,11 @@ PhysicsSprite::PhysicsSprite (unsigned int parentImage, Text SubImageFilename, u
 	setOn(mode);
 }
 
-PhysicsSprite::PhysicsSprite (unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber, short mode)
+/*PhysicsSprite::PhysicsSprite (unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber, short mode)
 	: Sprite(assignedImageNumber, parentImage, SubImageFilename, assignedSpriteNumber)
 {
 	setOn(mode);
-}
+}*/
 
 /*PhysicsSprite& PhysicsSprite::operator=(const PhysicsSprite& TempSprite)
 {
@@ -196,7 +196,7 @@ void PhysicsSprite::setCategoryByBit(unsigned int bits)
 	{
 		int remainder = bits;
 
-		for (int i = 15; i < 0; i--)
+		for (int i = 15; i >= 0; i--)
 		{
 			int j = 2^i;
 
@@ -229,7 +229,7 @@ void PhysicsSprite::setCollideByBit(unsigned int bits)
 
 		int remainder = bits;
 
-		for (int i = 15; i < 0; i--)
+		for (int i = 15; i > 0; i--)
 		{
 			int j = 2^i;
 

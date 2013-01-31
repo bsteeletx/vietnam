@@ -26,9 +26,9 @@ Point::~Point(void)
 
 void Point::floor(void)
 {
-	x = agk::Floor(x);
-	y = agk::Floor(x);
-	z = agk::Floor(x);
+	x = (float) agk::Floor(x);
+	y = (float) agk::Floor(x);
+	z = (float) agk::Floor(x);
 }
 
 float Point::getMaxValue(void)
@@ -55,7 +55,7 @@ float Point::getZ(void)
 {
 	return z;
 }
-
+#ifdef XBEG
 Point Point::getGridCoords(void)
 {
 	float xLoc = (x - XBEG)/SPOT_WIDTH;
@@ -94,6 +94,7 @@ void Point::setCoordsAsGridCoords(void)
 	else
 		y = (int) y;
 }
+#endif
 
 void Point::setCoords(float loc_x, float loc_y, float loc_z)
 {

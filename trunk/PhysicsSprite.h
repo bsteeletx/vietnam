@@ -13,9 +13,9 @@ public:
 	//PhysicsSprite (unsigned int assignedImageNumber, unsigned int assignedSpriteNumber = 0, short mode = 2);
 	PhysicsSprite (Point Begin, Point End, unsigned int assignedSpriteNumber = 0, short mode = 2);
 	PhysicsSprite (Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0, short mode = 2); 
-	PhysicsSprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0, short mode = 2);
+	//PhysicsSprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0, short mode = 2);
 	PhysicsSprite (unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0, short mode = 2);
-	PhysicsSprite (unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0, short mode = 2);
+	//PhysicsSprite (unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0, short mode = 2);
 
 	//PhysicsSprite& operator=(const PhysicsSprite& TempSprite);
 

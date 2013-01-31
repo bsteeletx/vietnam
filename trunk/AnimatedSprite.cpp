@@ -28,11 +28,11 @@ AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned
 	set(spriteNumber, width, height, count);
 }
 
-AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
+/*AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Sprite(assignedImageNumber, Filename, blackIsAlpha, assignedSpriteNumber)
 {
 	set(spriteNumber, width, height, count);
-}
+}*/
 
 AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
 	: Sprite(parentImage, SubImageFilename, assignedSpriteNumber)
@@ -40,11 +40,11 @@ AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned
 	set(spriteNumber, width, height, count);
 }
 
-AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
+/*AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
 	: Sprite(assignedImageNumber, parentImage, SubImageFilename, assignedSpriteNumber)
 {
 	set(spriteNumber, width, height, count);
-}
+}*/
 
 AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int spriteNumberToClone)
 	: Sprite()
@@ -78,7 +78,7 @@ AnimatedSprite::AnimatedSprite(File FileToInit, Text PathToParent)
 			if (End == Text(""))
 				continue;
 			else
-				playSpeed = agk::Val(End.getString());
+				playSpeed = (float) agk::Val(End.getString());
 		}
 	}
 
@@ -110,9 +110,17 @@ unsigned int AnimatedSprite::getFrameCount(void)
 	return false;
 }*/
 
-unsigned short AnimatedSprite::getPlaySpeed(void)
+float AnimatedSprite::getPlaySpeed(void)
 {
 	return playSpeed;
+}
+
+void AnimatedSprite::incrementFrame(void)
+{
+	if (getCurrentFrame() + 1 > getFrameCount())
+		setFrame(1);
+	else
+		setFrame(getCurrentFrame() + 1);
 }
 
 void AnimatedSprite::play(float fps, bool loop, unsigned int start, unsigned int end)
