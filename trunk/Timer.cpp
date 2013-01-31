@@ -45,7 +45,7 @@ unsigned int Timer::getElapsed(void)
 	time_t currentTime = time(NULL);
 
 	//return the currentTime variable
-	return currentTime - startTime;
+	return (unsigned int) currentTime - startTime;
 }
 
 ////////////////////////////////////
@@ -101,7 +101,7 @@ void Timer::resetStopWatch(void)
 	time_t currentTime = time(NULL);
 	
 	//set the stop time to be the current time + the time interval
-	stopTime = stopAmount + currentTime;
+	stopTime = (unsigned int) stopAmount + currentTime;
 }
 
 ///////////////////////////////////

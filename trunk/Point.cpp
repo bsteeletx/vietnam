@@ -24,6 +24,17 @@ Point::~Point(void)
 {
 }
 
+Point Point::addPoint(Point Additive)
+{
+	Point Start = *this;
+
+	Start.x += Additive.x;
+	Start.y += Additive.y;
+	Start.z += Additive.z;
+
+	return Start;
+}
+
 void Point::floor(void)
 {
 	x = (float) agk::Floor(x);
