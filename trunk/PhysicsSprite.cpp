@@ -66,7 +66,7 @@ void PhysicsSprite::addShapePolygon(unsigned int numOfPoints, unsigned int point
 		agk::AddSpriteShapePolygon(spriteNumber, numOfPoints, pointIndex, Location.getX(), Location.getY());
 }
 
-void PhysicsSprite::reCalculateCOM(void)
+void PhysicsSprite::calculateCOM(void)
 {
 	agk::CalculateSpritePhysicsCOM(spriteNumber);
 }
@@ -76,7 +76,7 @@ void PhysicsSprite::clearShapes(void)
 	agk::ClearSpriteShapes(spriteNumber);
 }
 
-bool PhysicsSprite::collidedWith(Sprite TestSprite)
+bool PhysicsSprite::getCollision(Sprite TestSprite)
 {
 	if (agk::GetPhysicsCollision(spriteNumber, TestSprite.getSpriteNumber()) == 1)
 		return true;
@@ -107,21 +107,6 @@ float PhysicsSprite::getCollisionX(void)
 float PhysicsSprite::getCollisionY(void)
 {
 	return agk::GetPhysicsCollisionY();
-}
-
-int PhysicsSprite::getGroup(void)
-{
-	return agk::GetSpriteGroup(spriteNumber);
-}
-
-unsigned int PhysicsSprite::getHitCategory(unsigned short categoryTest, Point Location)
-{
-	return agk::GetSpriteHitCategory(categoryTest, Location.getX(), Location.getY());
-}
-
-unsigned int PhysicsSprite::getHitGroup(Point Location)
-{
-	return agk::GetSpriteHitGroup(getGroup(), Location.getX(), Location.getY());
 }
 
 bool PhysicsSprite::getIsInCategory(unsigned short categoryNum)
@@ -190,7 +175,7 @@ void PhysicsSprite::setCategoryBit(unsigned short categoryNum, bool inCategory)
 	}
 }
 
-void PhysicsSprite::setCategoryByBit(unsigned int bits)
+void PhysicsSprite::setCategoryBits(unsigned int bits)
 {
 	if (_ZeroToMaxInt(bits, (2^16)-1))
 	{
@@ -266,11 +251,6 @@ void PhysicsSprite::setFriction(float friction)
 {
 	if (_ZeroToOneFloat(friction))
 		agk::SetSpritePhysicsFriction(spriteNumber, friction);
-}
-
-void PhysicsSprite::setGroup(int group)
-{
-	agk::SetSpriteGroup(spriteNumber, group);
 }
 
 void PhysicsSprite::setImpulse(Vector Impulse)

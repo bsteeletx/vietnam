@@ -5,6 +5,7 @@
 Text::Text(void)
 {
 	textNumber = 0;
+	isVisible = false;
 }
 
 Text::~Text(void)
@@ -13,34 +14,45 @@ Text::~Text(void)
 //		agk::DeleteText(textNumber);
 }
 
-Text::Text(std::string textString)
+Text::Text(std::string textString, bool isVisible)
 {
-	char newString[64] = {NULL};
+	//for (unsigned int i = 0; i < textString.size(); i++)
+	//	newString[i] = textString[i];
+	isVisible = false;
 
-	for (unsigned int i = 0; i < textString.size(); i++)
-		newString[i] = textString[i];
+	if (isVisible)
+	{
+		textNumber = agk::CreateText(textString.c_str());
+		isVisible = true;
+	}
+
+	storedString = textString;
 	
-	textNumber = agk::CreateText(newString);
-	strcpy(storedString, newString);
-
 	setVisible(false);
 }
 
-Text::Text(const char* textString)
+Text::Text(const char* textString, bool isVisible)
 {
-	textNumber = agk::CreateText(textString);
-	strcpy(storedString, textString);
+	isVisible = false;
 
+	if (isVisible)
+	{
+		textNumber = agk::CreateText(textString);
+		isVisible = true;
+	}
+
+	storedString = textString;
+	
 	setVisible(false);
 }
 
-Text::Text(unsigned int assignedTextNumber, const char* textString)
+/*Text::Text(unsigned int assignedTextNumber, const char* textString)
 {
 	agk::CreateText(assignedTextNumber, textString);
 	textNumber = assignedTextNumber;
 
 	setVisible(false);
-}
+}*/
 
 Text& Text::operator= (const Text& newText)
 {
@@ -48,11 +60,14 @@ Text& Text::operator= (const Text& newText)
 	
 	if (this != &newText)
 	{
-		if (getExists())
-			agk::DeleteText(textNumber);
-		else
-			textNumber = ReturnText.textNumber;
-
+		if (isVisible)
+		{
+			if (getExists())
+				agk::DeleteText(textNumber);
+			else
+				textNumber = ReturnText.textNumber;
+		}
+		
 		setString(ReturnText.getString());
 	}
 
@@ -61,31 +76,35 @@ Text& Text::operator= (const Text& newText)
 
 bool Text::operator!= (const Text otherText)
 {
-	if (strcmp(storedString, otherText.storedString) == 0) //same
-		return false;
-
-	return true;
+	return (storedString != otherText.storedString);
 }
 
-Text& Text::operator+= (const Text& newText)
+Text& Text::operator+= (Text newText)
 {
-	char returnString[32];
+	std::string returnString;
 	Text AddedText(newText);	
 
-	strcpy(returnString, this->getString());
-	strcat(returnString, AddedText.getString());
+	returnString = this->getString();
+	returnString.append(newText.getString());
 
 	setString(returnString);
 
 	return *this;
 }
 
-bool Text::operator== (const Text otherText)
+bool Text::operator== (Text otherText)
 {
-	if (strcmp(storedString, otherText.storedString) == 0) //same
+	if (storedString == otherText.getString())
 		return true;
 
 	return false;
+}
+
+
+unsigned int Text::countTokens(char delimeter)
+{
+	char single[1] = {delimeter};
+	return agk::CountStringTokens(getCString(), single);
 }
 
 void Text::fixToScreen(bool toScreen)
@@ -101,7 +120,7 @@ char Text::getChar(unsigned int index)
 	if (_Index(index))
 	{
 		char textString[64];
-		strcpy(textString, getString());
+		strcpy(textString, getCString());
 		return textString[index];
 	}
 
@@ -192,6 +211,11 @@ unsigned short Text::getColorRed(void)
 	return (unsigned short) agk::GetTextColorRed(textNumber);
 }
 
+const char *Text::getCString(void)
+{
+	return storedString.c_str();
+}
+
 short Text::getDelimiterIndex(char separator)
 {
 	for (unsigned int i = 0; i < getLength(); i++)
@@ -231,7 +255,7 @@ unsigned int Text::getID(void)
 
 unsigned int Text::getLength(void)
 {
-	return strlen(storedString);
+	return storedString.length();
 }
 
 unsigned int Text::getNextID(void)
@@ -259,9 +283,15 @@ float Text::getSpacing(void)
 	return agk::GetTextSpacing(textNumber);
 }
 
-const char* Text::getString(void)
+std::string Text::getString(void)
 {
 	return storedString;
+}
+
+Text Text::getToken(char delimeter, unsigned int token)
+{
+	char single[1] = {delimeter};
+	return Text(agk::GetStringToken(getCString(), single, token));
 }
 
 float Text::getTotalHeight(void)
@@ -292,12 +322,37 @@ float Text::getY(void)
 	return agk::GetTextY(textNumber);
 }
 
+Text Text::left(unsigned int count)
+{
+	return Text(agk::Left(getCString(), count));
+}
+
+unsigned int Text::len(void)
+{
+	return agk::Len(getCString());
+}
+
+Text Text::lower(void)
+{
+	return Text(agk::Lower(getCString()));
+}
+
+Text Text::mid(unsigned int position, int length)
+{
+	return Text(agk::Mid(getCString(), position, length));
+}
+
 void Text::print(bool newLineAtEnd)
 {
 	if (newLineAtEnd)
-		agk::Print(getString());
+		agk::Print(getCString());
 	else
-		agk::PrintC(getString());
+		agk::PrintC(getCString());
+}
+
+Text Text::right(unsigned int count)
+{
+	return Text(agk::Right(getCString(), count));
 }
 
 void Text::setAlignment(unsigned short mode)
@@ -424,12 +479,12 @@ void Text::setDepth(unsigned int depth)
 
 void Text::setExtendedFontImage(Image Object)
 {
-	agk::SetTextExtendedFontImage(textNumber, Object.getImageNumber());
+	agk::SetTextExtendedFontImage(textNumber, Object.getID());
 }
 
 void Text::setFontImage(Image Object)
 {
-	agk::SetTextFontImage(textNumber, Object.getImageNumber());
+	agk::SetTextFontImage(textNumber, Object.getID());
 }
 
 void Text::setLineSpacing(float spacing)
@@ -485,9 +540,12 @@ void Text::setSpacing(float spacing)
 
 void Text::setString(const char* string)
 {
-	agk::SetTextString(textNumber, string);
-	
-	strcpy(storedString, string);
+	storedString = string;
+}
+
+void Text::setString(std::string newString)
+{
+	storedString = newString;
 }
 
 void Text::setVisible(bool visible)
@@ -510,13 +568,16 @@ void Text::setY(float y)
 
 bool Text::splitAtDelimeter(Text *Part1, Text *Part2, char delimeter)
 {
-	short index = getDelimiterIndex(delimeter);
-	short j = 0;
+	short leftIndex = getDelimiterIndex(delimeter);
+	short rightIndex = len() - leftIndex -	1;
+	//short j = 0;
 
-	if (index == -1)
+	if (leftIndex == -1)
 		return false;
 
-	for (int i = 0; i < index; i++)
+	*Part1 = left(leftIndex);
+	*Part2 = right(rightIndex);
+	/*for (int i = 0; i < index; i++)
 		Part1->storedString[i] = storedString[i];
 
 	Part1->storedString[index] = '\0';
@@ -525,8 +586,14 @@ bool Text::splitAtDelimeter(Text *Part1, Text *Part2, char delimeter)
 		Part2->storedString[j++] = storedString[i];
 
 	Part2->storedString[j] = '\0';
+	*/
 
 	return true;
+}
+
+Text Text::upper(void)
+{
+	return Text(agk::Upper(getCString()));
 }
 
 bool Text::_Alignment(unsigned short mode)

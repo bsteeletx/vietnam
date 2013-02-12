@@ -18,7 +18,7 @@ Music::Music(unsigned short assignedID, Text Filename)
 	{
 		if (assignedID <= 50)
 		{
-			agk::LoadMusic(assignedID, Filename.getString());
+			agk::LoadMusic(assignedID, Filename.getCString());
 			musicNumber = assignedID;
 		}
 	}
@@ -27,7 +27,7 @@ Music::Music(unsigned short assignedID, Text Filename)
 Music::Music(Text Filename)
 {
 	if (_Filename(Filename))
-		musicNumber = agk::LoadMusic(Filename.getString());
+		musicNumber = agk::LoadMusic(Filename.getCString());
 }
 
 bool Music::getExists(void)

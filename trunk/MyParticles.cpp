@@ -200,7 +200,7 @@ void Particles::setFrequency(float freq)
 
 void Particles::setImage(Image Object)
 {
-	agk::SetParticlesImage(particleNumber, Object.getImageNumber());
+	agk::SetParticlesImage(particleNumber, Object.getID());
 }
 
 void Particles::setLife(float lifespan)

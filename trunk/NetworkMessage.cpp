@@ -23,7 +23,7 @@ void NetworkMessage::addInt(int value)
 
 void NetworkMessage::addString(Text Value)
 {
-	agk::AddNetworkMessageString(messageID, Value.getString());
+	agk::AddNetworkMessageString(messageID, Value.getCString());
 }
 
 unsigned int NetworkMessage::get(void)

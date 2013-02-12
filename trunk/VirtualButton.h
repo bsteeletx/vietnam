@@ -23,6 +23,7 @@ public:
 	void setImageDown(Image Object);
 	void setImageUp(Image Object);
 	void setPosition(Point Location);
+	void setPosition(float x, float y);
 	void setScreenPosition(Point Location, float size);
 	void setSize(float size);
 	void setText(Text InnerLabel);

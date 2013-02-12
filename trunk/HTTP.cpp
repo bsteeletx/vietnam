@@ -18,12 +18,12 @@ void HTTP::close()
 
 int HTTP::getFile(Text CompleteURLPath, Text LocalStorage, Text PostData)
 {
-	return agk::GetHTTPFile(httpID, CompleteURLPath.getString(), LocalStorage.getString(), PostData.getString());
+	return agk::GetHTTPFile(httpID, CompleteURLPath.getCString(), LocalStorage.getCString(), PostData.getCString());
 }
 
 int HTTP::getFile(Text CompleteURLPath, Text LocalStorage)
 {
-	return agk::GetHTTPFile(httpID, CompleteURLPath.getString(), LocalStorage.getString());
+	return agk::GetHTTPFile(httpID, CompleteURLPath.getCString(), LocalStorage.getCString());
 }
 
 bool HTTP::getFileComplete()
@@ -54,43 +54,43 @@ bool HTTP::getResponseReady()
 
 int HTTP::sendFile(Text Page, Text PostData, Text LocalFile)
 {
-	return agk::SendHTTPFile(httpID, Page.getString(), PostData.getString(), LocalFile.getString());
+	return agk::SendHTTPFile(httpID, Page.getCString(), PostData.getCString(), LocalFile.getCString());
 }
 
 Text HTTP::sendRequest(Text Page)
 {
-	return Text(agk::SendHTTPRequest(httpID, Page.getString()));
+	return Text(agk::SendHTTPRequest(httpID, Page.getCString()));
 }
 
 Text HTTP::sendRequest(Text Page, Text PostData)
 {
-	return Text(agk::SendHTTPRequest(httpID, Page.getString(), PostData.getString()));
+	return Text(agk::SendHTTPRequest(httpID, Page.getCString(), PostData.getCString()));
 }
 
 int HTTP::sendRequestASync(Text Page, Text PostData)
 {
-	return agk::SendHTTPRequestASync(httpID, Page.getString(), PostData.getString());
+	return agk::SendHTTPRequestASync(httpID, Page.getCString(), PostData.getCString());
 }
 
 int HTTP::sendRequestASync(Text Page)
 {
-	return agk::SendHTTPRequestASync(httpID, Page.getString());
+	return agk::SendHTTPRequestASync(httpID, Page.getCString());
 }
 
 int HTTP::setHost(Text Host, bool isSecure)
 {
 	if (isSecure)
-		return agk::SetHTTPHost(httpID, Host.getString(), 1);
+		return agk::SetHTTPHost(httpID, Host.getCString(), 1);
 
-	return agk::SetHTTPHost(httpID, Host.getString(), 0);
+	return agk::SetHTTPHost(httpID, Host.getCString(), 0);
 }
 
 int HTTP::setHost(Text Host, bool isSecure, Text Username, Text Password)
 {
 	if (isSecure)
-		return agk::SetHTTPHost(httpID, Host.getString(), 1, Username.getString(), Password.getString());
+		return agk::SetHTTPHost(httpID, Host.getCString(), 1, Username.getCString(), Password.getCString());
 
-	return agk::SetHTTPHost(httpID, Host.getString(), 0, Username.getString(), Password.getString());
+	return agk::SetHTTPHost(httpID, Host.getCString(), 0, Username.getCString(), Password.getCString());
 }
 
 unsigned int HTTP::createConnection()

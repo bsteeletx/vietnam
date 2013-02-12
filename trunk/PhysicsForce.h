@@ -1,8 +1,10 @@
 #pragma once
 
+#include "Physics2D.h"
 #include "Point.h"
 
-class PhysicsForce
+class PhysicsForce : 
+	public Physics2D
 {
 public:
 	PhysicsForce();

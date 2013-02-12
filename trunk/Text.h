@@ -13,14 +13,18 @@ class Text
 public:
 	Text();
 	~Text();
-	Text(const char* textString);
-	Text(unsigned int assignedTextNumber, const char* textString);
-	Text(std::string textString);
+	Text(const char* textString, bool isVisible = false);
+	//Text(unsigned int assignedTextNumber, const char* textString, bool isVisible = false);
+	Text(std::string textString, bool isVisible = false);
 	
 	Text& operator= (const Text& newText);
-	Text& operator+= (const Text& addText);
-	bool operator== (const Text otherText);
+	Text& operator+= (Text addText);
+	bool operator== (Text otherText);
 	bool operator!= (const Text otherText);
+
+	unsigned int countTokens(char delimeter);
+
+	void deleteAll(void);
 	
 	void fixToScreen(bool toScreen);
 
@@ -37,6 +41,7 @@ public:
 	unsigned short getColorBlue(void);
 	unsigned short getColorGreen(void);
 	unsigned short getColorRed(void);
+	const char *getCString(void);
 	unsigned int getDepth(void);
 	short getDelimiterIndex(char separator);
 	bool getExists(void);
@@ -47,14 +52,23 @@ public:
 	unsigned int getNextID(void);
 	float getSize(void);
 	float getSpacing(void);
-	const char* getString(void);
+	std::string getString(void);
+	Text getToken(char delimeter, unsigned int token);
 	float getTotalHeight(void);
 	float getTotalWidth(void);
 	bool getVisible(void);
 	float getX();
 	float getY();
 
+	Text left(unsigned int count);
+	unsigned int len(void);
+	Text lower(void);
+
+	Text mid(unsigned int position, int length);
+
 	void print(bool newLineAtEnd = true);
+
+	Text right(unsigned int count);
 	
 	void setAlignment(unsigned short mode);
 	void setCharAngle(unsigned int index, float angle);
@@ -72,6 +86,7 @@ public:
 	void setColorBlue(unsigned short blue);
 	void setColorGreen(unsigned short green);
 	void setColorRed(unsigned short red);
+	void setDefaultExtendedFontImage(Image Object);
 	void setDefaultMagFilter(bool linear);
 	void setDefaultMinFilter(bool linear);
 	void setDepth(unsigned int depth);
@@ -87,14 +102,18 @@ public:
 	void setSize(float size);
 	void setSpacing(float spacing);
 	void setString(const char* string);
+	void setString(std::string string);
 	void setVisible(bool visible);
 	void setX(float x);
 	void setY(float y);
 	bool splitAtDelimeter(Text *Part1, Text *Part2, char delimeter);
 
+	Text upper(void);
+
 protected:
+	bool isVisible;
 	unsigned int textNumber;
-	char storedString[64];
+	std::string storedString;
 	
 	bool _Alignment(unsigned short mode);
 	bool _Color(unsigned short value);

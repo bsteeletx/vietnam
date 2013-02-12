@@ -18,6 +18,8 @@ public:
 	AnimatedSprite(File FileToInit, Text PathToParent);
 	
 	void addFrame(Image NewFrame);
+
+	void clearFrames(void);
 	
 	unsigned int getCurrentFrame(void);
 	unsigned int getFrameCount(void);
@@ -30,9 +32,10 @@ public:
 	void resume(void);
 
 	void setFrame(unsigned int frame);
-	void setPosition(Point Location);
+	void setPosition(Point Location) override;
+	void setPosition(float x, float y) override;
 	void setSpeed(float fps);
-	//void setVisibile(bool value);
+	void setVisible(bool visible) override;
 	void stopSprite(void);
 
 private:

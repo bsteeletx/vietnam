@@ -42,6 +42,26 @@ void Point::floor(void)
 	z = (float) agk::Floor(x);
 }
 
+Point Point::get3DFromScreen(void)
+{
+	return Point(get3DXFromScreen(), get3DYFromScreen(), get3DZFromScreen());
+}
+
+float Point::get3DXFromScreen(void)
+{
+	return agk::Get3DVectorXFromScreen(x, y);
+}
+
+float Point::get3DYFromScreen(void)
+{
+	return agk::Get3DVectorYFromScreen(x, y);
+}
+
+float Point::get3DZFromScreen(void)
+{
+	return agk::Get3DVectorZFromScreen(x, y);
+}
+
 float Point::getMaxValue(void)
 {
 	return maxValue;
@@ -50,6 +70,21 @@ float Point::getMaxValue(void)
 float Point::getMinValue(void)
 {
 	return minValue;
+}
+
+Point Point::getScreenFrom3D(void)
+{
+	return Point(getScreenXFrom3D(), getScreenYFrom3D());
+}
+
+float Point::getScreenXFrom3D(void)
+{
+	return agk::GetScreenXFrom3D(x, y, z);
+}
+
+float Point::getScreenYFrom3D(void)
+{
+	return agk::GetScreenYFrom3D(x, y, z);
 }
 
 float Point::getX(void)
@@ -66,11 +101,22 @@ float Point::getZ(void)
 {
 	return z;
 }
-#ifdef XBEG
+#ifdef GRIDGAME
 Point Point::getGridCoords(void)
 {
-	float xLoc = (x - XBEG)/SPOT_WIDTH;
-	float yLoc = (y - YBEG)/SPOT_HEIGHT;
+	float xLoc = 0.0f;
+	float yLoc = 0.0f;
+
+	/*if (y < 0)
+	{
+		xLoc = (x - 5.0f)/(SPOT_WIDTH + SPOT_BORDER);
+		yLoc = y;
+	}
+	else
+	{*/
+	xLoc = agk::Round((x - XBEG)/(SPOT_WIDTH + SPOT_BORDER));
+	yLoc = (y - YBEG)/(SPOT_HEIGHT + SPOT_BORDER);
+	//}
 
 	return Point((int) xLoc, (int) yLoc);
 }
@@ -79,31 +125,66 @@ Point Point::getNormalCoords(void)
 {
 	float xLoc = x;
 	float yLoc = y;
+	//Point ReturnPoint = Point();
 
-	xLoc = xLoc*SPOT_WIDTH + XBEG;
-	yLoc = yLoc*SPOT_HEIGHT + YBEG;
+	xLoc = xLoc*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
+	yLoc = yLoc*(SPOT_HEIGHT + SPOT_BORDER)+ YBEG;
 
 	if (xLoc < XBEG)
 		xLoc = XBEG;
-	if (yLoc < YBEG - SPOT_HEIGHT)
-		yLoc = YBEG - SPOT_HEIGHT;
-	if (xLoc > XMAX*SPOT_WIDTH + XBEG)
-		xLoc = XMAX*SPOT_WIDTH + XBEG;
-	if (yLoc > YMAX*SPOT_HEIGHT + YBEG)
-		yLoc = YMAX*SPOT_HEIGHT + YBEG;
+	if (yLoc < YBEG - SPOT_HEIGHT + SPOT_BORDER)
+		yLoc = YBEG - SPOT_HEIGHT + SPOT_BORDER;
+	if (xLoc > XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG)
+		xLoc = XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
+	if (yLoc > YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG)
+		yLoc = YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG;
 
+	//ReturnPoint.setX(agk::Floor(agk::Get3DVectorXFromScreen(x, y)));
+	//ReturnPoint.setY(agk::Floor(agk::Get3DVectorYFromScreen(x, y)));
+	//ReturnPoint.setZ(agk::Floor(agk::Get3DVectorZFromScreen(x, y)));
+
+	/*float newX = 15.0f;
+	float newY = 60.5f;
+	bool increasingXUp = false;
+
+	newX += (x*10.0f); //10 across the bottom
+	newY += (y - 1)*(2.0f - x)*2.0f;
+
+	if (x < 4)
+		increasingXUp = true;
+	
+	if (increasingXUp)
+	{
+		newX -= y*6.75f;
+		newX += (4.0f - x)*3.75f;
+	}
+	else
+	{
+		if (x == 0)
+			newX += (y*3.5f); //even the center increases this much per row
+		else
+			newX -= ((4 - x) * ((4 - x)/5));
+	}
+
+	if (y < 0)
+		ReturnPoint = Point(5.0f + (x*10.0f), 5.0f);
+	else
+		ReturnPoint = Point(newX, newY);*/
+	
 	return Point(xLoc, yLoc);
 }
 
 void Point::setCoordsAsGridCoords(void)
 {
-	x = (int) ((x - XBEG)/SPOT_WIDTH);
-	y = ((y - YBEG)/SPOT_HEIGHT);
+	/*x = (int) ((x - XBEG)/(SPOT_WIDTH + SPOT_BORDER));
+	y = ((y - YBEG)/(SPOT_HEIGHT + SPOT_BORDER));
 
 	if (y < 0.0f)
 		y = -1.0f;
 	else
-		y = (int) y;
+		y = (int) y;*/
+
+	*this = Point(getGridCoords());
 }
 #endif
 

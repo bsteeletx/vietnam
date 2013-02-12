@@ -127,7 +127,7 @@ void Timer::stopWatch(unsigned int stopValue)
 //
 //Checks to see if the stopWatch (alarm clock) should be ringing, sets ringing to true if needed
 //////////////////////////////
-void Timer::updateTime(void)
+void Timer::update(void)
 {
 	//get the current time, set it to time_t currentTime
 	time_t currentTime = time(NULL);
@@ -141,3 +141,67 @@ void Timer::updateTime(void)
 			ringing = true;
 	}
 }
+
+Text Timer::getCurrentDate(void)
+{
+	return Text(agk::GetCurrentDate());
+}
+	
+Text Timer::getCurrent(void)
+{
+	return Text(agk::GetCurrentTime());
+}
+
+unsigned short Timer::getDayOfWeek(void)
+{
+	return agk::GetDayOfWeek();
+}
+
+int Timer::getDaysFromUnix(int unixTimeValue)
+{
+	return agk::GetDaysFromUnix(unixTimeValue);
+}
+
+int Timer::getHoursFromUnix(int unixTimeValue)
+{
+	return agk::GetHoursFromUnix(unixTimeValue);
+}
+
+bool Timer::getLeapYear(unsigned int year)
+{
+	if (agk::GetLeapYear(year))
+		return true;
+
+	return false;
+}
+
+int Timer::getMinutesFromUnix(int unixTimeValue)
+{
+	return agk::GetMinutesFromUnix(unixTimeValue);
+}
+
+int Timer::getMonthFromUnix(int unixTimeValue)
+{
+	return agk::GetMonthFromUnix(unixTimeValue);
+}
+	
+int Timer::getSecondsFromUnix(int unixTimeValue)
+{
+	return agk::GetSecondsFromUnix(unixTimeValue);
+}
+	
+int Timer::getUnixFromDate(unsigned short year, unsigned short month, unsigned short days, unsigned short hours, unsigned short minutes, unsigned short seconds)
+{
+	return agk::GetUnixFromDate(year, month, days, hours, minutes, seconds);
+}
+
+int Timer::getYearFromUnix(int unixTimeValue)
+{
+	return agk::GetYearFromUnix(unixTimeValue);
+}
+
+
+
+	
+
+	

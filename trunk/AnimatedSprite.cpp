@@ -68,17 +68,17 @@ AnimatedSprite::AnimatedSprite(File FileToInit, Text PathToParent)
 		Line.splitAtDelimeter(&Start, &End, ':');
 
 		if (Start == Text("Height"))
-			height = agk::Val(End.getString());
+			height = agk::Val(End.getCString());
 		else if (Start == Text("Width"))
-			width = agk::Val(End.getString());
+			width = agk::Val(End.getCString());
 		else if (Start == Text("Count"))
-			count = agk::Val(End.getString());
+			count = agk::Val(End.getCString());
 		else if (Start == Text("PlaySpeed"))
 		{
 			if (End == Text(""))
 				continue;
 			else
-				playSpeed = (float) agk::Val(End.getString());
+				playSpeed = (float) agk::Val(End.getCString());
 		}
 	}
 
@@ -89,7 +89,7 @@ AnimatedSprite::AnimatedSprite(File FileToInit, Text PathToParent)
 
 void AnimatedSprite::addFrame(Image NewFrame)
 {
-	agk::AddSpriteAnimationFrame(spriteNumber, NewFrame.getImageNumber());
+	agk::AddSpriteAnimationFrame(spriteNumber, NewFrame.getID());
 }
 
 unsigned int AnimatedSprite::getCurrentFrame(void)
@@ -152,19 +152,25 @@ void AnimatedSprite::setPosition(Point Location)
 	Sprite::setPosition(Location);
 }
 
+void AnimatedSprite::setPosition(float x, float y)
+{
+	originalY = y;
+	Sprite::setPosition(x, y);
+}
+
 void AnimatedSprite::setSpeed(float fps)
 {
 	if (_FPS(fps))
 		agk::SetSpriteSpeed(spriteNumber, fps);
 }
 
-/*void AnimatedSprite::setVisibile(bool value)
+void AnimatedSprite::setVisible(bool value)
 {
 	if (value)
 		setY(200.0f);
 	else
 		setY(originalY);
-}*/
+}
 
 void AnimatedSprite::stopSprite(void)
 {

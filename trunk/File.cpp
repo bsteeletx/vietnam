@@ -37,6 +37,11 @@ File& File::operator= (const File &NewFile)
 	return *this;
 }
 
+void File::extractZip(Text ZipFilename, Text Path)
+{
+	agk::ExtractZip(ZipFilename.getCString(), Path.getCString());
+}
+
 bool File::FileEOF(void)
 {
 	if (openToRead)
@@ -113,13 +118,13 @@ void File::putInt(int value)
 void File::putLine(Text Value)
 {
 	if (!openToRead)
-		agk::WriteLine(fileID, Value.getString());
+		agk::WriteLine(fileID, Value.getCString());
 }
 
 void File::putString(Text Value)
 {
 	if (!openToRead)
-		agk::WriteString(fileID, Value.getString());
+		agk::WriteString(fileID, Value.getCString());
 }
 
 void File::reOpen(void)
@@ -134,7 +139,7 @@ void File::close(void)
 
 bool File::getExists(Text Filename)
 {
-	if (agk::GetFileExists(Filename.getString()) == 1 )
+	if (agk::GetFileExists(Filename.getCString()) == 1 )
 		return true;
 
 	return false;
@@ -151,9 +156,9 @@ bool File::isOpen(void)
 void File::open(bool read, Text Filename)
 {
 	if (read)
-		fileID = agk::OpenToRead(Filename.getString());
+		fileID = agk::OpenToRead(Filename.getCString());
 	else
-		fileID = agk::OpenToWrite(Filename.getString());
+		fileID = agk::OpenToWrite(Filename.getCString());
 
 	openToRead = read;
 }

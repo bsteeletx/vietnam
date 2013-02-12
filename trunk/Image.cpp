@@ -25,14 +25,14 @@ Image::Image(unsigned int copyImageNumber)
 
 Image::Image(unsigned int assignedImageNumber, Text Filename)
 {
-	if (agk::GetFileExists(Filename.getString()))
-		agk::LoadImage(assignedImageNumber, Filename.getString());
+	if (agk::GetFileExists(Filename.getCString()))
+		agk::LoadImage(assignedImageNumber, Filename.getCString());
 }
 
 Image::Image(Text filename, bool blackIsAlpha)
 {
 	if (_Filename(filename))
-		loadImage(filename, blackIsAlpha);
+		load(filename, blackIsAlpha);
 }
 
 Image::Image(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
@@ -40,20 +40,20 @@ Image::Image(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
 	if (_ImageNumber(assignedImageNumber))
 	{
 		if (_Filename(filename))
-			loadImage(assignedImageNumber, filename, blackIsAlpha);
+			load(assignedImageNumber, filename, blackIsAlpha);
 	}
 }
 
 Image::Image(Text subImageFilename, unsigned int parentImage)
 {
 	if (_Filename(subImageFilename))
-		loadSubImage(parentImage, subImageFilename);
+		loadSub(parentImage, subImageFilename);
 }
 
 Image::Image(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
 {
 	if (_Filename(subImageFilename))
-		loadSubImage(parentImage, subImageFilename);
+		loadSub(parentImage, subImageFilename);
 }
 
 Image& Image::operator= (const Image& newImage)
@@ -70,7 +70,7 @@ Image::Image(Point Begin, Point End)
 
 Image::Image(Text codedText)
 {
-	imageNumber = agk::EncodeQRCode(codedText.getString(), 2); 
+	imageNumber = agk::EncodeQRCode(codedText.getCString(), 2); 
 }
 
 Image::Image(File FileToInit, Text PathToParent)
@@ -106,7 +106,7 @@ Image::Image(File FileToInit, Text PathToParent)
 			}
 		}
 		
-		imageNumber = agk::LoadImage(Filename.getString());
+		imageNumber = agk::LoadImage(Filename.getCString());
 		nonParentImageNumbers.push_back(imageNumber);
 		NonParentFileNames.push_back(Filename);
 	}
@@ -118,7 +118,7 @@ Image::Image(File FileToInit, Text PathToParent)
 			//checking each individual element
 			if (ParentImages[i] == ParentImage)
 			{
-				imageNumber = agk::LoadSubImage(parentImageNumbers[i], Filename.getString());
+				imageNumber = agk::LoadSubImage(parentImageNumbers[i], Filename.getCString());
 				alreadyLoaded = true;
 				nonParentImageNumbers.push_back(imageNumber);
 				NonParentFileNames.push_back(Filename);
@@ -131,15 +131,19 @@ Image::Image(File FileToInit, Text PathToParent)
 		{
 			//load the parental image into the static variables
 			ParentImages.push_back(ParentImage);
-			parentImageNumbers.push_back(agk::LoadImage(ParentImage.getString()));
+			parentImageNumbers.push_back(agk::LoadImage(ParentImage.getCString()));
 			//then load the subimage
-			imageNumber = agk::LoadSubImage(parentImageNumbers.back(), Filename.getString());
+			imageNumber = agk::LoadSubImage(parentImageNumbers.back(), Filename.getCString());
 			nonParentImageNumbers.push_back(imageNumber);
 			NonParentFileNames.push_back(Filename);
 		}
 	}
-
 	FileToInit.close();
+}
+
+Image::Image(Memblock Generator)
+{
+	agk::CreateImageFromMemblock(Generator.getID());
 }
 
 Text Image::decodeQRCode(void)
@@ -165,7 +169,7 @@ float Image::getHeight(void)
 	return agk::GetImageHeight(imageNumber);
 }
 
-unsigned int Image::getImageNumber(void)
+unsigned int Image::getID(void)
 {
 	return imageNumber;
 }
@@ -175,18 +179,18 @@ float Image::getWidth(void)
 	return agk::GetImageWidth(imageNumber);
 }
 
-void Image::printImage(float percentSize)
+void Image::print(float percentSize)
 {
 	agk::PrintImage(imageNumber, percentSize);
 }
 
-void Image::saveImage(Text savedFilename)
+void Image::save(Text savedFilename)
 {
 	if (_Filename(savedFilename))
-		agk::SaveImage(imageNumber, savedFilename.getString());
+		agk::SaveImage(imageNumber, savedFilename.getCString());
 }
 
-void Image::setImageMagFilter(bool linear)
+void Image::setMagFilter(bool linear)
 {
 	if (linear)
 		agk::SetImageMagFilter(imageNumber, 1);
@@ -194,7 +198,7 @@ void Image::setImageMagFilter(bool linear)
 		agk::SetImageMagFilter(imageNumber, 0);
 }
 
-void Image::setAsImageMask(unsigned int imageToMask, short colorDest, short colorSrc, int offsetXDest, int offsetYDest)
+void Image::setAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offsetXDest, int offsetYDest)
 {
 	if (_ImageNumber(imageToMask))
 	{
@@ -206,7 +210,7 @@ void Image::setAsImageMask(unsigned int imageToMask, short colorDest, short colo
 	}
 }
 
-void Image::setImageMinFilter(bool linear)
+void Image::setMinFilter(bool linear)
 {
 	if (linear)
 		agk::SetImageMinFilter(imageNumber, 1);
@@ -214,7 +218,7 @@ void Image::setImageMinFilter(bool linear)
 		agk::SetImageMinFilter(imageNumber, 0);
 }
 
-void Image::setImageWrapU(bool repeat)
+void Image::setWrapU(bool repeat)
 {
 	if (repeat)
 		agk::SetImageWrapU(imageNumber, 1);
@@ -222,7 +226,7 @@ void Image::setImageWrapU(bool repeat)
 		agk::SetImageWrapU(imageNumber, 0);
 }
 
-void Image::setImageWrapV(bool repeat)
+void Image::setWrapV(bool repeat)
 {
 	if (repeat)
 		agk::SetImageWrapV(imageNumber, 1);
@@ -230,25 +234,25 @@ void Image::setImageWrapV(bool repeat)
 		agk::SetImageWrapV(imageNumber, 0);
 }
 
-void Image::loadImage(Text filename, bool blackIsAlpha)
+void Image::load(Text filename, bool blackIsAlpha)
 {
-	imageNumber = agk::LoadImage(filename.getString(), blackIsAlpha);
+	imageNumber = agk::LoadImage(filename.getCString(), blackIsAlpha);
 }
 
-void Image::loadImage(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
+void Image::load(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
 {
-	agk::LoadImage(assignedImageNumber, filename.getString(), blackIsAlpha);
+	agk::LoadImage(assignedImageNumber, filename.getCString(), blackIsAlpha);
 	imageNumber = assignedImageNumber;
 }
 
-void Image::loadSubImage(unsigned int parentImage, Text subImageFilename)
+void Image::loadSub(unsigned int parentImage, Text subImageFilename)
 {
-	imageNumber = agk::LoadSubImage(parentImage, subImageFilename.getString());
+	imageNumber = agk::LoadSubImage(parentImage, subImageFilename.getCString());
 }
 
-void Image::loadSubImage(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
+void Image::loadSub(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
 {
-	agk::LoadSubImage(assignedImageNumber, parentImage, subImageFilename.getString());
+	agk::LoadSubImage(assignedImageNumber, parentImage, subImageFilename.getCString());
 	imageNumber = assignedImageNumber;
 }
 

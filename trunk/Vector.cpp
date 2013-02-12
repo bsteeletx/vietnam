@@ -41,6 +41,11 @@ bool operator!= (Vector& First, Vector& Second)
 	return true;
 }*/
 
+Point Vector::getDirection(void)
+{
+	return Point(getEndPointX() - getStartPointX(), getEndPointY() - getStartPointY(), getEndPointZ() - getStartPointZ());
+}
+
 Point Vector::getEndPoint(void)
 {
 	return Finish;
@@ -56,6 +61,11 @@ float Vector::getEndPointY(void)
 	return Finish.getY();
 }
 
+float Vector::getEndPointZ(void)
+{
+	return Finish.getZ();
+}
+
 Point Vector::getStartPoint(void)
 {
 	return Start;
@@ -69,6 +79,11 @@ float Vector::getStartPointX(void)
 float Vector::getStartPointY(void)
 {
 	return Start.getY();
+}
+
+float Vector::getStartPointZ(void)
+{
+	return Start.getZ();
 }
 
 void Vector::setStartPoint(Point Begin)

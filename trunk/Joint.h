@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Physics2D.h"
 #include "Sprite.h"
 //#include "Point.h"
 
-class Joint
+class Joint :
+	public Physics2D
 {
 public:
 	Joint();

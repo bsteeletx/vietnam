@@ -14,6 +14,7 @@ public:
 
 	bool getActive(void);
 	bool getChanged(void);
+	unsigned int getCurrent(void);
 	bool getExists(void);
 	bool getHasFocus(void);
 	float getHeight(void);
@@ -38,6 +39,8 @@ public:
 	void setFontImage(Image Object);
 	void setMaxChars(unsigned int max);
 	void setMaxLines(unsigned int max);
+	void setMultiLine(bool isMultiLine);
+	void setPasswordMode(bool isPassword);
 	void setPosition(Point Location);
 	void setScissor(Point TopLeft, Point BottomRight);
 	void setSize(float width, float height);

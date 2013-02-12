@@ -14,26 +14,29 @@ public:
 	Sprite (Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber);
 	Sprite (Point Begin, Point End, unsigned int assignedSpriteNumber = 0);
 	Sprite (Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0); 
-	//Sprite (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);
 	Sprite (unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
-	//Sprite (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
 	Sprite (File FileToInit, Text PathToParent);
 		
 	Sprite& operator= (const Sprite& newSprite);
 	Sprite& operator<< (const Image& Object);
 
 	unsigned int clone(void);
-	unsigned int clone(unsigned int);
+	unsigned int clone(unsigned int assignedSpriteNumber);
 	bool collidedWith(Sprite TestSprite);
 	bool collidedWith(unsigned int testSpriteNumber);
 	
+	void deleteAll(void);
+
 	void fixToScreen(bool screen = 1);
 
 	bool getActive(void);
-	short getAlpha(void);
 	float getAngle(void);
 	float getAngleInRad(void);
-	short getBlue(void);
+	short getColorAlpha(void);	
+	short getColorBlue(void);
+	short getColorGreen(void);
+	short getColorRed(void);	
+	int getCollision(Sprite OtherSprite);
 	int getCollisionGroup(void);
 	short getDepth(void);
 	float getDistanceFrom(Sprite TestSprite);
@@ -42,44 +45,56 @@ public:
 	float getDistancePoint2X(void);
 	float getDistancePoint2Y(void);
 	bool getExists(void);
-	short getGreen(void);
+	int getGroup(void);
 	float getHeight(void);
-	bool getHitTest(Point Location);
-	bool getIsInBox(Point TopLeft, Point BottomRight);
-	bool getIsInCircle(Point CenterOfCircle, float radius);
+	int getHit(Point HitLocation);
+	int getHitCategory(int categories, Point HitLocation);
+	int getHitGroup(Point HitLocation);
+	bool getHitTest(Point HitLocation);
+	unsigned int getImageID(void);
+	bool getInBox(Point TopLeft, Point BottomRight);
+	bool getInCircle(Point CenterOfCircle, float radius);
 	int getPixelFromX(float x); 
 	int getPixelFromY(float y); 
 	Point getPosition(void);
-	short getRed(void);
+	Point getPositionByOffset(void);
+	Point getPositionFromPixel(Point PixelLocation);
+	Point getPositionFromWorld(Point Point1, Point Point2);
 	unsigned int getSpriteNumber(void);
 	bool getVisible(void);
 	float getWidth(void);
+	float getWorldX(float x, float y);
+	float getWorldY(float x, float y);
+	Point getWorldPosition(Point Point1, Point Point2);
 	float getX(void);
 	float getXByOffset(void);
 	float getXFromPixel(int x);
+	float getXFromWorld(Point ToConvert);
 	float getY(void);
 	float getYByOffset(void);
 	float getYFromPixel(int y);
+	float getYFromWorld(Point ToConvert);
 
 	void resetUV(void);
 
 	void setActive(bool isActive);
-	void setAlpha(short alpha); 
 	void setAngle(float angle); 
 	void setAngleInRad(float rad);
-	void setBlue(short blue); 
 	void setColor(RGBA Values);
+	void setColorAlpha(short alpha); 	
+	void setColorBlue(short blue); 
+	void setColorGreen(short green); 
+	void setColorRed(short red);	
 	void setCollisionGroup(int groupID);
 	void setDepth(short depth); 
 	void setFlip(bool horizontal, bool vertical);
-	void setGreen(short green); 
+	void setGroup(int group);
 	void setImage(Image newImage, bool reshape = false);
 	void setOffset(float x, float y);
-	void setPosition(float x, float y);
-	void setPosition(Point Locaiton);
+	virtual void setPosition(float x, float y);
+	virtual void setPosition(Point Locaiton);
 	void setPositionByOffset(float x, float y);
 	void setPositionByOffset(Point Location);
-	void setRed(short red);
 	void setScale(float x, float y);
 	void setScaleByOffset(float x, float y);
 	void setScissor(Point TopLeft, Point BottomRight);
@@ -90,11 +105,9 @@ public:
 	void setUVBorder(float border = 0.5f);
 	void setUVOffset(float u, float v);
 	void setUVScale(float u, float v);
-	void setVisible(bool visible);
+	virtual void setVisible(bool visible);
 	void setX(float x);
 	void setY(float y);
-
-	void toggleVisiblity(void);
 
 protected:
 	unsigned int spriteNumber;

@@ -113,7 +113,7 @@ void EditBox::setBackgroundColor(RGBA Values)
 
 void EditBox::setBackgroundImage(Image Object)
 {
-	agk::SetEditBoxBackgroundImage(boxID, Object.getImageNumber());
+	agk::SetEditBoxBackgroundImage(boxID, Object.getID());
 }
 
 void EditBox::setBorderColor(RGBA Values)
@@ -123,7 +123,7 @@ void EditBox::setBorderColor(RGBA Values)
 
 void EditBox::setBorderImage(Image Object)
 {
-	agk::SetEditBoxBorderImage(boxID, Object.getImageNumber());
+	agk::SetEditBoxBorderImage(boxID, Object.getID());
 }
 
 void EditBox::setBorderSize(float size)
@@ -165,7 +165,7 @@ void EditBox::setFocus(bool focus)
 
 void EditBox::setFontImage(Image Object)
 {
-	agk::SetEditBoxFontImage(boxID, Object.getImageNumber());
+	agk::SetEditBoxFontImage(boxID, Object.getID());
 }
 
 void EditBox::setMaxChars(unsigned int max)
@@ -199,7 +199,7 @@ void EditBox::setSize(float width, float height)
 
 void EditBox::setText(Text Input)
 {
-	agk::SetEditBoxText(boxID, Input.getString());
+	agk::SetEditBoxText(boxID, Input.getCString());
 }
 
 void EditBox::setTextColor(Text Input)

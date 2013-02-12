@@ -20,7 +20,7 @@ Network::Network(Text NetworkName, Text MyName)
 {
 	while (!isActive())
 	{
-		networkID = agk::HostNetwork(NetworkName.getString(), MyName.getString(), port);
+		networkID = agk::HostNetwork(NetworkName.getCString(), MyName.getCString(), port);
 		if (!networkID)
 			port++;
 	}
@@ -32,9 +32,9 @@ Network::Network(Text NetworkName, Text MyName)
 Network::Network(Text NetNameOrIP, Text MyName, unsigned short portNumber)
 {
 	if (isANum(NetNameOrIP.getChar(0)))
-		networkID = agk::JoinNetwork(NetNameOrIP.getString(), portNumber, MyName.getString());
+		networkID = agk::JoinNetwork(NetNameOrIP.getCString(), portNumber, MyName.getCString());
 	else
-		networkID = agk::JoinNetwork(NetNameOrIP.getString(), MyName.getString());
+		networkID = agk::JoinNetwork(NetNameOrIP.getCString(), MyName.getCString());
 }
 
 unsigned int Network::getServerID(void)
@@ -59,17 +59,17 @@ void Network::setLatency(unsigned short latency)
 void Network::setLocalFloat(Text VariableName, float value, bool resetAfterRead)
 {
 	if (resetAfterRead)
-		agk::SetNetworkLocalFloat(networkID, VariableName.getString(), value, 1);
+		agk::SetNetworkLocalFloat(networkID, VariableName.getCString(), value, 1);
 	else
-		agk::SetNetworkLocalFloat(networkID, VariableName.getString(), value, 0);
+		agk::SetNetworkLocalFloat(networkID, VariableName.getCString(), value, 0);
 }
 
 void Network::setLocalInt(Text VariableName, int value, bool resetAfterRead)
 {
 	if (resetAfterRead)
-		agk::SetNetworkLocalInteger(networkID, VariableName.getString(), value, 1);
+		agk::SetNetworkLocalInteger(networkID, VariableName.getCString(), value, 1);
 	else
-		agk::SetNetworkLocalInteger(networkID, VariableName.getString(), value, 0);
+		agk::SetNetworkLocalInteger(networkID, VariableName.getCString(), value, 0);
 }
 
 void Network::setNoMoreClients(void)

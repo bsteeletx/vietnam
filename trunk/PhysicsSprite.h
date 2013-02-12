@@ -23,18 +23,15 @@ public:
 	void addShapeCircle(Point CenterOfCircle, float radius);
 	void addShapePolygon(unsigned int numOfPoints, unsigned int pointIndex, Point Location);
 
-	void reCalculateCOM(void);
+	void calculateCOM(void);
 	void clearShapes(void);
-	bool collidedWith(Sprite TestSprite);
-	
+		
 	float getAngularVelocity(void);
+	bool getCollision(Sprite TestSprite);
 	float getCollisionWorldX(void);
 	float getCollisionWorldY(void);
 	float getCollisionX(void);
 	float getCollisionY(void);
-	int getGroup(void);
-	unsigned int getHitCategory(unsigned short categoryTest, Point Location);
-	unsigned int getHitGroup(Point Location);
 	bool getIsInCategory(unsigned short categoryNum);
 	bool getIsInCollisionGroup(unsigned short collisionNum);
 	float getMass(void);
@@ -48,18 +45,19 @@ public:
 	void setBounciness(float bounciness);
 	void setCanRotate(bool canRotate);
 	void setCategoryBit(unsigned short categoryNum, bool inCategory);
-	void setCategoryByBit(unsigned int bits);
+	void setCategoryBits(unsigned int bits);
 	void setCollideBit(unsigned short collisionNum, bool inCollision);
 	void setCollideByBit(unsigned int bits);
 	void setCOM(Point COM);
 	void setDamping(float damp);
+	void setDelete(void);
 	void setForce(Vector Force);
 	void setFriction(float friction);
-	void setGroup(int group);
 	void setImpulse(Vector Impulse);
 	void setIsBullet(bool isBullet);
 	void setIsSensor(bool isSensor);
 	void setMass(float massInKG);
+	void setRestitution(float value);
 	void setTorque(float torque);
 	void setVelocity(float xVelocity, float yVelocity);
 	void setShape(short shapeType);

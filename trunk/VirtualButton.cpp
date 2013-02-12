@@ -75,12 +75,12 @@ void VirtualButton::setColor(RGBA Values)
 
 void VirtualButton::setImageDown(Image Object)
 {
-	agk::SetVirtualButtonImageDown(buttonID, Object.getImageNumber());
+	agk::SetVirtualButtonImageDown(buttonID, Object.getID());
 }
 
 void VirtualButton::setImageUp(Image Object)
 {
-	agk::SetVirtualButtonImageUp(buttonID, Object.getImageNumber());
+	agk::SetVirtualButtonImageUp(buttonID, Object.getID());
 }
 
 void VirtualButton::setPosition(Point Location)
@@ -102,7 +102,7 @@ void VirtualButton::setSize(float size)
 
 void VirtualButton::setText(Text InnerLabel)
 {
-	agk::SetVirtualButtonText(buttonID, InnerLabel.getString());
+	agk::SetVirtualButtonText(buttonID, InnerLabel.getCString());
 }
 
 void VirtualButton::setVisible(bool visible)

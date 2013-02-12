@@ -18,7 +18,7 @@ Sound::Sound(unsigned int assignedNumber, Text Filename)
 	{
 		if (_Filename(Filename))
 		{
-			agk::LoadSound(assignedNumber, Filename.getString());
+			agk::LoadSound(assignedNumber, Filename.getCString());
 			soundID = assignedNumber;
 		}
 	}
@@ -27,7 +27,7 @@ Sound::Sound(unsigned int assignedNumber, Text Filename)
 Sound::Sound(Text Filename)
 {
 	if (_Filename(Filename))
-		soundID = agk::LoadSound(Filename.getString());
+		soundID = agk::LoadSound(Filename.getCString());
 }
 
 bool Sound::getExists(void)
