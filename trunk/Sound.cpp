@@ -67,15 +67,15 @@ void Sound::stop(void)
 
 bool Sound::_Filename(Text Filename)
 {
-	char tempFilename[4];
+	Text Extension = Filename.right(4);
 	short lengthOfString = Filename.getLength() - 1;
 
-	for (int i = 3; i > 0; i--)
-		tempFilename[i] = Filename.getChar(lengthOfString - 1);
-		
-	if (strcmp(tempFilename, ".wav") == 0) //equal
+	//for (int i = 3; i > 0; i--)
+		//tempFilename[i] = Filename.getChar(lengthOfString - 1);
+	
+	if (Extension == Text(".wav"))
 		return true;
-	if (strcmp(tempFilename, ".mp3") == 0) //equal
+	if (Extension == Text(".mp3"))
 		return true;
 
 	return false;

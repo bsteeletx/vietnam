@@ -17,7 +17,7 @@ public:
 	//Text(unsigned int assignedTextNumber, const char* textString, bool isVisible = false);
 	Text(std::string textString, bool isVisible = false);
 	
-	Text& operator= (const Text& newText);
+	//Text& operator= (const Text& newText);
 	Text& operator+= (Text addText);
 	bool operator== (Text otherText);
 	bool operator!= (const Text otherText);
@@ -111,7 +111,7 @@ public:
 	Text upper(void);
 
 protected:
-	bool isVisible;
+	bool canBeSeen;
 	unsigned int textNumber;
 	std::string storedString;
 	

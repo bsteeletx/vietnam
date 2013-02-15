@@ -5,7 +5,7 @@
 Text::Text(void)
 {
 	textNumber = 0;
-	isVisible = false;
+	canBeSeen = false;
 }
 
 Text::~Text(void)
@@ -18,32 +18,32 @@ Text::Text(std::string textString, bool isVisible)
 {
 	//for (unsigned int i = 0; i < textString.size(); i++)
 	//	newString[i] = textString[i];
-	isVisible = false;
+	canBeSeen = isVisible;
 
 	if (isVisible)
 	{
 		textNumber = agk::CreateText(textString.c_str());
-		isVisible = true;
+		canBeSeen = true;
 	}
 
 	storedString = textString;
 	
-	setVisible(false);
+	setVisible(isVisible);
 }
 
 Text::Text(const char* textString, bool isVisible)
 {
-	isVisible = false;
+	canBeSeen = isVisible;
 
 	if (isVisible)
 	{
 		textNumber = agk::CreateText(textString);
-		isVisible = true;
+		canBeSeen = true;
 	}
 
 	storedString = textString;
 	
-	setVisible(false);
+	setVisible(isVisible);
 }
 
 /*Text::Text(unsigned int assignedTextNumber, const char* textString)
@@ -54,13 +54,13 @@ Text::Text(const char* textString, bool isVisible)
 	setVisible(false);
 }*/
 
-Text& Text::operator= (const Text& newText)
+/*Text& Text::operator= (const Text& newText)
 {
 	Text ReturnText(newText);
 	
 	if (this != &newText)
 	{
-		if (isVisible)
+		if (canBeSeen)
 		{
 			if (getExists())
 				agk::DeleteText(textNumber);
@@ -72,7 +72,7 @@ Text& Text::operator= (const Text& newText)
 	}
 
 	return *this;
-}
+}*/
 
 bool Text::operator!= (const Text otherText)
 {
@@ -541,11 +541,13 @@ void Text::setSpacing(float spacing)
 void Text::setString(const char* string)
 {
 	storedString = string;
+	agk::SetTextString(textNumber, string);
 }
 
 void Text::setString(std::string newString)
 {
 	storedString = newString;
+	agk::SetTextString(textNumber, newString.c_str());
 }
 
 void Text::setVisible(bool visible)
