@@ -6,8 +6,16 @@ Vector::Vector(void)
 
 Vector::Vector(Point Begin, Point End)
 {
-	Start = Begin;
-	Finish = End;
+	if (End == Point())
+	{//so you can only give one value if necessary
+		Finish = Begin;
+		Start = Point();
+	}
+	else
+	{
+		Start = Begin;
+		Finish = End;
+	}
 }
 
 Vector::~Vector(void)
@@ -84,6 +92,31 @@ float Vector::getStartPointY(void)
 float Vector::getStartPointZ(void)
 {
 	return Start.getZ();
+}
+
+Point Vector::getVelocity(void)
+{
+	Point ReturnPoint = Point();
+	ReturnPoint.setX(getVelocityInX());
+	ReturnPoint.setY(getVelocityInY());
+	ReturnPoint.setZ(getVelocityInZ());
+
+	return ReturnPoint;
+}
+
+float Vector::getVelocityInX(void)
+{
+	return Finish.getX() - Start.getX();
+}
+
+float Vector::getVelocityInY(void)
+{
+	return Finish.getY() - Start.getY();
+}
+
+float Vector::getVelocityInZ(void)
+{
+	return Finish.getZ() - Start.getZ();
 }
 
 void Vector::setStartPoint(Point Begin)

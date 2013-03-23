@@ -24,6 +24,18 @@ Point::~Point(void)
 {
 }
 
+bool Point::operator== (Point ComparePoint)
+{
+	if (x != ComparePoint.getX())
+		return false;
+	if (y != ComparePoint.getY())
+		return false;
+	if (z != ComparePoint.getZ())
+		return false;
+
+	return true;
+}
+
 Point Point::addPoint(Point Additive)
 {
 	Point Start = *this;
@@ -125,51 +137,31 @@ Point Point::getNormalCoords(void)
 {
 	float xLoc = x;
 	float yLoc = y;
-	//Point ReturnPoint = Point();
-
+	
 	xLoc = xLoc*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
 	yLoc = yLoc*(SPOT_HEIGHT + SPOT_BORDER)+ YBEG;
 
-	if (xLoc < XBEG)
-		xLoc = XBEG;
-	if (yLoc < YBEG - SPOT_HEIGHT + SPOT_BORDER)
-		yLoc = YBEG - SPOT_HEIGHT + SPOT_BORDER;
-	if (xLoc > XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG)
-		xLoc = XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
-	if (yLoc > YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG)
-		yLoc = YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG;
-
-	//ReturnPoint.setX(agk::Floor(agk::Get3DVectorXFromScreen(x, y)));
-	//ReturnPoint.setY(agk::Floor(agk::Get3DVectorYFromScreen(x, y)));
-	//ReturnPoint.setZ(agk::Floor(agk::Get3DVectorZFromScreen(x, y)));
-
-	/*float newX = 15.0f;
-	float newY = 60.5f;
-	bool increasingXUp = false;
-
-	newX += (x*10.0f); //10 across the bottom
-	newY += (y - 1)*(2.0f - x)*2.0f;
-
-	if (x < 4)
-		increasingXUp = true;
-	
-	if (increasingXUp)
+	if (y >= 0)
 	{
-		newX -= y*6.75f;
-		newX += (4.0f - x)*3.75f;
+		if (xLoc < XBEG)
+			xLoc = XBEG;
+		if (yLoc < YBEG - SPOT_HEIGHT + SPOT_BORDER)
+			yLoc = YBEG - SPOT_HEIGHT + SPOT_BORDER;
+		if (xLoc > XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG)
+			xLoc = XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
+		if (yLoc > YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG)
+			yLoc = YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG;
 	}
 	else
 	{
-		if (x == 0)
-			newX += (y*3.5f); //even the center increases this much per row
-		else
-			newX -= ((4 - x) * ((4 - x)/5));
+		yLoc -= 3.645833f;
+		
+		if (xLoc < XBEG)
+			xLoc = XBEG;
+		if (xLoc > XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG)
+			xLoc = XMAX*(MENU_BORDER_WIDTH) + XBEG;
 	}
-
-	if (y < 0)
-		ReturnPoint = Point(5.0f + (x*10.0f), 5.0f);
-	else
-		ReturnPoint = Point(newX, newY);*/
+		
 	
 	return Point(xLoc, yLoc);
 }
