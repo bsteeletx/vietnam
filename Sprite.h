@@ -11,6 +11,7 @@ class Sprite: public Image
 public:
 	~Sprite(void);
 	Sprite(void);
+	Sprite (RGBA Color);
 	Sprite (Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber);
 	Sprite (Point Begin, Point End, unsigned int assignedSpriteNumber = 0);
 	Sprite (Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0); 
@@ -36,7 +37,6 @@ public:
 	short getColorBlue(void);
 	short getColorGreen(void);
 	short getColorRed(void);	
-	int getCollision(Sprite OtherSprite);
 	int getCollisionGroup(void);
 	short getDepth(void);
 	float getDistanceFrom(Sprite TestSprite);
@@ -74,6 +74,10 @@ public:
 	float getYByOffset(void);
 	float getYFromPixel(int y);
 	float getYFromWorld(Point ToConvert);
+
+	void move(Point Speed);
+	void moveX(float x);
+	void moveY(float y);
 
 	void resetUV(void);
 

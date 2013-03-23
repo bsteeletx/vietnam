@@ -6,7 +6,7 @@ class Vector
 {
 
 public:
-	Vector(Point Begin, Point End);
+	Vector(Point Begin, Point End = Point());
 	Vector();
 	~Vector(void);
 
@@ -22,6 +22,10 @@ public:
 	float getStartPointX(void);
 	float getStartPointY(void);
 	float getStartPointZ(void);
+	Point getVelocity(void);
+	float getVelocityInX(void);
+	float getVelocityInY(void);
+	float getVelocityInZ(void);
 	
 	void setStartPoint(Point Begin);
 	void setFinishPoint(Point End);

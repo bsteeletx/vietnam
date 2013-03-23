@@ -115,6 +115,11 @@ void Text::fixToScreen(bool toScreen)
 		agk::FixTextToScreen(textNumber, 0);
 }
 
+int Text::foundNeedle(const char needle)
+{
+	return (int) storedString.find(needle);
+}
+
 char Text::getChar(unsigned int index)
 {
 	if (_Index(index))
@@ -577,8 +582,8 @@ bool Text::splitAtDelimeter(Text *Part1, Text *Part2, char delimeter)
 	if (leftIndex == -1)
 		return false;
 
-	*Part1 = left(leftIndex);
-	*Part2 = right(rightIndex);
+	Part1->setString(left(leftIndex).getCString());
+	Part2->setString(right(rightIndex).getCString());
 	/*for (int i = 0; i < index; i++)
 		Part1->storedString[i] = storedString[i];
 

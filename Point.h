@@ -9,6 +9,8 @@ public:
 	Point(float loc_x, float loc_y, float loc_z = 0.0f, float lowValue = 0.0f, float hiValue = 100.0f);
 	~Point(void);
 
+	bool operator== (const Point ComparePoint);
+
 	Point addPoint(Point Additive);
 	
 	void floor(void);

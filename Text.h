@@ -27,6 +27,7 @@ public:
 	void deleteAll(void);
 	
 	void fixToScreen(bool toScreen);
+	int foundNeedle(const char needle);
 
 	char getChar(unsigned int index);
 	float getCharAngle(unsigned int index);
@@ -109,6 +110,13 @@ public:
 	bool splitAtDelimeter(Text *Part1, Text *Part2, char delimeter);
 
 	Text upper(void);
+
+	enum Alignment
+	{
+		LEFT,
+		CENTER,
+		RIGHT
+	};
 
 protected:
 	bool canBeSeen;

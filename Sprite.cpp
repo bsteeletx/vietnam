@@ -9,7 +9,13 @@ Sprite::~Sprite(void)
 
 Sprite::Sprite(void)
 {
+	spriteNumber = 0;
+}
+
+Sprite::Sprite(RGBA Color)
+{
 	spriteNumber = agk::CreateSprite(0);
+	setColor(Color);
 }
 
 Sprite::Sprite(Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber)
@@ -315,6 +321,22 @@ float Sprite::getYByOffset(void)
 float Sprite::getYFromPixel(int y)
 {
 	return agk::GetSpriteYFromPixel(spriteNumber, y);
+}
+
+void Sprite::move(Point Speed)
+{
+	moveX(Speed.getX());
+	moveY(Speed.getY());
+}
+
+void Sprite::moveX(float x)
+{
+	agk::SetSpriteX(spriteNumber, getX() + x);
+}
+
+void Sprite::moveY(float y)
+{
+	agk::SetSpriteY(spriteNumber, getY() + y);
 }
 
 void Sprite::resetUV(void)
