@@ -10,6 +10,8 @@ public:
 	~Point(void);
 
 	bool operator== (const Point ComparePoint);
+	friend Point operator+ (const Point &Point1, const Point &Point2);
+	friend Point operator- (const Point &Point1, const Point &Point2);
 
 	Point addPoint(Point Additive);
 	

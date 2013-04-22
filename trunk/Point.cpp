@@ -36,6 +36,16 @@ bool Point::operator== (Point ComparePoint)
 	return true;
 }
 
+Point operator+ (const Point &Point1, const Point &Point2)
+{
+	return Point(Point1.x + Point2.x, Point1.y + Point2.y);
+}
+
+Point operator- (const Point &Point1, const Point &Point2)
+{
+	return Point(Point1.x - Point2.x, Point1.y - Point2.y);
+}
+
 Point Point::addPoint(Point Additive)
 {
 	Point Start = *this;
@@ -43,6 +53,8 @@ Point Point::addPoint(Point Additive)
 	Start.x += Additive.x;
 	Start.y += Additive.y;
 	Start.z += Additive.z;
+
+	*this = Start;
 
 	return Start;
 }
@@ -119,18 +131,21 @@ Point Point::getGridCoords(void)
 	float xLoc = 0.0f;
 	float yLoc = 0.0f;
 
-	if (y < YBEG)
+	if (y < YBEG - SPOT_BORDER_Y - 1.0f)
 	{
-		xLoc = (x - XBEG)/(SPOT_WIDTH + SPOT_BORDER);
+		xLoc = (x - XBEG_MENU + MENU_BORDER)/(SPOT_WIDTH);
 		yLoc = -1.0f;
+
+		if (xLoc > XMAX)
+			xLoc = XMAX;
 	}
 	else
 	{
-		xLoc = (x - XBEG)/(SPOT_WIDTH + SPOT_BORDER);
-		yLoc = (y - YBEG)/(SPOT_HEIGHT + SPOT_BORDER);
+		xLoc = (x - XBEG - SPOT_BORDER_X)/(SPOT_WIDTH);
+		yLoc = (y - YBEG - SPOT_BORDER_Y)/SPOT_HEIGHT;
 	}
 
-	return Point((int) xLoc, (int) yLoc);
+	return Point(agk::Round(xLoc), agk::Round(yLoc));
 }
 
 Point Point::getNormalCoords(void)
@@ -138,28 +153,36 @@ Point Point::getNormalCoords(void)
 	float xLoc = x;
 	float yLoc = y;
 	
-	xLoc = xLoc*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
-	yLoc = yLoc*(SPOT_HEIGHT + SPOT_BORDER)+ YBEG;
+	xLoc = xLoc*(SPOT_WIDTH) + XBEG + SPOT_BORDER_X;
+	yLoc = yLoc*(SPOT_HEIGHT) + YBEG + SPOT_BORDER_Y;
 
 	if (y >= 0)
 	{
-		if (xLoc < XBEG)
-			xLoc = XBEG;
-		if (yLoc < YBEG - SPOT_HEIGHT + SPOT_BORDER)
-			yLoc = YBEG - SPOT_HEIGHT + SPOT_BORDER;
-		if (xLoc > XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG)
-			xLoc = XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG;
-		if (yLoc > YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG)
-			yLoc = YMAX*(SPOT_HEIGHT + SPOT_BORDER) + YBEG;
+		if (xLoc < XBEG + SPOT_BORDER_X)
+			xLoc = XBEG + SPOT_BORDER_X;
+		if (yLoc < YBEG - SPOT_HEIGHT + SPOT_BORDER_Y)
+			yLoc = YBEG - SPOT_HEIGHT + SPOT_BORDER_Y;
+		if (xLoc > XMAX*(SPOT_WIDTH) + XBEG + SPOT_BORDER_X)
+			xLoc = XMAX*(SPOT_WIDTH) + XBEG + SPOT_BORDER_X;
+		if (yLoc > YMAX*(SPOT_HEIGHT) + YBEG + SPOT_BORDER_Y)
+			yLoc = YMAX*(SPOT_HEIGHT) + YBEG + SPOT_BORDER_Y;
+
+		/*if (y == 0)
+		{
+			yLoc -= 1.0f;
+			xLoc -= 0.1f;
+		}*/
 	}
 	else
 	{
-		yLoc -= 3.645833f;
+		yLoc = MENU_Y;
 		
-		if (xLoc < XBEG)
-			xLoc = XBEG;
-		if (xLoc > XMAX*(SPOT_WIDTH + SPOT_BORDER) + XBEG)
-			xLoc = XMAX*(MENU_BORDER_WIDTH) + XBEG;
+		if (xLoc < XBEG_MENU)
+			xLoc = XBEG_MENU;
+		else if (xLoc > XMAX*(SPOT_WIDTH + MENU_BORDER) + XBEG_MENU)
+			xLoc = XMAX*(SPOT_WIDTH + MENU_BORDER) + XBEG_MENU;
+		else
+			xLoc = x*(SPOT_WIDTH) + XBEG_MENU;
 	}
 		
 	

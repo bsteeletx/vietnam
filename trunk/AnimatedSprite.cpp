@@ -46,12 +46,12 @@ AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned
 	set(spriteNumber, width, height, count);
 }*/
 
-AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int spriteNumberToClone)
+/*AnimatedSprite::AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int spriteNumberToClone)
 	: Sprite()
 {
 	this->spriteNumber = clone(spriteNumberToClone);
 	set(spriteNumber, width, height, count);
-}
+}*/
 
 AnimatedSprite::AnimatedSprite(File FileToInit, Text PathToParent)
 	: Sprite(FileToInit, PathToParent)

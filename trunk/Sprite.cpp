@@ -260,6 +260,21 @@ bool Sprite::getInCircle(Point CenterOfCircle, float radius)
 		return false;
 }
 
+Point Sprite::getOffset(void)
+{
+	return OffsetAmount;
+}
+
+float Sprite::getOffsetX(void)
+{
+	return OffsetAmount.getX();
+}
+
+float Sprite::getOffsetY(void)
+{
+	return OffsetAmount.getY();
+}
+
 int Sprite::getPixelFromX(float x)
 {
 	return agk::GetSpritePixelFromX(spriteNumber, x);
@@ -273,6 +288,11 @@ int Sprite::getPixelFromY(float y)
 short Sprite::getColorRed(void)
 {
 	return (short) agk::GetSpriteColorRed(spriteNumber);
+}
+
+Point Sprite::getPositionByOffset(void)
+{
+	return Point(getXByOffset(), getYByOffset());
 }
 
 unsigned int Sprite::getSpriteNumber(void)
@@ -410,6 +430,8 @@ void Sprite::setImage(Image newImage, bool reshape)
 void Sprite::setOffset(float x, float y)
 {
 	agk::SetSpriteOffset(spriteNumber, x, y);
+
+	OffsetAmount = Point(x, y);
 }
 
 void Sprite::setPosition(float x, float y)
@@ -424,12 +446,14 @@ void Sprite::setPosition(Point Location)
 
 void Sprite::setPositionByOffset(float x, float y)
 {
-	setPositionByOffset(Point(x, y));
+	OffsetAmount = Point(x, y);
+	setPositionByOffset(OffsetAmount);
 }
 
 void Sprite::setPositionByOffset(Point Location)
 {
 	agk::SetSpritePositionByOffset(spriteNumber, Location.getX(), Location.getY());
+	OffsetAmount = Location;
 }
 
 void Sprite::setColorRed(short red)
@@ -500,9 +524,23 @@ void Sprite::setX(float x)
 	agk::SetSpriteX(spriteNumber, x);
 }
 
+void Sprite::setXByOffset(float x)
+{
+	agk::SetSpriteOffset(spriteNumber, x, getYByOffset());
+
+	OffsetAmount.setX(x);
+}
+
 void Sprite::setY(float y)
 {
 	agk::SetSpriteY(spriteNumber, y);
+}
+
+void Sprite::setYByOffset(float y)
+{
+	agk::SetSpriteOffset(spriteNumber, getXByOffset(), y);
+
+	OffsetAmount.setY(y);
 }
 
 /*void Sprite::toggleVisiblity(void)
@@ -513,15 +551,20 @@ void Sprite::setY(float y)
 		this->setVisible(false);
 }*/
 
-unsigned int Sprite::clone(void)
+Sprite Sprite::clone(void)
 {
-	return agk::CloneSprite(spriteNumber);
+	Sprite ReturnSprite = Sprite();
+	
+	ReturnSprite = *this;
+	ReturnSprite.spriteNumber = agk::CloneSprite(spriteNumber);
+
+	return ReturnSprite;
 }
 
-unsigned int Sprite::clone(unsigned int spriteToClone)
+/*unsigned int Sprite::clone(unsigned int spriteToClone)
 {
 	return agk::CloneSprite(spriteToClone);
-}
+}*/
 
 void Sprite::create(unsigned int assignedSpriteNumber)
 {

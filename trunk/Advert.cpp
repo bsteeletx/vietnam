@@ -10,6 +10,16 @@ Advert::~Advert(void)
 {
 }
 
+Advert::Advert(int horzPos, int vertPos, bool test)
+{
+	setAdMobDetails("a151743d4c4b2b4");
+
+	if (test)
+		agk::CreateAdvert(0, horzPos, vertPos, 1);
+	else
+		agk::CreateAdvert(0, horzPos, vertPos, 0);
+}
+
 void Advert::requestRefresh(void)
 {
 	agk::RequestAdvertRefresh();
