@@ -8,6 +8,7 @@ class Advert
 public:
 	Advert(void);
 	~Advert(void);
+	Advert(int horzPos, int vertPos, bool test = false);
 
 	void requestRefresh(void);
 

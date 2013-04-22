@@ -17,12 +17,13 @@ public:
 	Sprite (Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0); 
 	Sprite (unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
 	Sprite (File FileToInit, Text PathToParent);
-		
+			
 	Sprite& operator= (const Sprite& newSprite);
 	Sprite& operator<< (const Image& Object);
 
-	unsigned int clone(void);
-	unsigned int clone(unsigned int assignedSpriteNumber);
+	//unsigned int clone(void);
+	//unsigned int clone(unsigned int assignedSpriteNumber);
+	Sprite clone(void);
 	bool collidedWith(Sprite TestSprite);
 	bool collidedWith(unsigned int testSpriteNumber);
 	
@@ -54,6 +55,9 @@ public:
 	unsigned int getImageID(void);
 	bool getInBox(Point TopLeft, Point BottomRight);
 	bool getInCircle(Point CenterOfCircle, float radius);
+	Point getOffset(void);
+	float getOffsetX(void);
+	float getOffsetY(void);
 	int getPixelFromX(float x); 
 	int getPixelFromY(float y); 
 	Point getPosition(void);
@@ -111,11 +115,14 @@ public:
 	void setUVScale(float u, float v);
 	virtual void setVisible(bool visible);
 	void setX(float x);
+	void setXByOffset(float x);
 	void setY(float y);
+	void setYByOffset(float y);
 
 protected:
 	unsigned int spriteNumber;
 	RGBA ColorValues;
+	Point OffsetAmount;
 	
 private:
 	void create(unsigned int assignedSpriteNumber = 0);

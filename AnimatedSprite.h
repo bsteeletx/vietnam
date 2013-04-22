@@ -14,7 +14,7 @@ public:
 	//AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0);
 	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
 	//AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
-	AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int spriteNumberToClone);
+	//AnimatedSprite(unsigned int width, unsigned int height, unsigned int count, unsigned int spriteNumberToClone);
 	AnimatedSprite(File FileToInit, Text PathToParent);
 	
 	void addFrame(Image NewFrame);
