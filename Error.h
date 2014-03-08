@@ -8,12 +8,11 @@ public:
 	Error(void);
 	~Error(void);
 
-	Text getLast(void);
+	Text GetLast(void);
+	bool GetOccurred(void);
 
-	bool getOccurred(void);
-
-	void log(Text Error);
+	void Log(Text Error);
 	
-	void setMode(unsigned short mode);
+	void SetMode(unsigned short mode);
 };
 

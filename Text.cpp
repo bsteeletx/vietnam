@@ -1,57 +1,58 @@
 #include "agk.h"
+#include "AGKCore.h"
 #include "Text.h"
 #include "Image.h"
 
 Text::Text(void)
 {
-	textNumber = 0;
-	canBeSeen = false;
+	_textNumber = 0;
+	_canBeSeen = false;
 }
 
 Text::~Text(void)
 {
-//	if (getExists())
-//		agk::DeleteText(textNumber);
+//	if (GetExists())
+//		agk::DeleteText(_textNumber);
 }
 
 Text::Text(std::string textString, bool isVisible)
 {
 	//for (unsigned int i = 0; i < textString.size(); i++)
 	//	newString[i] = textString[i];
-	canBeSeen = isVisible;
+	_canBeSeen = isVisible;
 
 	if (isVisible)
 	{
-		textNumber = agk::CreateText(textString.c_str());
-		canBeSeen = true;
+		_textNumber = agk::CreateText(textString.c_str());
+		_canBeSeen = true;
 	}
 
-	storedString = textString;
+	_storedString = textString;
 	
-	setVisible(isVisible);
+	SetVisible(isVisible);
 }
 
 Text::Text(const char* textString, bool isVisible)
 {
-	canBeSeen = isVisible;
+	_canBeSeen = isVisible;
 
 	if (isVisible)
 	{
-		textNumber = agk::CreateText(textString);
-		canBeSeen = true;
+		_textNumber = agk::CreateText(textString);
+		_canBeSeen = true;
 	}
 
-	storedString = textString;
+	_storedString = textString;
 	
-	setVisible(isVisible);
+	SetVisible(isVisible);
 }
 
 /*Text::Text(unsigned int assignedTextNumber, const char* textString)
 {
 	agk::CreateText(assignedTextNumber, textString);
-	textNumber = assignedTextNumber;
+	_textNumber = assignedTextNumber;
 
-	setVisible(false);
+	SetVisible(false);
 }*/
 
 /*Text& Text::operator= (const Text& newText)
@@ -60,15 +61,15 @@ Text::Text(const char* textString, bool isVisible)
 	
 	if (this != &newText)
 	{
-		if (canBeSeen)
+		if (_canBeSeen)
 		{
-			if (getExists())
-				agk::DeleteText(textNumber);
+			if (GetExists())
+				agk::DeleteText(_textNumber);
 			else
-				textNumber = ReturnText.textNumber;
+				_textNumber = ReturnText._textNumber;
 		}
 		
-		setString(ReturnText.getString());
+		SetString(ReturnText.GetString());
 	}
 
 	return *this;
@@ -76,7 +77,7 @@ Text::Text(const char* textString, bool isVisible)
 
 bool Text::operator!= (const Text otherText)
 {
-	return (storedString != otherText.storedString);
+	return (_storedString != otherText._storedString);
 }
 
 Text& Text::operator+= (Text newText)
@@ -84,186 +85,184 @@ Text& Text::operator+= (Text newText)
 	std::string returnString;
 	Text AddedText(newText);	
 
-	returnString = this->getString();
-	returnString.append(newText.getString());
+	returnString = this->GetString();
+	returnString.append(newText.GetString());
 
-	setString(returnString);
+	SetString(returnString);
 
 	return *this;
 }
 
 bool Text::operator== (Text otherText)
 {
-	if (storedString == otherText.getString())
+	if (_storedString == otherText.GetString())
 		return true;
 
 	return false;
 }
 
-
-unsigned int Text::countTokens(char delimeter)
+void Text::Delete()
 {
-	char single[1] = {delimeter};
-	return agk::CountStringTokens(getCString(), single);
+	agk::DeleteText(_textNumber);
 }
 
-void Text::fixToScreen(bool toScreen)
+void Text::FixToScreen(bool toScreen)
 {
 	if (toScreen)
-		agk::FixTextToScreen(textNumber, 1);
+		agk::FixTextToScreen(_textNumber, 1);
 	else
-		agk::FixTextToScreen(textNumber, 0);
+		agk::FixTextToScreen(_textNumber, 0);
 }
 
-int Text::foundNeedle(const char needle)
+int Text::FoundNeedle(const char needle)
 {
-	return (int) storedString.find(needle);
+	return (int) _storedString.find(needle);
 }
 
-char Text::getChar(unsigned int index)
+char Text::GetChar(unsigned int index)
 {
 	if (_Index(index))
 	{
 		char textString[64];
-		strcpy(textString, getCString());
+		strcpy(textString, GetCString());
 		return textString[index];
 	}
 
 	return '`';
 }
 
-float Text::getCharAngle(unsigned int index)
+float Text::GetCharAngle(unsigned int index)
 {
 	if (_Index(index))
-		return agk::GetTextCharAngle(textNumber, index);
+		return agk::GetTextCharAngle(_textNumber, index);
 
 	return 0.0f;
 }
 
-float Text::getCharAngleInRad(unsigned int index)
+float Text::GetCharAngleInRad(unsigned int index)
 {
 	if (_Index(index))
-		return agk::GetTextCharAngleRad(textNumber, index);
+		return agk::GetTextCharAngleRad(_textNumber, index);
 
 	return 0.0f;
 }
 
-unsigned short Text::getCharColorAlpha(unsigned int index)
+unsigned short Text::GetCharColorAlpha(unsigned int index)
 {
 	if (_Index(index))
-		return (unsigned short) agk::GetTextCharColorAlpha(textNumber, index);
+		return (unsigned short) agk::GetTextCharColorAlpha(_textNumber, index);
 
 	return 0;
 }
 
-unsigned short Text::getCharColorBlue(unsigned int index)
+unsigned short Text::GetCharColorBlue(unsigned int index)
 {
 	if (_Index(index))
-		return (unsigned short) agk::GetTextCharColorBlue(textNumber, index);
+		return (unsigned short) agk::GetTextCharColorBlue(_textNumber, index);
 
 	return 0;
 }
 
-unsigned short Text::getCharColorGreen(unsigned int index)
+unsigned short Text::GetCharColorGreen(unsigned int index)
 {
 	if (_Index(index))
-		return (unsigned short) agk::GetTextCharColorGreen(textNumber, index);
+		return (unsigned short) agk::GetTextCharColorGreen(_textNumber, index);
 
 	return 0;
 }
 
-unsigned short Text::getCharColorRed(unsigned int index)
+unsigned short Text::GetCharColorRed(unsigned int index)
 {
 	if (_Index(index))
-		return (unsigned short) agk::GetTextCharColorRed(textNumber, index);
+		return (unsigned short) agk::GetTextCharColorRed(_textNumber, index);
 
 	return 0;
 }
 
-float Text::getCharX(unsigned int index)
+float Text::GetCharX(unsigned int index)
 {
 	if (_Index(index))
-		return agk::GetTextCharX(textNumber, index);
+		return agk::GetTextCharX(_textNumber, index);
 
 	return 0.0f;
 }
 
-float Text::getCharY(unsigned int index)
+float Text::GetCharY(unsigned int index)
 {
 	if (_Index(index))
-		return agk::GetTextCharY(textNumber, index);
+		return agk::GetTextCharY(_textNumber, index);
 
 	return 0.0f;
 }
 
-unsigned short Text::getColorAlpha(void)
+unsigned short Text::GetColorAlpha(void)
 {
-	return (unsigned short) agk::GetTextColorAlpha(textNumber);
+	return (unsigned short) agk::GetTextColorAlpha(_textNumber);
 }
 
-unsigned short Text::getColorBlue(void)
+unsigned short Text::GetColorBlue(void)
 {
-	return (unsigned short) agk::GetTextColorBlue(textNumber);
+	return (unsigned short) agk::GetTextColorBlue(_textNumber);
 }
 
-unsigned short Text::getColorGreen(void)
+unsigned short Text::GetColorGreen(void)
 {
-	return (unsigned short) agk::GetTextColorGreen(textNumber);
+	return (unsigned short) agk::GetTextColorGreen(_textNumber);
 }
 
-unsigned short Text::getColorRed(void)
+unsigned short Text::GetColorRed(void)
 {
-	return (unsigned short) agk::GetTextColorRed(textNumber);
+	return (unsigned short) agk::GetTextColorRed(_textNumber);
 }
 
-const char *Text::getCString(void)
+const char *Text::GetCString(void)
 {
-	return storedString.c_str();
+	return _storedString.c_str();
 }
 
-short Text::getDelimiterIndex(char separator)
+short Text::GetDelimiterIndex(char separator)
 {
-	for (unsigned int i = 0; i < getLength(); i++)
+	for (unsigned int i = 0; i < GetLength(); i++)
 	{
-		if (storedString[i] == separator)
+		if (_storedString[i] == separator)
 			return i;
 	}
 
 	return -1;
 }
 
-unsigned int Text::getDepth(void)
+unsigned int Text::GetDepth(void)
 {
-	return agk::GetTextDepth(textNumber);
+	return agk::GetTextDepth(_textNumber);
 }
 
-bool Text::getExists(void)
+bool Text::GetExists(void)
 {
-	if (agk::GetTextExists(textNumber) == 1)
+	if (agk::GetTextExists(_textNumber) == 1)
 		return true;
 
 	return false;
 }
 
-bool Text::getHitTest(Point Location)
+bool Text::GetHitTest(Point Location)
 {
-	if (agk::GetTextHitTest(textNumber,Location.getX(), Location.getY()) == 1)
+	if (agk::GetTextHitTest(_textNumber,Location.GetX(), Location.GetY()) == 1)
 		return true;
 	
 	return false;
 }
 
-unsigned int Text::getID(void)
+unsigned int Text::GetID(void)
 {
-	return textNumber;
+	return _textNumber;
 }
 
-unsigned int Text::getLength(void)
+unsigned int Text::GetLength(void)
 {
-	return storedString.length();
+	return _storedString.length();
 }
 
-unsigned int Text::getNextID(void)
+unsigned int Text::GetNextID(void)
 {
 	int i = 1;
 
@@ -273,194 +272,163 @@ unsigned int Text::getNextID(void)
 	return i;
 }
 
-float Text::getLineSpacing(void)
+float Text::GetLineSpacing(void)
 {
-	return agk::GetTextLineSpacing(textNumber);
+	return agk::GetTextLineSpacing(_textNumber);
 }
 
-float Text::getSize(void)
+float Text::GetSize(void)
 {
-	return agk::GetTextSize(textNumber);
+	return agk::GetTextSize(_textNumber);
 }
 
-float Text::getSpacing(void)
+float Text::GetSpacing(void)
 {
-	return agk::GetTextSpacing(textNumber);
+	return agk::GetTextSpacing(_textNumber);
 }
 
-std::string Text::getString(void)
+std::string Text::GetString(void)
 {
-	return storedString;
+	return _storedString;
 }
 
-Text Text::getToken(char delimeter, unsigned int token)
+float Text::GetTotalHeight(void)
 {
-	char single[1] = {delimeter};
-	return Text(agk::GetStringToken(getCString(), single, token));
+	return agk::GetTextTotalHeight(_textNumber);
 }
 
-float Text::getTotalHeight(void)
+float Text::GetTotalWidth(void)
 {
-	return agk::GetTextTotalHeight(textNumber);
+	return agk::GetTextTotalWidth(_textNumber);
 }
 
-float Text::getTotalWidth(void)
+bool Text::GetVisible(void)
 {
-	return agk::GetTextTotalWidth(textNumber);
-}
-
-bool Text::getVisible(void)
-{
-	if (agk::GetTextVisible(textNumber) == 1)
+	if (agk::GetTextVisible(_textNumber) == 1)
 		return true;
 
 	return false;
 }
 
-float Text::getX(void)
+float Text::GetX(void)
 {
-	return agk::GetTextX(textNumber);
+	return agk::GetTextX(_textNumber);
 }
 
-float Text::getY(void)
+float Text::GetY(void)
 {
-	return agk::GetTextY(textNumber);
+	return agk::GetTextY(_textNumber);
 }
 
-Text Text::left(unsigned int count)
-{
-	return Text(agk::Left(getCString(), count));
-}
-
-unsigned int Text::len(void)
-{
-	return agk::Len(getCString());
-}
-
-Text Text::lower(void)
-{
-	return Text(agk::Lower(getCString()));
-}
-
-Text Text::mid(unsigned int position, int length)
-{
-	return Text(agk::Mid(getCString(), position, length));
-}
-
-void Text::print(bool newLineAtEnd)
+void Text::Print(bool newLineAtEnd)
 {
 	if (newLineAtEnd)
-		agk::Print(getCString());
+		agk::Print(GetCString());
 	else
-		agk::PrintC(getCString());
+		agk::PrintC(GetCString());
 }
 
-Text Text::right(unsigned int count)
-{
-	return Text(agk::Right(getCString(), count));
-}
-
-void Text::setAlignment(unsigned short mode)
+void Text::SetAlignment(unsigned short mode)
 {
 	if (_Alignment(mode))
-		agk::SetTextAlignment(textNumber, mode);
+		agk::SetTextAlignment(_textNumber, mode);
 }
 
-void Text::setCharAngle(unsigned int index, float angle)
+void Text::SetCharAngle(unsigned int index, float angle)
 {
 	if (_Index(index))
-		agk::SetTextCharAngle(textNumber, index, angle);
+		agk::SetTextCharAngle(_textNumber, index, angle);
 }
 
-void Text::setCharAngleInRad(unsigned int index, float angle)
+void Text::SetCharAngleInRad(unsigned int index, float angle)
 {
 	if (_Index(index))
-		agk::SetTextCharAngleRad(textNumber, index, angle);
+		agk::SetTextCharAngleRad(_textNumber, index, angle);
 }
 
-void Text::setCharColor(unsigned int index, RGBA Value)
+void Text::SetCharColor(unsigned int index, Color Value)
 {
-	agk::SetTextCharColor(textNumber, index, Value.getRed(), Value.getGreen(), Value.getBlue(), Value.getAlpha());
+	agk::SetTextCharColor(_textNumber, index, Value.GetRed(), Value.GetGreen(), Value.GetBlue(), Value.GetAlpha());
 }
 
-void Text::setCharColorAlpha(unsigned int index, unsigned short alpha)
-{
-	if (_Index(index))
-	{
-		if (_Color(alpha))
-			agk::SetTextCharColorAlpha(textNumber, index, alpha);
-	}
-}
-
-void Text::setCharColorBlue(unsigned int index, unsigned short blue)
+void Text::SetCharColorAlpha(unsigned int index, unsigned short alpha)
 {
 	if (_Index(index))
 	{
-		if (_Color(blue))
-			agk::SetTextCharColorBlue(textNumber, index, blue);
+		if (_ColorCheck(alpha))
+			agk::SetTextCharColorAlpha(_textNumber, index, alpha);
 	}
 }
 
-void Text::setCharColorGreen(unsigned int index, unsigned short green)
+void Text::SetCharColorBlue(unsigned int index, unsigned short blue)
 {
 	if (_Index(index))
 	{
-		if (_Color(green))
-			agk::SetTextCharColorGreen(textNumber, index, green);
+		if (_ColorCheck(blue))
+			agk::SetTextCharColorBlue(_textNumber, index, blue);
 	}
 }
 
-void Text::setCharColorRed(unsigned index, unsigned short red)
+void Text::SetCharColorGreen(unsigned int index, unsigned short green)
 {
 	if (_Index(index))
 	{
-		if (_Color(red))
-			agk::SetTextCharColorRed(textNumber, index, red);
+		if (_ColorCheck(green))
+			agk::SetTextCharColorGreen(_textNumber, index, green);
 	}
 }
 
-void Text::setCharX(unsigned index, float x)
+void Text::SetCharColorRed(unsigned index, unsigned short red)
 {
 	if (_Index(index))
-		agk::SetTextCharX(textNumber, index, x);
+	{
+		if (_ColorCheck(red))
+			agk::SetTextCharColorRed(_textNumber, index, red);
+	}
 }
 
-void Text::setCharY(unsigned index, float y)
+void Text::SetCharX(unsigned index, float x)
 {
 	if (_Index(index))
-		agk::SetTextCharY(textNumber, index, y);
+		agk::SetTextCharX(_textNumber, index, x);
 }
 
-void Text::setColor(RGBA Value)
+void Text::SetCharY(unsigned index, float y)
 {
-	agk::SetTextColor(textNumber, Value.getRed(), Value.getGreen(), Value.getBlue(), Value.getAlpha());
+	if (_Index(index))
+		agk::SetTextCharY(_textNumber, index, y);
 }
 
-void Text::setColorAlpha(unsigned short alpha)
+void Text::SetColor(Color Value)
 {
-	if (_Color(alpha))
-		agk::SetTextColorAlpha(textNumber, alpha);
+	agk::SetTextColor(_textNumber, Value.GetRed(), Value.GetGreen(), Value.GetBlue(), Value.GetAlpha());
 }
 
-void Text::setColorBlue(unsigned short blue)
+void Text::SetColorAlpha(unsigned short alpha)
 {
-	if (_Color(blue))
-		agk::SetTextColorAlpha(textNumber, blue);
+	if (_ColorCheck(alpha))
+		agk::SetTextColorAlpha(_textNumber, alpha);
 }
 
-void Text::setColorGreen(unsigned short green)
+void Text::SetColorBlue(unsigned short blue)
 {
-	if (_Color(green))
-		agk::SetTextColorAlpha(textNumber, green);
+	if (_ColorCheck(blue))
+		agk::SetTextColorAlpha(_textNumber, blue);
 }
 
-void Text::setColorRed(unsigned short red)
+void Text::SetColorGreen(unsigned short green)
 {
-	if (_Color(red))
-		agk::SetTextColorAlpha(textNumber, red);
+	if (_ColorCheck(green))
+		agk::SetTextColorAlpha(_textNumber, green);
 }
 
-void Text::setDefaultMagFilter(bool linear)
+void Text::SetColorRed(unsigned short red)
+{
+	if (_ColorCheck(red))
+		agk::SetTextColorAlpha(_textNumber, red);
+}
+
+void Text::SetDefaultMagFilter(bool linear)
 {
 	if (linear)
 		agk::SetDefaultMagFilter(1);
@@ -468,7 +436,7 @@ void Text::setDefaultMagFilter(bool linear)
 		agk::SetDefaultMagFilter(0);
 }
 
-void Text::setDefaultMinFilter(bool linear)
+void Text::SetDefaultMinFilter(bool linear)
 {
 	if (linear)
 		agk::SetDefaultMinFilter(1);
@@ -476,131 +444,129 @@ void Text::setDefaultMinFilter(bool linear)
 		agk::SetDefaultMinFilter(0);
 }
 
-void Text::setDepth(unsigned int depth)
+void Text::SetDepth(unsigned int depth)
 {
 	if (_Depth(depth))
-		agk::SetTextDepth(textNumber, depth);
+		agk::SetTextDepth(_textNumber, depth);
 }
 
-void Text::setExtendedFontImage(Image Object)
+void Text::SetExtendedFontImage(Image Object)
 {
-	agk::SetTextExtendedFontImage(textNumber, Object.getID());
+	agk::SetTextExtendedFontImage(_textNumber, Object.GetID());
 }
 
-void Text::setFontImage(Image Object)
+void Text::SetFontImage(Image Object)
 {
-	agk::SetTextFontImage(textNumber, Object.getID());
+	agk::SetTextFontImage(_textNumber, Object.GetID());
 }
 
-void Text::setLineSpacing(float spacing)
+void Text::SetLineSpacing(float spacing)
 {
 	if (_NotNegativeFloat(spacing))
-		agk::SetTextLineSpacing(textNumber, spacing);
+		agk::SetTextLineSpacing(_textNumber, spacing);
 }
 
-void Text::setMaxWidth(float width)
+void Text::SetMaxWidth(float width)
 {
 	if (_NotNegativeFloat(width))
-		agk::SetTextMaxWidth(textNumber, width);
+		agk::SetTextMaxWidth(_textNumber, width);
 }
 
-void Text::setPosition(Point Location)
+void Text::SetPosition(Point Location)
 {
-	agk::SetTextPosition(textNumber, Location.getX(), Location.getY());
+	agk::SetTextPosition(_textNumber, Location.GetX(), Location.GetY());
 }
 
-void Text::setPrintColor(RGBA Value)
+void Text::SetPrintColor(Color Value)
 {
-	agk::SetPrintColor(Value.getRed(), Value.getGreen(), Value.getBlue(), Value.getAlpha());
+	agk::SetPrintColor(Value.GetRed(), Value.GetGreen(), Value.GetBlue(), Value.GetAlpha());
 }
 
-void Text::setPrintSize(float size)
+void Text::SetPrintSize(float size)
 {
 	if (_NotNegativeFloat(size))
 		agk::SetPrintSize(size);
 }
 
-void Text::setPrintSpacing(float space)
+void Text::SetPrintSpacing(float space)
 {
 	if (_NotNegativeFloat(space))
 		agk::SetPrintSpacing(space);
 }
 
-void Text::setScissor(Point TopLeft, Point BottomRight)
+void Text::SetScissor(Point TopLeft, Point BottomRight)
 {
-	agk::SetTextScissor(textNumber, TopLeft.getX(), TopLeft.getY(), BottomRight.getX(), BottomRight.getY());
+	agk::SetTextScissor(_textNumber, TopLeft.GetX(), TopLeft.GetY(), BottomRight.GetX(), BottomRight.GetY());
 }
 
-void Text::setSize(float size)
+void Text::SetSize(float size)
 {
 	if (_NotNegativeFloat(size))
-		agk::SetTextSize(textNumber, size);
+		agk::SetTextSize(_textNumber, size);
 }
 
-void Text::setSpacing(float spacing)
+void Text::SetSpacing(float spacing)
 {
 	if (_NotNegativeFloat(spacing))
-		agk::SetTextSpacing(textNumber, spacing);
+		agk::SetTextSpacing(_textNumber, spacing);
 }
 
-void Text::setString(const char* string)
+void Text::SetString(const char* string)
 {
-	storedString = string;
-	agk::SetTextString(textNumber, string);
+	_storedString = string;
+	agk::SetTextString(_textNumber, string);
 }
 
-void Text::setString(std::string newString)
+void Text::SetString(std::string newString)
 {
-	storedString = newString;
-	agk::SetTextString(textNumber, newString.c_str());
+	_storedString = newString;
+	agk::SetTextString(_textNumber, newString.c_str());
 }
 
-void Text::setVisible(bool visible)
+void Text::SetVisible(bool visible)
 {
 	if (visible)
-		agk::SetTextVisible(textNumber, 1);
+		agk::SetTextVisible(_textNumber, 1);
 	else
-		agk::SetTextVisible(textNumber, 0);
+		agk::SetTextVisible(_textNumber, 0);
 }
 
-void Text::setX(float x)
+void Text::SetX(float x)
 {
-	agk::SetTextX(textNumber, x);
+	agk::SetTextX(_textNumber, x);
 }
 
-void Text::setY(float y)
+void Text::SetY(float y)
 {
-	agk::SetTextY(textNumber, y);
+	agk::SetTextY(_textNumber, y);
 }
 
-bool Text::splitAtDelimeter(Text *Part1, Text *Part2, char delimeter)
+bool Text::SplitAtDelimeter(Text *Part1, Text *Part2, char delimeter)
 {
-	short leftIndex = getDelimiterIndex(delimeter);
-	short rightIndex = len() - leftIndex -	1;
+	AGKCore Converter;
+	short leftIndex = GetDelimiterIndex(delimeter);
+	short rightIndex = Converter.Len(*this) - leftIndex -	1;
 	//short j = 0;
 
 	if (leftIndex == -1)
 		return false;
 
-	Part1->setString(left(leftIndex).getCString());
-	Part2->setString(right(rightIndex).getCString());
+
+
+	Part1->SetString(Converter.Left(*this, leftIndex).GetCString());
+	Part2->SetString(Converter.Right(*this, rightIndex).GetCString());
 	/*for (int i = 0; i < index; i++)
-		Part1->storedString[i] = storedString[i];
+		Part1->_storedString[i] = _storedString[i];
 
-	Part1->storedString[index] = '\0';
+	Part1->_storedString[index] = '\0';
 
-	for (unsigned int i = index + 1; i < getLength(); i++)
-		Part2->storedString[j++] = storedString[i];
+	for (unsigned int i = index + 1; i < GetLength(); i++)
+		Part2->_storedString[j++] = _storedString[i];
 
-	Part2->storedString[j] = '\0';
+	Part2->_storedString[j] = '\0';
 	*/
 
 	return true;
-}
-
-Text Text::upper(void)
-{
-	return Text(agk::Upper(getCString()));
 }
 
 bool Text::_Alignment(unsigned short mode)
@@ -611,13 +577,13 @@ bool Text::_Alignment(unsigned short mode)
 	return false;
 }
 
-bool Text::_Color(unsigned short value)
+bool Text::_ColorCheck(unsigned short value)
 {
 	if (value > 255)
 		return false;
 
 	return true;
-}
+} 
 
 bool Text::_Depth(unsigned int number)
 {
@@ -631,7 +597,7 @@ bool Text::_Index(unsigned int value)
 {
 	if (value >= 0)
 	{
-		if (value < getLength())
+		if (value < GetLength())
 			return true;
 	}
 

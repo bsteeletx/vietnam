@@ -13,25 +13,25 @@ public:
 	Vector& operator= (const Vector& newVector);
 	/*friend bool operator== (Vector& First, Vector& Second);
 	friend bool operator!= (Vector& First, Vector& Second);*/
-	Point getDirection(void);
-	Point getEndPoint(void);
-	float getEndPointX(void);
-	float getEndPointY(void);
-	float getEndPointZ(void);
-	Point getStartPoint(void);
-	float getStartPointX(void);
-	float getStartPointY(void);
-	float getStartPointZ(void);
-	Point getVelocity(void);
-	float getVelocityInX(void);
-	float getVelocityInY(void);
-	float getVelocityInZ(void);
+	Point GetDirection(void);
+	Point GetEndPoint(void);
+	float GetEndPointX(void);
+	float GetEndPointY(void);
+	float GetEndPointZ(void);
+	Point GetStartPoint(void);
+	float GetStartPointX(void);
+	float GetStartPointY(void);
+	float GetStartPointZ(void);
+	Point GetVelocity(void);
+	float GetVelocityInX(void);
+	float GetVelocityInY(void);
+	float GetVelocityInZ(void);
 	
-	void setStartPoint(Point Begin);
-	void setFinishPoint(Point End);
-	void setVectorPoints(Point Begin, Point End);
+	void SetStartPoint(Point Begin);
+	void SetFinishPoint(Point End);
+	void SetVectorPoints(Point Begin, Point End);
 
 private:
-	Point Start;
-	Point Finish;
+	Point _Start;
+	Point _Finish;
 };

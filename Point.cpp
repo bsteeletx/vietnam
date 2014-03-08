@@ -4,20 +4,20 @@
 
 Point::Point()
 {
-	x = 0.0f;
-	y = 0.0f;
-	z = 0.0f;
-	minValue = -100.0f;
-	maxValue = 200.0f;
+	_x = 0.0f;
+	_y = 0.0f;
+	_z = 0.0f;
+	_minValue = -100.0f;
+	_maxValue = 200.0f;
 }
 
 Point::Point(float loc_x, float loc_y, float loc_z, float lowValue, float hiValue)
 {
-	x = loc_x;
-	y = loc_y;
-	z = loc_z;
-	minValue = lowValue;
-	maxValue = hiValue;
+	_x = loc_x;
+	_y = loc_y;
+	_z = loc_z;
+	_minValue = lowValue;
+	_maxValue = hiValue;
 }
 
 Point::~Point(void)
@@ -26,11 +26,11 @@ Point::~Point(void)
 
 bool Point::operator== (Point ComparePoint)
 {
-	if (x != ComparePoint.getX())
+	if (_x != ComparePoint.GetX())
 		return false;
-	if (y != ComparePoint.getY())
+	if (_y != ComparePoint.GetY())
 		return false;
-	if (z != ComparePoint.getZ())
+	if (_z != ComparePoint.GetZ())
 		return false;
 
 	return true;
@@ -38,45 +38,45 @@ bool Point::operator== (Point ComparePoint)
 
 Point operator+ (const Point &Point1, const Point &Point2)
 {
-	return Point(Point1.x + Point2.x, Point1.y + Point2.y);
+	return Point(Point1._x + Point2._x, Point1._y + Point2._y);
 }
 
 Point operator- (const Point &Point1, const Point &Point2)
 {
-	return Point(Point1.x - Point2.x, Point1.y - Point2.y);
+	return Point(Point1._x - Point2._x, Point1._y - Point2._y);
 }
 
-Point Point::addPoint(Point Additive)
+Point Point::AddPoint(Point Additive)
 {
 	Point Start = *this;
 
-	Start.x += Additive.x;
-	Start.y += Additive.y;
-	Start.z += Additive.z;
+	Start._x += Additive._x;
+	Start._y += Additive._y;
+	Start._z += Additive._z;
 
 	*this = Start;
 
 	return Start;
 }
 
-void Point::floor(void)
+void Point::Floor(void)
 {
-	x = (float) agk::Floor(x);
-	y = (float) agk::Floor(x);
-	z = (float) agk::Floor(x);
+	_x = (float) agk::Floor(_x);
+	_y = (float) agk::Floor(_x);
+	_z = (float) agk::Floor(_x);
 }
 
-Point Point::get3DFromScreen(void)
+/*Point Point::Get3DFromScreen(void)
 {
-	return Point(get3DXFromScreen(), get3DYFromScreen(), get3DZFromScreen());
+	return Point(Get3DXFromScreen(), Get3DYFromScreen(), Get3DZFromScreen());
 }
 
-float Point::get3DXFromScreen(void)
+float Point::Get3DXFromScreen(void)
 {
 	return agk::Get3DVectorXFromScreen(x, y);
 }
 
-float Point::get3DYFromScreen(void)
+float Point::Get3DYFromScreen(void)
 {
 	return agk::Get3DVectorYFromScreen(x, y);
 }
@@ -84,56 +84,57 @@ float Point::get3DYFromScreen(void)
 float Point::get3DZFromScreen(void)
 {
 	return agk::Get3DVectorZFromScreen(x, y);
+} */
+
+float Point::GetMaxValue(void)
+{
+	return _maxValue;
 }
 
-float Point::getMaxValue(void)
+float Point::GetMinValue(void)
 {
-	return maxValue;
+	return _minValue;
 }
 
-float Point::getMinValue(void)
+Point Point::GetScreenFrom3D(void)
 {
-	return minValue;
+	return Point(GetScreenXFrom3D(), GetScreenYFrom3D());
 }
 
-Point Point::getScreenFrom3D(void)
+float Point::GetScreenXFrom3D(void)
 {
-	return Point(getScreenXFrom3D(), getScreenYFrom3D());
+	return agk::GetScreenXFrom3D(_x, _y, _z);
 }
 
-float Point::getScreenXFrom3D(void)
+float Point::GetScreenYFrom3D(void)
 {
-	return agk::GetScreenXFrom3D(x, y, z);
+	return agk::GetScreenYFrom3D(_x, _y, _z);
 }
 
-float Point::getScreenYFrom3D(void)
+float Point::GetX(void)
 {
-	return agk::GetScreenYFrom3D(x, y, z);
+	return _x;
 }
 
-float Point::getX(void)
+float Point::GetY(void)
 {
-	return x;
+	return _y;
 }
 
-float Point::getY(void)
+float Point::GetZ(void)
 {
-	return y;
+	return _z;
 }
 
-float Point::getZ(void)
-{
-	return z;
-}
-#ifdef GRIDGAME
-Point Point::getGridCoords(void)
+#if GRIDGAME == 1
+Point Point::GetGridCoords(void)
 {
 	float xLoc = 0.0f;
 	float yLoc = 0.0f;
 
 	if (y < YBEG - SPOT_BORDER_Y - 1.0f)
 	{
-		xLoc = (x - XBEG_MENU + MENU_BORDER)/(SPOT_WIDTH);
+		xLoc = (_x - XBEG_MENU + MENU_BORDER)/(SPOT_WIDTH);
 		yLoc = -1.0f;
 
 		if (xLoc > XMAX)
@@ -141,17 +142,17 @@ Point Point::getGridCoords(void)
 	}
 	else
 	{
-		xLoc = (x - XBEG - SPOT_BORDER_X)/(SPOT_WIDTH);
-		yLoc = (y - YBEG - SPOT_BORDER_Y)/SPOT_HEIGHT;
+		xLoc = (_x - XBEG - SPOT_BORDER_X)/(SPOT_WIDTH);
+		yLoc = (_y - YBEG - SPOT_BORDER_Y)/SPOT_HEIGHT;
 	}
 
 	return Point(agk::Round(xLoc), agk::Round(yLoc));
 }
 
-Point Point::getNormalCoords(void)
+Point Point::GetNormalCoords(void)
 {
-	float xLoc = x;
-	float yLoc = y;
+	float xLoc = _x;
+	float yLoc = _y;
 	
 	xLoc = xLoc*(SPOT_WIDTH) + XBEG + SPOT_BORDER_X;
 	yLoc = yLoc*(SPOT_HEIGHT) + YBEG + SPOT_BORDER_Y;
@@ -182,14 +183,14 @@ Point Point::getNormalCoords(void)
 		else if (xLoc > XMAX*(SPOT_WIDTH + MENU_BORDER) + XBEG_MENU)
 			xLoc = XMAX*(SPOT_WIDTH + MENU_BORDER) + XBEG_MENU;
 		else
-			xLoc = x*(SPOT_WIDTH) + XBEG_MENU;
+			xLoc = _x*(SPOT_WIDTH) + XBEG_MENU;
 	}
 		
 	
 	return Point(xLoc, yLoc);
 }
 
-void Point::setCoordsAsGridCoords(void)
+void Point::SetCoordsAsGridCoords(void)
 {
 	/*x = (int) ((x - XBEG)/(SPOT_WIDTH + SPOT_BORDER));
 	y = ((y - YBEG)/(SPOT_HEIGHT + SPOT_BORDER));
@@ -199,48 +200,48 @@ void Point::setCoordsAsGridCoords(void)
 	else
 		y = (int) y;*/
 
-	*this = Point(getGridCoords());
+	*this = Point(GetGridCoords());
 }
 #endif
 
-void Point::setCoords(float loc_x, float loc_y, float loc_z)
+void Point::SetCoords(float loc_x, float loc_y, float loc_z)
 {
 	float values[3] = {loc_x, loc_y, loc_z};
 	
-	containCoords(values);
+	_ContainCoords(values);
 
-	x = values[0];
-	y = values[1];
-	z = values[2];
+	_x = values[0];
+	_y = values[1];
+	_z = values[2];
 }
 
-void Point::setX(float loc_x)
+void Point::SetX(float loc_x)
 {
-	x = containCoord(loc_x);
+	_x = _ContainCoord(loc_x);
 }
 
-void Point::setY(float loc_y)
+void Point::SetY(float loc_y)
 {
-	y = containCoord(loc_y);
+	_y = _ContainCoord(loc_y);
 }
 
-void Point::setZ(float loc_z)
+void Point::SetZ(float loc_z)
 {
-	z = containCoord(loc_z);
+	_z = _ContainCoord(loc_z);
 }
 
-float Point::containCoord(float coord)
+float Point::_ContainCoord(float coord)
 {
-	if (coord < minValue)
-		return minValue;
-	else if (coord > maxValue)
-		return maxValue;
+	if (coord < _minValue)
+		return _minValue;
+	else if (coord > _maxValue)
+		return _maxValue;
 	else
 		return coord;
 }
 
-void Point::containCoords(float coords[])
+void Point::_ContainCoords(float coords[])
 {
 	for (int i = 0; i < 3; i++)
-		coords[i] = containCoord(coords[i]);
+		coords[i] = _ContainCoord(coords[i]);
 }

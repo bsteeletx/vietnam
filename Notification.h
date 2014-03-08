@@ -7,18 +7,22 @@
 class Notification
 {
 public:
-	Notification(void);
+	Notification();
 	~Notification(void);
-#if (OS == IOS)
+#if (OS != WINDOWS)
 	Notification(Text DateTime, Text Message, Text Data);
-	bool get(void);
-	Text getData(void);
-	int getType(void);
+	
+	bool Get(void);
+	Text GetData(void);
+	int GetType(void);
 
-	void reset(void);
+	void Reset(void);
 
-	void setImage(Image Object);
-	void setText(Text Object);
+	void SetImage(Image Object);
+	void SetText(Text Object);
+
+private:
+	_Create(Text DateTime, Text Message, Text Data);
 #endif
 };
 

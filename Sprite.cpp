@@ -3,92 +3,92 @@
 
 Sprite::~Sprite(void)
 {
-	//if (getExists())
-		//agk::DeleteSprite(spriteNumber);
+	//if (GetExists())
+		//agk::DeleteSprite(_spriteNumber);
 }
 
 Sprite::Sprite(void)
 {
-	spriteNumber = 0;
+	_spriteNumber = 0;
 }
 
-Sprite::Sprite(RGBA Color)
+Sprite::Sprite(Color SpriteColor)
 {
-	spriteNumber = agk::CreateSprite(0);
-	setColor(Color);
+	_spriteNumber = agk::CreateSprite(0);
+	SetColor(SpriteColor);
 }
 
 Sprite::Sprite(Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber)
 	: Image(Filename, assignedImageNumber)
 {
-	create(assignedSpriteNumber);
+	_Create(assignedSpriteNumber);
 }
 
 Sprite::Sprite(Point Begin, Point End, unsigned int assignedSpriteNumber)
 	: Image(Begin, End)
 {
-	create(assignedSpriteNumber);
+	_Create(assignedSpriteNumber);
 }
 
 Sprite::Sprite(Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Image(Filename, blackIsAlpha)
 {
-	create(assignedSpriteNumber);
+	_Create(assignedSpriteNumber);
 }
 
 /*Sprite::Sprite(unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Image(assignedImageNumber, Filename, blackIsAlpha)
 {
-	create(assignedSpriteNumber);
+	_Create(assignedSpriteNumber);
 }*/
 
 Sprite::Sprite(unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
 	: Image(SubImageFilename, parentImage)
 {
-	create(assignedSpriteNumber);
+	_Create(assignedSpriteNumber);
 }
 
 /*Sprite::Sprite(unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
 	: Image(assignedImageNumber, parentImage, SubImageFilename)
 {
-	create(assignedSpriteNumber);
+	_Create(assignedSpriteNumber);
 }*/
 
-Sprite::Sprite(File FileToInit, Text PathToParent)
+Sprite::Sprite(Read FileToInit, Text PathToParent)
 	: Image(FileToInit, PathToParent)
 {
-	create();
+	_Create();
 
-	FileToInit.reOpen();
+	FileToInit.ReOpen();
 
-	while(!FileToInit.FileEOF())
+	while(!FileToInit.IsEOF())
 	{
-		Text Line = FileToInit.getLine();
+		Text Line = FileToInit.Line();
 		Text Start;
 		Text End;
 
-		Line.splitAtDelimeter(&Start, &End, ':');
+		Line.SplitAtDelimeter(&Start, &End, ':');
 
 		if (Start == Text("Size"))
 		{
-			setSize(agk::ValFloat(End.getCString()));
+			SetSize(agk::ValFloat(End.GetCString()));
 			break;
 		}
 	}
 
-	FileToInit.close();
+	FileToInit.Close();
 }
 
 Sprite& Sprite::operator= (const Sprite &NewSprite)
 {	
 	if (this != &NewSprite)
 	{
-		if (getExists())
-			agk::DeleteSprite(spriteNumber);
-		spriteNumber = NewSprite.spriteNumber;
-		imageNumber = NewSprite.imageNumber;
+		if (GetExists())
+			agk::DeleteSprite(_spriteNumber);
+		_spriteNumber = NewSprite._spriteNumber;
+		_imageNumber = NewSprite._imageNumber;
 		//Image NewImage(newSprite.imageNumber);
-		//imageNumber = NewImage.getImageNumber();
+		//imageNumber = NewImage.GetImageNumber();
 	}
 
 	return *this;
@@ -98,465 +98,445 @@ Sprite& Sprite::operator<< (const Image& Object)
 {
 	Image TempImage(Object);
 
-	if (getExists())
-		agk::DeleteSprite(spriteNumber);
+	if (GetExists())
+		agk::DeleteSprite(_spriteNumber);
 
-	spriteNumber = agk::CreateSprite(TempImage.getID());
+	_spriteNumber = agk::CreateSprite(TempImage.GetID());
 	
 	return *this;
 }
 
-void Sprite::fixToScreen(bool screen)
+void Sprite::Delete()
+{
+	agk::DeleteSprite(_spriteNumber);
+}
+
+void Sprite::FixToScreen(bool screen)
 {
 	if (screen)
-		agk::FixSpriteToScreen(spriteNumber, 1);
+		agk::FixSpriteToScreen(_spriteNumber, 1);
 	else
-		agk::FixSpriteToScreen(spriteNumber, 0);
+		agk::FixSpriteToScreen(_spriteNumber, 0);
 }
 
-bool Sprite::getActive(void)
+bool Sprite::GetActive(void)
 {
-	if (agk::GetSpriteActive(spriteNumber) == 1)
+	if (agk::GetSpriteActive(_spriteNumber) == 1)
 		return true;
 	else
 		return false;
 }
 
-short Sprite::getColorAlpha(void)
+short Sprite::GetColorAlpha(void)
 {
-	return (short) agk::GetSpriteColorAlpha(spriteNumber);
+	return (short) agk::GetSpriteColorAlpha(_spriteNumber);
 }
 
-float Sprite::getAngle(void)
+float Sprite::GetAngle(void)
 {
-	return agk::GetSpriteAngle(spriteNumber);
+	return agk::GetSpriteAngle(_spriteNumber);
 }
 
-float Sprite::getAngleInRad(void)
+float Sprite::GetAngleInRad(void)
 {
-	return agk::GetSpriteAngleRad(spriteNumber);
+	return agk::GetSpriteAngleRad(_spriteNumber);
 }
 
-short Sprite::getColorBlue(void)
+short Sprite::GetColorBlue(void)
 {
-	return (short) agk::GetSpriteColorBlue(spriteNumber);
+	return (short) agk::GetSpriteColorBlue(_spriteNumber);
 }
 
-Point Sprite::getPosition(void)
+Point Sprite::GetPosition(void)
 {
-	return Point(getX(), getY());
+	return Point(_GetX(), _GetY());
 }
 
-bool Sprite::collidedWith(Sprite TestSprite)
+bool Sprite::GetCollision(Sprite TestSprite)
 {
-	if (agk::GetSpriteCollision(spriteNumber, TestSprite.getSpriteNumber()) == 1)
+	if (agk::GetSpriteCollision(_spriteNumber, TestSprite.GetSpriteNumber()) == 1)
 		return true;
 	else
 		return false;
 }
 
-bool Sprite::collidedWith(unsigned int testSpriteNumber)
+bool Sprite::GetCollision(unsigned int testSpriteNumber)
 {
-	if (agk::GetSpriteCollision(spriteNumber, testSpriteNumber) == 1)
+	if (agk::GetSpriteCollision(_spriteNumber, testSpriteNumber) == 1)
 		return true;
 	else
 		return false;
 }
 
-int Sprite::getCollisionGroup(void)
+int Sprite::GetCollisionGroup(void)
 {
-	return agk::GetSpriteGroup(spriteNumber);
+	return agk::GetSpriteGroup(_spriteNumber);
 }
 
-void Sprite::setCollisionGroup(int group)
+void Sprite::SetCollisionGroup(int group)
 {
-	agk::SetSpriteGroup(spriteNumber, group);
+	agk::SetSpriteGroup(_spriteNumber, group);
 }
 
-short Sprite::getDepth(void)
+short Sprite::GetDepth(void)
 {
-	return (short) agk::GetSpriteDepth(spriteNumber);
+	return (short) agk::GetSpriteDepth(_spriteNumber);
 }
 
-float Sprite::getDistanceFrom(Sprite TestSprite)
+float Sprite::GetDistanceFrom(Sprite TestSprite)
 {
-	return agk::GetSpriteDistance(spriteNumber, TestSprite.getSpriteNumber());
+	return agk::GetSpriteDistance(_spriteNumber, TestSprite.GetSpriteNumber());
 }
 
-float Sprite::getDistancePoint1X(void)
+float Sprite::GetDistancePoint1X(void)
 {
 	return agk::GetSpriteDistancePoint1X();
 }
 
-float Sprite::getDistancePoint1Y(void)
+float Sprite::GetDistancePoint1Y(void)
 {
 	return agk::GetSpriteDistancePoint1Y();
 }
 
-float Sprite::getDistancePoint2X(void)
+float Sprite::GetDistancePoint2X(void)
 {
 	return agk::GetSpriteDistancePoint2X();
 }
 
-float Sprite::getDistancePoint2Y(void)
+float Sprite::GetDistancePoint2Y(void)
 {
 	return agk::GetSpriteDistancePoint2Y();
 }
 
-bool Sprite::getExists(void)
+bool Sprite::GetExists(void)
 {
-	if (agk::GetSpriteExists(spriteNumber) == 1)
+	if (agk::GetSpriteExists(_spriteNumber) == 1)
 		return true;
 	else
 		return false;
 }
 
-short Sprite::getColorGreen(void)
+short Sprite::GetColorGreen(void)
 {
-	return (short) agk::GetSpriteColorGreen(spriteNumber);
+	return (short) agk::GetSpriteColorGreen(_spriteNumber);
 }
 
-int Sprite::getGroup(void)
+int Sprite::GetGroup(void)
 {
-	return agk::GetSpriteGroup(spriteNumber);
+	return agk::GetSpriteGroup(_spriteNumber);
 }
 
-int Sprite::getHitCategory(int categoryTest, Point Location)
+int Sprite::GetHitCategory(int categoryTest, Point Location)
 {
-	return agk::GetSpriteHitCategory(categoryTest, Location.getX(), Location.getY());
+	return agk::GetSpriteHitCategory(categoryTest, Location.GetX(), Location.GetY());
 }
 
-int Sprite::getHitGroup(Point Location)
+int Sprite::GetHitGroup(Point Location)
 {
-	return agk::GetSpriteHitGroup(getGroup(), Location.getX(), Location.getY());
+	return agk::GetSpriteHitGroup(GetGroup(), Location.GetX(), Location.GetY());
 }
 
-float Sprite::getHeight(void)
+float Sprite::GetHeight(void)
 {
-	return agk::GetSpriteHeight(spriteNumber);
+	return agk::GetSpriteHeight(_spriteNumber);
 }
 
-bool Sprite::getHitTest(Point Location)
+bool Sprite::GetHitTest(Point Location)
 {
-	if (agk::GetSpriteHitTest(spriteNumber, Location.getX(), Location.getY()) == 1)
+	if (agk::GetSpriteHitTest(_spriteNumber, Location.GetX(), Location.GetY()) == 1)
 		return true;
 	else
 		return false;
 }
 
-bool Sprite::getInBox(Point TopLeft, Point BottomRight)
+bool Sprite::GetInBox(Point TopLeft, Point BottomRight)
 {
-	if (agk::GetSpriteInBox(spriteNumber, TopLeft.getX(), TopLeft.getY(), BottomRight.getX(), BottomRight.getY()) == 1)
+	if (agk::GetSpriteInBox(_spriteNumber, TopLeft.GetX(), TopLeft.GetY(), BottomRight.GetX(), BottomRight.GetY()) == 1)
 		return true;
 	else
 		return false;
 }
 
-bool Sprite::getInCircle(Point CenterOfCircle, float radius)
+bool Sprite::GetInCircle(Point CenterOfCircle, float radius)
 {
-	if (agk::GetSpriteInCircle(spriteNumber, CenterOfCircle.getX(), CenterOfCircle.getY(), radius) == 1)
+	if (agk::GetSpriteInCircle(_spriteNumber, CenterOfCircle.GetX(), CenterOfCircle.GetY(), radius) == 1)
 		return true;
 	else
 		return false;
 }
 
-Point Sprite::getOffset(void)
+Point Sprite::GetPositionByOffset(void)
 {
-	return OffsetAmount;
+	return Point(_GetOffsetX(), _GetOffsetY());
 }
 
-float Sprite::getOffsetX(void)
+float Sprite::_GetOffsetX(void)
 {
-	return OffsetAmount.getX();
+	return agk::GetSpriteXByOffset(_spriteNumber);
 }
 
-float Sprite::getOffsetY(void)
+float Sprite::_GetOffsetY(void)
 {
-	return OffsetAmount.getY();
+	return agk::GetSpriteYByOffset(_spriteNumber);
 }
 
-int Sprite::getPixelFromX(float x)
+int Sprite::GetPixelFromX(float x)
 {
-	return agk::GetSpritePixelFromX(spriteNumber, x);
+	return agk::GetSpritePixelFromX(_spriteNumber, x);
 }
 
-int Sprite::getPixelFromY(float y)
+int Sprite::GetPixelFromY(float y)
 {
-	return agk::GetSpritePixelFromY(spriteNumber, y);
+	return agk::GetSpritePixelFromY(_spriteNumber, y);
 }
 
-short Sprite::getColorRed(void)
+short Sprite::GetColorRed(void)
 {
-	return (short) agk::GetSpriteColorRed(spriteNumber);
+	return (short) agk::GetSpriteColorRed(_spriteNumber);
 }
 
-Point Sprite::getPositionByOffset(void)
+unsigned int Sprite::GetSpriteNumber(void)
 {
-	return Point(getXByOffset(), getYByOffset());
+	return _spriteNumber;
 }
 
-unsigned int Sprite::getSpriteNumber(void)
+bool Sprite::GetVisible(void)
 {
-	return spriteNumber;
-}
-
-bool Sprite::getVisible(void)
-{
-	if (agk::GetSpriteVisible(spriteNumber) == 1)
+	if (agk::GetSpriteVisible(_spriteNumber) == 1)
 		return true;
 	else
 		return false;
 }
 
-float Sprite::getWidth(void)
+float Sprite::GetWidth(void)
 {
-	return agk::GetSpriteWidth(spriteNumber);
+	return agk::GetSpriteWidth(_spriteNumber);
 }
 
-float Sprite::getX(void)
+float Sprite::_GetX(void)
 {
-	return agk::GetSpriteX(spriteNumber);
+	return agk::GetSpriteX(_spriteNumber);
 }
 
-float Sprite::getXByOffset(void)
+float Sprite::GetXFromPixel(int x)
 {
-	return agk::GetSpriteXByOffset(spriteNumber);
+	return agk::GetSpriteXFromPixel(_spriteNumber, x);
 }
 
-float Sprite::getXFromPixel(int x)
+float Sprite::_GetY(void)
 {
-	return agk::GetSpriteXFromPixel(spriteNumber, x);
+	return agk::GetSpriteY(_spriteNumber);
 }
 
-float Sprite::getY(void)
+float Sprite::GetYFromPixel(int y)
 {
-	return agk::GetSpriteY(spriteNumber);
+	return agk::GetSpriteYFromPixel(_spriteNumber, y);
 }
 
-float Sprite::getYByOffset(void)
+void Sprite::Move(Point Speed)
 {
-	return agk::GetSpriteYByOffset(spriteNumber);
+	MoveX(Speed.GetX());
+	MoveY(Speed.GetY());
 }
 
-float Sprite::getYFromPixel(int y)
+void Sprite::MoveX(float x)
 {
-	return agk::GetSpriteYFromPixel(spriteNumber, y);
+	agk::SetSpriteX(_spriteNumber, _GetX() + x);
 }
 
-void Sprite::move(Point Speed)
+void Sprite::MoveY(float y)
 {
-	moveX(Speed.getX());
-	moveY(Speed.getY());
+	agk::SetSpriteY(_spriteNumber, _GetY() + y);
 }
 
-void Sprite::moveX(float x)
+void Sprite::ResetUV(void)
 {
-	agk::SetSpriteX(spriteNumber, getX() + x);
+	agk::ResetSpriteUV(_spriteNumber);
 }
 
-void Sprite::moveY(float y)
+void Sprite::SetActive(bool isActive)
 {
-	agk::SetSpriteY(spriteNumber, getY() + y);
+	agk::SetSpriteActive(_spriteNumber, isActive);
 }
 
-void Sprite::resetUV(void)
+void Sprite::SetColorAlpha(short alpha)
 {
-	agk::ResetSpriteUV(spriteNumber);
+	_SpriteColor.SetAlpha(alpha);
+	agk::SetSpriteColorAlpha(_spriteNumber, _SpriteColor.GetAlpha());
 }
 
-void Sprite::setActive(bool isActive)
+void Sprite::SetAngle(float angle)
 {
-	agk::SetSpriteActive(spriteNumber, isActive);
+	agk::SetSpriteAngle(_spriteNumber, angle);
 }
 
-void Sprite::setColorAlpha(short alpha)
+void Sprite::SetAngleInRad(float rad)
 {
-	ColorValues.setAlpha(alpha);
-	agk::SetSpriteColorAlpha(spriteNumber, ColorValues.getAlpha());
+	agk::SetSpriteAngleRad(_spriteNumber, rad);
 }
 
-void Sprite::setAngle(float angle)
+void Sprite::SetColorBlue(short blue)
 {
-	agk::SetSpriteAngle(spriteNumber, angle);
+	_SpriteColor.SetBlue(blue);
+	agk::SetSpriteColorBlue(_spriteNumber, _SpriteColor.GetBlue());
 }
 
-void Sprite::setAngleInRad(float rad)
-{
-	agk::SetSpriteAngleRad(spriteNumber, rad);
-}
-
-void Sprite::setColorBlue(short blue)
-{
-	ColorValues.setBlue(blue);
-	agk::SetSpriteColorBlue(spriteNumber, ColorValues.getBlue());
-}
-
-void Sprite::setColor(RGBA Values)
+void Sprite::SetColor(Color Values)
 {
 
-	agk::SetSpriteColor(spriteNumber, Values.getRed(), Values.getGreen(), Values.getBlue(), Values.getAlpha());
+	agk::SetSpriteColor(_spriteNumber, Values.GetRed(), Values.GetGreen(), Values.GetBlue(), Values.GetAlpha());
 }
 
-void Sprite::setDepth(short depth)
+void Sprite::SetDepth(short depth)
 {
 	if (_Depth(depth))
-		agk::SetSpriteDepth(spriteNumber, depth);
+		agk::SetSpriteDepth(_spriteNumber, depth);
 }
 
-void Sprite::setFlip(bool horizontal, bool vertical)
+void Sprite::SetFlip(bool horizontal, bool vertical)
 {
-	agk::SetSpriteFlip(spriteNumber, horizontal, vertical);
+	agk::SetSpriteFlip(_spriteNumber, horizontal, vertical);
 }
 
-void Sprite::setColorGreen(short green)
+void Sprite::SetColorGreen(short green)
 {
 	if (_ColorChannel(green))
-		agk::SetSpriteColorGreen(spriteNumber, green);
+		agk::SetSpriteColorGreen(_spriteNumber, green);
 }
 
-void Sprite::setGroup(int group)
-{
-	agk::SetSpriteGroup(spriteNumber, group);
-}
-
-void Sprite::setImage(Image newImage, bool reshape)
+void Sprite::SetImage(Image newImage, bool reshape)
 {
 	if (reshape)
-		agk::SetSpriteImage(spriteNumber, newImage.getID(), 1);
+		agk::SetSpriteImage(_spriteNumber, newImage.GetID(), 1);
 	else
-		agk::SetSpriteImage(spriteNumber, newImage.getID());
+		agk::SetSpriteImage(_spriteNumber, newImage.GetID());
 }
 
-void Sprite::setOffset(float x, float y)
+/*void Sprite::SetOffSet(float x, float y)
 {
-	agk::SetSpriteOffset(spriteNumber, x, y);
+	agk::SetSpriteOffSet(_spriteNumber, x, y);
 
-	OffsetAmount = Point(x, y);
-}
+	OffSetAmount = Point(x, y);
+} */
 
-void Sprite::setPosition(float x, float y)
+void Sprite::SetPosition(float x, float y)
 {
-	setPosition(Point(x, y));
+	SetPosition(Point(x, y));
 }
 
-void Sprite::setPosition(Point Location)
+void Sprite::SetPosition(Point Location)
 {
-	agk::SetSpritePosition(spriteNumber, Location.getX(), Location.getY());
+	agk::SetSpritePosition(_spriteNumber, Location.GetX(), Location.GetY());
 }
 
-void Sprite::setPositionByOffset(float x, float y)
+/*void Sprite::SetPositionByOffSet(float x, float y)
 {
-	OffsetAmount = Point(x, y);
-	setPositionByOffset(OffsetAmount);
-}
+	OffSetAmount = Point(x, y);
+	SetPositionByOffSet(OffSetAmount);
+} */
 
-void Sprite::setPositionByOffset(Point Location)
+void Sprite::SetPositionByOffset(Point Location)
 {
-	agk::SetSpritePositionByOffset(spriteNumber, Location.getX(), Location.getY());
-	OffsetAmount = Location;
+	agk::SetSpritePositionByOffset(_spriteNumber, Location.GetX(), Location.GetY());
 }
 
-void Sprite::setColorRed(short red)
+void Sprite::SetColorRed(short red)
 {
 	if (_ColorChannel(red))
-		agk::SetSpriteColorRed(spriteNumber, red);
+		agk::SetSpriteColorRed(_spriteNumber, red);
 }
 
-void Sprite::setScale(float x, float y)
+void Sprite::SetScale(float x, float y)
 {
-	agk::SetSpriteScale(spriteNumber, x, y);
+	agk::SetSpriteScale(_spriteNumber, x, y);
 }
 
-void Sprite::setScaleByOffset(float x, float y)
+void Sprite::SetScaleByOffset(Point Offset)
 {
-	agk::SetSpriteScaleByOffset(spriteNumber, x, y);
+	agk::SetSpriteScaleByOffset(_spriteNumber, Offset.GetX(), Offset.GetY());
 }
 
-void Sprite::setScissor(Point TopLeft, Point BottomRight)
+void Sprite::SetScissor(Point TopLeft, Point BottomRight)
 {
-	agk::SetSpriteScissor(spriteNumber, TopLeft.getX(), TopLeft.getY(), BottomRight.getX(), BottomRight.getY());
+	agk::SetSpriteScissor(_spriteNumber, TopLeft.GetX(), TopLeft.GetY(), BottomRight.GetX(), BottomRight.GetY());
 }
 
-void Sprite::setSize(float width, float height)
+void Sprite::SetSize(float width, float height)
 {
-	agk::SetSpriteSize(spriteNumber, width, height);
+	agk::SetSpriteSize(_spriteNumber, width, height);
 }
 
-void Sprite::setSnap(bool snap)
+void Sprite::SetSnap(bool snap)
 {
-	agk::SetSpriteSnap(spriteNumber, snap);
+	agk::SetSpriteSnap(_spriteNumber, snap);
 }
 
-void Sprite::setTransparencySetting(short setting)
+void Sprite::SetTransparencySetting(short Setting)
 {
-	if (_TransparencySetting(setting))
-		agk::SetSpriteTransparency(spriteNumber, setting);
+	if (_TransparencySetting(Setting))
+		agk::SetSpriteTransparency(_spriteNumber, Setting);
 }
 
-void Sprite::setUV(Point UV1, Point UV2, Point UV3, Point UV4)
+void Sprite::SetUV(Point UV1, Point UV2, Point UV3, Point UV4)
 {
-	agk::SetSpriteUV(spriteNumber, UV1.getX(), UV1.getY(), UV2.getX(), UV2.getY(), UV3.getX(), UV3.getY(), UV4.getX(), UV4.getY());
+	agk::SetSpriteUV(_spriteNumber, UV1.GetX(), UV1.GetY(), UV2.GetX(), UV2.GetY(), UV3.GetX(), UV3.GetY(), UV4.GetX(), UV4.GetY());
 }
 
-void Sprite::setUVBorder(float border)
+void Sprite::SetUVBorder(float border)
 {
 	if (_UVBorder(border))
-		agk::SetSpriteUVBorder(spriteNumber, border);
+		agk::SetSpriteUVBorder(_spriteNumber, border);
 }
 
-void Sprite::setUVOffset(float u, float v)
+void Sprite::SetUVOffset(float u, float v)
 {
-	agk::SetSpriteUVOffset(spriteNumber, u, v);
+	agk::SetSpriteUVOffset(_spriteNumber, u, v);
 }
 
-void Sprite::setUVScale(float u, float v)
+void Sprite::SetUVScale(float u, float v)
 {
-	agk::SetSpriteUVScale(spriteNumber, u, v);
+	agk::SetSpriteUVScale(_spriteNumber, u, v);
 }
 
-void Sprite::setVisible(bool visible)
+void Sprite::SetVisible(bool visible)
 {
-	agk::SetSpriteVisible(spriteNumber, visible);
+	agk::SetSpriteVisible(_spriteNumber, visible);
 }
 
-void Sprite::setX(float x)
+void Sprite::SetX(float x)
 {
-	agk::SetSpriteX(spriteNumber, x);
+	agk::SetSpriteX(_spriteNumber, x);
 }
 
-void Sprite::setXByOffset(float x)
+void Sprite::SetXByOffset(float x)
 {
-	agk::SetSpriteOffset(spriteNumber, x, getYByOffset());
-
-	OffsetAmount.setX(x);
+	agk::SetSpriteOffset(_spriteNumber, x, GetPositionByOffset().GetY());
 }
 
-void Sprite::setY(float y)
+void Sprite::SetY(float y)
 {
-	agk::SetSpriteY(spriteNumber, y);
+	agk::SetSpriteY(_spriteNumber, y);
 }
 
-void Sprite::setYByOffset(float y)
+void Sprite::SetYByOffset(float y)
 {
-	agk::SetSpriteOffset(spriteNumber, getXByOffset(), y);
-
-	OffsetAmount.setY(y);
+	agk::SetSpriteOffset(_spriteNumber, GetPositionByOffset().GetX(), y);
 }
 
 /*void Sprite::toggleVisiblity(void)
 {
-	if (this->getVisible() == 0)
-		this->setVisible(true);
+	if (this->GetVisible() == 0)
+		this->SetVisible(true);
 	else
-		this->setVisible(false);
+		this->SetVisible(false);
 }*/
 
-Sprite Sprite::clone(void)
+Sprite Sprite::Clone(void)
 {
 	Sprite ReturnSprite = Sprite();
 	
 	ReturnSprite = *this;
-	ReturnSprite.spriteNumber = agk::CloneSprite(spriteNumber);
+	ReturnSprite._spriteNumber = agk::CloneSprite(_spriteNumber);
 
 	return ReturnSprite;
 }
@@ -566,14 +546,14 @@ Sprite Sprite::clone(void)
 	return agk::CloneSprite(spriteToClone);
 }*/
 
-void Sprite::create(unsigned int assignedSpriteNumber)
+void Sprite::_Create(unsigned int assignedSpriteNumber)
 {
 	if (!assignedSpriteNumber)
-		spriteNumber = agk::CreateSprite(getID());
+		_spriteNumber = agk::CreateSprite(GetID());
 	else
 	{
-		spriteNumber = assignedSpriteNumber;
-		agk::CreateSprite(spriteNumber, getID());
+		_spriteNumber = assignedSpriteNumber;
+		agk::CreateSprite(_spriteNumber, GetID());
 	}
 }
 
@@ -596,11 +576,11 @@ bool Sprite::_SpriteNumber(unsigned int number)
 	return false;
 }
 
-bool Sprite::_TransparencySetting(short setting)
+bool Sprite::_TransparencySetting(short Setting)
 {
-	if (setting >= 0)
+	if (Setting >= 0)
 	{
-		if (setting <= 2)
+		if (Setting <= 2)
 			return true;
 	}
 

@@ -1,15 +1,15 @@
 #include "agk.h"
+#include "AGKCore.h"
 #include "Sound.h"
 
 Sound::Sound(void)
 {
-	soundID = 0;
+	_soundID = 0;
 }
 
 Sound::~Sound(void)
 {
-	//if (getExists())
-	//	agk::DeleteSound(soundID);
+
 }
 
 Sound::Sound(unsigned int assignedNumber, Text Filename)
@@ -18,8 +18,8 @@ Sound::Sound(unsigned int assignedNumber, Text Filename)
 	{
 		if (_Filename(Filename))
 		{
-			agk::LoadSound(assignedNumber, Filename.getCString());
-			soundID = assignedNumber;
+			agk::LoadSound(assignedNumber, Filename.GetCString());
+			_soundID = assignedNumber;
 		}
 	}
 }
@@ -27,51 +27,64 @@ Sound::Sound(unsigned int assignedNumber, Text Filename)
 Sound::Sound(Text Filename)
 {
 	if (_Filename(Filename))
-		soundID = agk::LoadSound(Filename.getCString());
+		_soundID = agk::LoadSound(Filename.GetCString());
 }
 
-bool Sound::getExists(void)
+void Sound::Delete()
 {
-	if (agk::GetSoundExists(soundID) == 1)
+	agk::DeleteSound(_soundID);
+}
+
+bool Sound::GetExists(void)
+{
+	if (agk::GetSoundExists(_soundID) == 1)
 		return true;
 
 	return false;
 }
 
-unsigned int Sound::getInstances(void)
+unsigned int Sound::GetInstances(void)
 {
-	return agk::GetSoundInstances(soundID);
+	return agk::GetSoundInstances(_soundID);
 }
 
-void Sound::play(unsigned short volume, bool loop)
+/* Not Functional Yet
+bool Sound::IsRecording()
+{
+	return (bool)agk::IsSoundRecording();
+}
+*/
+
+void Sound::Play(unsigned short volume, bool loop)
 {
 	if (volume <= 100)
 	{
 		if (loop)
-			agk::PlaySound(soundID, volume, 1);
+			agk::PlaySound(_soundID, volume, 1);
 		else
-			agk::PlaySound(soundID, volume, 0);
+			agk::PlaySound(_soundID, volume, 0);
 	}
 }
 
-void Sound::setSystemVolume(unsigned short volume)
+void Sound::SetSystemVolume(unsigned short volume)
 {
 	if (volume <= 100)
 		agk::SetSoundSystemVolume(volume);
 }
 
-void Sound::stop(void)
+void Sound::Stop(void)
 {
-	agk::StopSound(soundID);
+	agk::StopSound(_soundID);
 }
 
 bool Sound::_Filename(Text Filename)
 {
-	Text Extension = Filename.right(4);
-	short lengthOfString = Filename.getLength() - 1;
+	AGKCore Conversion;
+	Text Extension = Conversion.Right(Filename, 4);
+	short lengthOfString = Filename.GetLength() - 1;
 
 	//for (int i = 3; i > 0; i--)
-		//tempFilename[i] = Filename.getChar(lengthOfString - 1);
+		//tempFilename[i] = Filename.GetChar(lengthOfString - 1);
 	
 	if (Extension == Text(".wav"))
 		return true;

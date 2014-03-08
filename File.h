@@ -1,5 +1,8 @@
-#pragma once
-#include "Text.h"
+#ifndef _FILE_H_
+#define _FILE_H_
+
+
+//#include "Text.h"
 #include <string>
 
 class Text;
@@ -13,62 +16,34 @@ public:
 
 	File &operator= (const File &NewFile);
 
-	File chooseRaw(Text ValidExtensions);
-	void close(void);
-
-	void deleteFolder(void);
-
-	void extractZip(Text ZipFilename, Text Path);
-
-	bool FileEOF(void);
-
-	Text getCurrentDir(void);
-	bool getExists(void);
-
-	float getFloat(void);
-	int getID(void);
-	int getInt(void);
-	Text getFirstFile(void);
-	Text getFirstFolder(void);
-	Text getFolder(void);
-	Text getLine(void);
-	Text getNextFile(void);
-	Text getNextFolder(void);
-	Text getReadPath(void);
-	unsigned int getSize(void);	
-	Text getString(void);
-	Text getWritePath(void);
-
-	void makeFolder(Text Name);
+	Text ChooseRaw(Text ValidExtensions);
+	void Close();
 	
-	void putFloat(float value);
-	void putInt(int value);
-	void putLine(Text Value);
-	void putString(Text Value);
+	void Delete(Text FileName);
+	void DeleteFolder(Text FolderName);
 
-	void reOpen(void);
-	short readByte(void);
-	float readFloat(void);
-	int readInteger(void);
-	Text readLine(void);
-	Text readString(void);
+	int GetID(void);
+	Text GetFirst(void);
+	Text GetFirstFolder(void);
+	Text GetFolder(void);
+	Text GetNext(void);
+	Text GetNextFolder(void);
+	Text GetPath(void);
+	unsigned int GetSize(void);	
 
-	void setCurrentDir(Text Dir);
-	void setFolder(Text Folder);
-	void setWritePath(Text Dir);
+	void MakeFolder(Text Name);
 
-	void writeByte(short value);
-	void writeFloat(float value);
-	void writeInteger(int value);
-	void writeLine(Text Value);
-	void writeString(Text Value);
+	void ReOpen();
+	
+	bool SetFolder(Text Folder);
 
 protected:
-	unsigned int fileID;
-	bool openToRead;
-	std::string nameOfFile;
+	unsigned int _fileID;
+	bool _openToRead;
+	std::string _nameOfFile;
 
-	bool getExists(Text Filename);
-	bool isOpen(void);
-	void open(bool read, Text Filename);
+	bool _GetExists(Text Filename);
+	bool _IsOpen(void);
+	void _Open(bool read, Text Filename);
 };
+#endif

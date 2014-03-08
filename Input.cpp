@@ -10,12 +10,12 @@ Input::~Input(void)
 {
 }
 
-void Input::completeRawJoystickDetection(void)
+void Input::CompleteRawJoystickDetection(void)
 {
 	agk::CompleteRawJoystickDetection();
 }
 
-bool Input::getAccelerometerExists(void)
+bool Input::GetAccelerometerExists(void)
 {
 	if (agk::GetAccelerometerExists() == 1)
 		return true;
@@ -23,31 +23,7 @@ bool Input::getAccelerometerExists(void)
 	return false;
 }
 
-bool Input::getButtonPressed(unsigned short button)
-{
-	if (agk::GetButtonPressed(button) == 1)
-		return true;
-
-	return false;
-}
-
-bool Input::getButtonReleased(unsigned short button)
-{
-	if (agk::GetButtonReleased(button) == 1)
-		return true;
-
-	return false;
-}
-
-bool Input::getButtonState(unsigned short button)
-{
-	if (agk::GetButtonState(button) == 1)
-		return true;
-	
-	return false;
-}
-
-bool Input::getCameraExists(void)
+bool Input::GetCameraExists(void)
 {
 	if (agk::GetCameraExists() == 1)
 		return true;
@@ -55,7 +31,7 @@ bool Input::getCameraExists(void)
 	return false;
 }
 
-bool Input::getCompassExists(void)
+bool Input::GetCompassExists(void)
 {
 	if (agk::GetCompassExists() == 1)
 		return true;
@@ -63,27 +39,27 @@ bool Input::getCompassExists(void)
 	return false;
 }
 
-float Input::getDirectionAngle(void)
+float Input::GetDirectionAngle(void)
 {
 	return agk::GetDirectionAngle();
 }
 
-float Input::getDirectionSpeed(void)
+float Input::GetDirectionSpeed(void)
 {
 	return agk::GetDirectionSpeed();
 }
 
-float Input::getDirectionX(void)
+float Input::GetDirectionX(void)
 {
 	return agk::GetDirectionX();
 }
 
-float Input::getDirectionY(void)
+float Input::GetDirectionY(void)
 {
 	return agk::GetDirectionY();
 }
 	
-bool Input::getGeolocationExists(void)
+bool Input::GetGeolocationExists(void)
 {
 	if (agk::GetGeolocationExists())
 		return true;
@@ -91,7 +67,7 @@ bool Input::getGeolocationExists(void)
 	return false;
 }
 
-bool Input::getGyrometerExists(void)
+bool Input::GetGyrometerExists(void)
 {
 	if (agk::GetGyrometerExists())
 		return true;
@@ -99,7 +75,7 @@ bool Input::getGyrometerExists(void)
 	return false;
 }
 	
-bool Input::getJoystickExists(void)
+bool Input::GetJoystickExists(void)
 {
 	if (agk::GetJoystickExists())
 		return true;
@@ -107,22 +83,7 @@ bool Input::getJoystickExists(void)
 	return false;
 }
 
-Point Input::getJoystickLocation(void)
-{
-	return Point(agk::GetJoystickX(), agk::GetJoystickY());
-}
-
-float Input::getJoystickX(void)
-{
-	return agk::GetJoystickX();
-}
-
-float Input::getJoystickY(void)
-{
-	return agk::GetJoystickY();
-}
-	
-bool Input::getKeyboardExists(void)
+bool Input::GetKeyboardExists(void)
 {
 	if (agk::GetKeyboardExists())
 		return true;
@@ -130,12 +91,7 @@ bool Input::getKeyboardExists(void)
 	return false;
 }
 
-unsigned int Input::getLastChar(void)
-{
-	return agk::GetLastChar();
-}
-	
-bool Input::getLightSensorExists(void)
+bool Input::GetLightSensorExists(void)
 {
 	if (agk::GetLightSensorExists())
 		return true;
@@ -143,7 +99,7 @@ bool Input::getLightSensorExists(void)
 	return false;
 }
 	
-bool Input::getMouseExists(void)
+bool Input::GetMouseExists(void)
 {
 	if (agk::GetMouseExists())
 		return true;
@@ -151,7 +107,7 @@ bool Input::getMouseExists(void)
 	return false;
 }
 	
-bool Input::getOrientationSensorExists(void)
+bool Input::GetOrientationSensorExists(void)
 {
 	if (agk::GetOrientationSensorExists())
 		return true;
@@ -159,97 +115,97 @@ bool Input::getOrientationSensorExists(void)
 	return false;
 }
 
-Point Input::getRawAccel(void)
+Point Input::GetRawAccel(void)
 {
 	return Point(agk::GetRawAccelX(), agk::GetRawAccelY(), agk::GetRawAccelZ());
 }
 
-float Input::getRawAccelX(void)
+float Input::GetRawAccelX(void)
 {
 	return agk::GetRawAccelX();
 }
 
-float Input::getRawAccelY(void)
+float Input::GetRawAccelY(void)
 {
 	return agk::GetRawAccelY();
 }
 
-float Input::getRawAccelZ(void)
+float Input::GetRawAccelZ(void)
 {
 	return agk::GetRawAccelZ();
 }
 
-float Input::getRawCompassNorth(bool isMagNorth)
+float Input::GetRawCompassNorth(bool isMagNorth)
 {
 	return agk::GetRawCompassNorth((int) isMagNorth);
 }
 
-Text Input::getRawGeoCity(void)
+Text Input::GetRawGeoCity(void)
 {
 	return Text(agk::GetRawGeoCity());
 }
 	
-float Input::getRawGeoLatitude(void)
+float Input::GetRawGeoLatitude(void)
 {
 	return agk::GetRawGeoLatitude();
 }
 	
-float Input::getRawGeoLongitude(void)
+float Input::GetRawGeoLongitude(void)
 {
 	return agk::GetRawGeoLongitude();
 }
 	
-Text Input::getRawGeoPostalCode(void)
+Text Input::GetRawGeoPostalCode(void)
 {
 	return Text(agk::GetRawGeoPostalCode());
 }
 	
-Text Input::getRawGeoState(void)
+Text Input::GetRawGeoState(void)
 {
 	return Text(agk::GetRawGeoState());
 }
 	
-Point Input::getRawGyroVelocity(void)
+Point Input::GetRawGyroVelocity(void)
 {
-	return Point(getRawGyroVelocityX(), getRawGyroVelocityY(), getRawGyroVelocityZ());
+	return Point(GetRawGyroVelocityX(), GetRawGyroVelocityY(), GetRawGyroVelocityZ());
 }
 
-float Input::getRawGyroVelocityX(void)
+float Input::GetRawGyroVelocityX(void)
 {
 	return agk::GetRawGyroVelocityX();
 }
 
-float Input::getRawGyroVelocityY(void)
+float Input::GetRawGyroVelocityY(void)
 {
 	return agk::GetRawGyroVelocityY();
 }
 
-float Input::getRawGyroVelocityZ(void)
+float Input::GetRawGyroVelocityZ(void)
 {
 	return agk::GetRawGyroVelocityZ();
 }
 
-Point Input::getRawInclinoPitchYawRoll(void)
+Point Input::GetRawInclinoPitchYawRoll(void)
 {
-	return Point(getRawInclinoPitch(), getRawInclinoYaw(), getRawInclinoRoll());
+	return Point(GetRawInclinoPitch(), GetRawInclinoYaw(), GetRawInclinoRoll());
 }
 
-float Input::getRawInclinoPitch(void)
+float Input::GetRawInclinoPitch(void)
 {
 	return agk::GetRawInclinoPitch();
 }
 
-float Input::getRawInclinoRoll(void)
+float Input::GetRawInclinoRoll(void)
 {
 	return agk::GetRawInclinoRoll();
 }
 
-float Input::getRawInclinoYaw(void)
+float Input::GetRawInclinoYaw(void)
 {
 	return agk::GetRawInclinoYaw();
 }
 
-bool Input::getRawKeyPressed(unsigned int key)
+bool Input::GetRawKeyPressed(unsigned int key)
 {
 	if (agk::GetRawKeyPressed(key))
 		return true;
@@ -257,7 +213,7 @@ bool Input::getRawKeyPressed(unsigned int key)
 	return false;
 }
 
-bool Input::getRawKeyReleased(unsigned int key)
+bool Input::GetRawKeyReleased(unsigned int key)
 {
 	if (agk::GetRawKeyReleased(key))
 		return true;
@@ -265,7 +221,7 @@ bool Input::getRawKeyReleased(unsigned int key)
 	return false;
 }
 
-bool Input::getRawKeyState(unsigned int key)
+bool Input::GetRawKeyState(unsigned int key)
 {
 	if (agk::GetRawKeyState(key))
 		return true;
@@ -273,12 +229,12 @@ bool Input::getRawKeyState(unsigned int key)
 	return false;
 }
 
-float Input::getRawLightLevel(void)
+float Input::GetRawLightLevel(void)
 {
 	return agk::GetRawLightLevel();
 }
 
-bool Input::getRawMouseLeftPressed(void)
+bool Input::GetRawMouseLeftPressed(void)
 {
 	if (agk::GetRawMouseLeftPressed())
 		return true;
@@ -286,7 +242,7 @@ bool Input::getRawMouseLeftPressed(void)
 	return false;
 }
 
-bool Input::getRawMouseLeftReleased(void)
+bool Input::GetRawMouseLeftReleased(void)
 {
 	if (agk::GetRawMouseLeftReleased())
 		return true;
@@ -294,7 +250,7 @@ bool Input::getRawMouseLeftReleased(void)
 	return false;
 }
 
-bool Input::getRawMouseLeftState(void)
+bool Input::GetRawMouseLeftState(void)
 {
 	if (agk::GetRawMouseLeftState())
 		return true;
@@ -302,7 +258,7 @@ bool Input::getRawMouseLeftState(void)
 	return false;
 }
 
-bool Input::getRawMouseRightPressed(void)
+bool Input::GetRawMouseRightPressed(void)
 {
 	if (agk::GetRawMouseRightPressed())
 		return true;
@@ -310,7 +266,7 @@ bool Input::getRawMouseRightPressed(void)
 	return false;
 }
 
-bool Input::getRawMouseRightReleased(void)
+bool Input::GetRawMouseRightReleased(void)
 {
 	if (agk::GetRawMouseRightReleased())
 		return true;
@@ -318,7 +274,7 @@ bool Input::getRawMouseRightReleased(void)
 	return false;
 }
 
-bool Input::getRawMouseRightState(void)
+bool Input::GetRawMouseRightState(void)
 {
 	if (agk::GetRawMouseRightState())
 		return true;
@@ -326,140 +282,52 @@ bool Input::getRawMouseRightState(void)
 	return false;
 }
 
-Point Input::getRawMouseLocation(void)
+Point Input::GetRawMouseLocation(void)
 {
-	return Point(getRawMouseLocationX(), getRawMouseLocationY());
+	return Point(GetRawMouseLocationX(), GetRawMouseLocationY());
 }
 
-float Input::getRawMouseLocationX(void)
+float Input::GetRawMouseLocationX(void)
 {
 	return agk::GetRawMouseX();
 }
 
-float Input::getRawMouseLocationY(void)
+float Input::GetRawMouseLocationY(void)
 {
 	return agk::GetRawMouseY();
 }
 
-float Input::getRawOrientationW(void)
+float Input::GetRawOrientationW(void)
 {
 	return agk::GetRawOrientationW();
 }
 
-float Input::getRawOrientationX(void)
+float Input::GetRawOrientationX(void)
 {
 	return agk::GetRawOrientationX();
 }
 
-float Input::getRawOrientationY(void)
+float Input::GetRawOrientationY(void)
 {
 	return agk::GetRawOrientationY();
 }
 
-float Input::getRawOrientationZ(void)
+float Input::GetRawOrientationZ(void)
 {
 	return agk::GetRawOrientationZ();
 }
 
-Text Input::getText(void)
+void Input::SetRawMousePosition(Point Location)
 {
-	return Text(agk::GetTextInput());
+	agk::SetRawMousePosition(Location.GetX(), Location.GetY());
 }
 
-bool Input::getTextCancelled(void)
-{
-	if (agk::GetTextInputCancelled())
-		return true;
-
-	return false;
-}
-
-bool Input::getTextCompleted(void)
-{
-	if (agk::GetTextInputCompleted())
-		return true;
-
-	return false;
-}
-
-TextInputState Input::getTextState(void)
-{
-	return (TextInputState) agk::GetTextInputState();
-}
-
-bool Input::getPointerPressed(void)
-{
-	if (agk::GetPointerPressed())
-		return true;
-
-	return false;
-}
-
-bool Input::getPointerReleased(void)
-{
-	if (agk::GetPointerReleased())
-		return true;
-
-	return false;
-}
-
-bool Input::getPointerState(void)
-{
-	if (agk::GetPointerState())
-		return true;
-
-	return false;
-}
-
-Point Input::getPointerLocation(void)
-{
-	return Point(getPointerX(), getPointerY());
-}
-
-float Input::getPointerX(void)
-{
-	return agk::GetPointerX();
-}
-
-float Input::getPointerY(void)
-{
-	return agk::GetPointerY();
-}
-
-void Input::setCursorBlinkTime(float value)
-{
-	agk::SetCursorBlinkTime(value);
-}
-
-void Input::setRawMousePosition(Point Location)
-{
-	agk::SetRawMousePosition(Location.getX(), Location.getY());
-}
-
-void Input::setRawMousePosition(float x, float y)
+void Input::SetRawMousePosition(float x, float y)
 {
 	agk::SetRawMousePosition(x, y);
 }
 
-void Input::setRawMouseVisible(bool isVisible)
+void Input::SetRawMouseVisible(bool isVisible)
 {
 	agk::SetRawMouseVisible((int) isVisible);
-}
-
-void Input::setTextMaxCharacters(unsigned int value)
-{
-	agk::SetTextInputMaxChars(value);
-}
-	
-void Input::startText(Text Initial)
-{
-	if (Initial != NULL)
-		agk::StartTextInput(Initial.getCString());
-	else
-		agk::StartTextInput();
-}
-
-void Input::stopText(void)
-{
-	agk::StopTextInput();
 }

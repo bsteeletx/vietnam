@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SOUND_H_
+#define _SOUND_H_
 
 #include "Text.h"
 
@@ -10,17 +11,30 @@ public:
 	Sound(unsigned int assignedNumber, Text Filename);
 	Sound(Text Filename);
 
-	bool getExists(void);
-	unsigned int getInstances(void);
+	void Delete();
 
-	void play(unsigned short volume = 100, bool loop = false);
+	////////////Properties
+	bool GetExists(void);
+	unsigned int GetInstances(void);
 	
-	void setSystemVolume(unsigned short volume);
-	void stop(void);
+	void Play(unsigned short volume = 100, bool loop = false);
+	
+	void SetSystemVolume(unsigned short volume);
+	void Stop(void);
+
+	////////////////Recording	Not Functional yet
+	/*
+	void IsRecording(); 
+
+	void Record(void); 
+	
+	void StopRecording(void); 
+	*/
 	
 	
 private:
-	unsigned int soundID;
+	unsigned int _soundID;
 
 	bool _Filename(Text Filename);
 };
+#endif

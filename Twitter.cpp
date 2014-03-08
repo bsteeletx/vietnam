@@ -1,12 +1,13 @@
 #include "Twitter.h"
+#include "AGKCore.h"
 #include "agk.h"
 
 Twitter::Twitter(Text Key, Text Secret)
 {
 	char twitterKey[128] = {NULL};
 	char twitterSecret[128] = {NULL};
-	strcpy(twitterKey, Key.getCString());
-	strcpy(twitterSecret, Secret.getCString());
+	strcpy(twitterKey, Key.GetCString());
+	strcpy(twitterSecret, Secret.GetCString());
 	agk::TwitterSetup(twitterKey, twitterSecret);
 }
 
@@ -15,13 +16,14 @@ Twitter::~Twitter(void)
 {
 }
 
-void Twitter::message(Text Message)
+void Twitter::Message(Text Message)
 {
 	char tweet[256] = {NULL};
+	AGKCore Conversion;
 	
-	if (Message.len() <= 140)
+	if (Conversion.Len(Message) <= 140)
 	{
-		strcpy(tweet, Message.getCString());
+		strcpy(tweet, Message.GetCString());
 		agk::TwitterMessage(tweet);
 	}
 }

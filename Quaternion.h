@@ -6,19 +6,19 @@ public:
 	~Quaternion(void);
 	Quaternion(float w, float x, float y, float z);
 
-	float getW(void);
-	float getX(void);
-	float getY(void);
-	float getZ(void);
+	float GetW(void);
+	float GetX(void);
+	float GetY(void);
+	float GetZ(void);
 
-	void resetAllTo(float w, float x, float y, float z);
+	void ResetAllTo(float w, float x, float y, float z);
 	
-	void setW(float value);
-	void setX(float value);
-	void setY(float value);
-	void setZ(float value);
+	void SetW(float value);
+	void SetX(float value);
+	void SetY(float value);
+	void SetZ(float value);
 
 private:
-	float wRot, xRot, yRot, zRot;
+	float _wRot, _xRot, _yRot, _zRot;
 };
 

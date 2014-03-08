@@ -8,15 +8,17 @@ class InAppPurchase
 public:
 	InAppPurchase(void);
 	~InAppPurchase(void);
-#if (OS == IOS)
-	void activate(unsigned int ID);
-	void addProductID(Text productID);
+#if (OS != WINDOWS)
+	void Activate(unsigned int ID);
+	void AddProductID(Text productID);
 
-	bool getAvailable(int ID);
-	bool getState(void);
+	bool GetAvailable(int ID);
+	bool GetState(void);
 
-	void setTitle(Text Title);
-	void setup(void);
+	void Restore(void); //TODO: Fill out
+
+	void SetTitle(Text Title);
+	void Setup(void);
 
 private:
 	unsigned int purchaseID;
