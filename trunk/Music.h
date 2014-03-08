@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MUSIC_H_
+#define _MUSIC_H_
 
 #include "Text.h"
 
@@ -10,20 +11,24 @@ public:
 	Music(unsigned short assignedID, Text Filename);
 	Music(Text Filename);
 
-	bool getExists(void);
-	bool getPlaying(void);
+	void Delete();
 
-	void pause(void);
-	void play(void);
+	bool GetExists(void);
+	bool GetPlaying(void);
+
+	void Pause(void);
+	void Play(void);
 	
-	void resume(void);
+	void Resume(void);
 
-	void setFileVolume(unsigned short volume);
-	void setSystemVolume(unsigned short volume);
-	void stop(void);
+	void SetFileVolume(unsigned short volume);
+	void SetSystemVolume(unsigned short volume);
+	void Stop(void);
 
 private:
-	unsigned short musicNumber;
+	unsigned short _musicNumber;
 
 	bool _Filename(Text Filename);
 };
+
+#endif

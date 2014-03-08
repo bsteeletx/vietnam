@@ -8,13 +8,13 @@ Vector::Vector(Point Begin, Point End)
 {
 	if (End == Point())
 	{//so you can only give one value if necessary
-		Finish = Begin;
-		Start = Point();
+		_Finish = Begin;
+		_Start = Point();
 	}
 	else
 	{
-		Start = Begin;
-		Finish = End;
+		_Start = Begin;
+		_Finish = End;
 	}
 }
 
@@ -24,17 +24,17 @@ Vector::~Vector(void)
 
 Vector& Vector::operator= (const Vector& newVector)
 {
-	Start = newVector.Start;
-	Finish = newVector.Finish;
+	_Start = newVector._Start;
+	_Finish = newVector._Finish;
 
 	return *this;
 }
 
 /*bool operator== (Vector& First, Vector& Second)
 {
-	if (First.Start == Second.Start)
+	if (First._Start == Second._Start)
 	{
-		if (First.Finish == Second.Finish)
+		if (First._Finish == Second._Finish)
 			return true;
 	}
 
@@ -49,88 +49,88 @@ bool operator!= (Vector& First, Vector& Second)
 	return true;
 }*/
 
-Point Vector::getDirection(void)
+Point Vector::GetDirection(void)
 {
-	return Point(getEndPointX() - getStartPointX(), getEndPointY() - getStartPointY(), getEndPointZ() - getStartPointZ());
+	return Point(GetEndPointX() - GetStartPointX(), GetEndPointY() - GetStartPointY(), GetEndPointZ() - GetStartPointZ());
 }
 
-Point Vector::getEndPoint(void)
+Point Vector::GetEndPoint(void)
 {
-	return Finish;
+	return _Finish;
 }
 
-float Vector::getEndPointX(void)
+float Vector::GetEndPointX(void)
 {
-	return Finish.getX();
+	return _Finish.GetX();
 }
 
-float Vector::getEndPointY(void)
+float Vector::GetEndPointY(void)
 {
-	return Finish.getY();
+	return _Finish.GetY();
 }
 
-float Vector::getEndPointZ(void)
+float Vector::GetEndPointZ(void)
 {
-	return Finish.getZ();
+	return _Finish.GetZ();
 }
 
-Point Vector::getStartPoint(void)
+Point Vector::GetStartPoint(void)
 {
-	return Start;
+	return _Start;
 }
 
-float Vector::getStartPointX(void)
+float Vector::GetStartPointX(void)
 {
-	return Start.getX();
+	return _Start.GetX();
 }
 
-float Vector::getStartPointY(void)
+float Vector::GetStartPointY(void)
 {
-	return Start.getY();
+	return _Start.GetY();
 }
 
-float Vector::getStartPointZ(void)
+float Vector::GetStartPointZ(void)
 {
-	return Start.getZ();
+	return _Start.GetZ();
 }
 
-Point Vector::getVelocity(void)
+Point Vector::GetVelocity(void)
 {
 	Point ReturnPoint = Point();
-	ReturnPoint.setX(getVelocityInX());
-	ReturnPoint.setY(getVelocityInY());
-	ReturnPoint.setZ(getVelocityInZ());
+	ReturnPoint.SetX(GetVelocityInX());
+	ReturnPoint.SetY(GetVelocityInY());
+	ReturnPoint.SetZ(GetVelocityInZ());
 
 	return ReturnPoint;
 }
 
-float Vector::getVelocityInX(void)
+float Vector::GetVelocityInX(void)
 {
-	return Finish.getX() - Start.getX();
+	return _Finish.GetX() - _Start.GetX();
 }
 
-float Vector::getVelocityInY(void)
+float Vector::GetVelocityInY(void)
 {
-	return Finish.getY() - Start.getY();
+	return _Finish.GetY() - _Start.GetY();
 }
 
-float Vector::getVelocityInZ(void)
+float Vector::GetVelocityInZ(void)
 {
-	return Finish.getZ() - Start.getZ();
+	return _Finish.GetZ() - _Start.GetZ();
 }
 
-void Vector::setStartPoint(Point Begin)
+void Vector::SetStartPoint(Point Begin)
 {
-	Start = Begin;
+	_Start = Begin;
 }
 
-void Vector::setFinishPoint(Point End)
+void Vector::SetFinishPoint(Point End)
 {
-	Finish = End;
+	_Finish = End;
 }
 
-void Vector::setVectorPoints(Point Begin, Point End)
+void Vector::SetVectorPoints(Point Begin, Point End)
 {
-	Start = Begin;
-	Finish = End;
+	_Start = Begin;
+	_Finish = End;
 }

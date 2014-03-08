@@ -3,7 +3,7 @@
 
 Video::Video(Text VideoFilename)
 {
-	error = agk::LoadVideo(VideoFilename.getCString());
+	_error = agk::LoadVideo(VideoFilename.GetCString());
 }
 
 
@@ -11,22 +11,27 @@ Video::~Video(void)
 {
 }
 
-float Video::getDuration(void)
+void Video::Delete()
+{
+	agk::DeleteVideo();
+}
+
+float Video::GetDuration(void)
 {
 	return agk::GetVideoDuration();
 }
 
-short Video::getError(void)
+short Video::GetError(void)
 {
-	return error;
+	return _error;
 }
 
-float Video::getHeight(void)
+float Video::GetHeight(void)
 {
 	return agk::GetVideoHeight();
 }
 
-bool Video::getPlaying(void)
+bool Video::GetPlaying(void)
 {
 	if(agk::GetVideoPlaying())
 		return true;
@@ -34,37 +39,37 @@ bool Video::getPlaying(void)
 	return false;
 }
 
-float Video::getPosition(void)
+float Video::GetPosition(void)
 {
 	return agk::GetVideoPosition();
 }
 
-float Video::getWidth(void)
+float Video::GetWidth(void)
 {
 	return agk::GetVideoWidth();
 }
 
-void Video::pause(void)
+void Video::Pause(void)
 {
 	agk::PauseVideo();
 }
 	
-void Video::play(void)
+void Video::Play(void)
 {
 	agk::PlayVideo();
 }
 
-void Video::setDimensions(Point Location, float width, float height)
+void Video::SetDimensions(Point Location, float width, float height)
 {
-	agk::SetVideoDimensions(Location.getX(), Location.getY(), width, height);
+	agk::SetVideoDimensions(Location.GetX(), Location.GetY(), width, height);
 }
 
-void Video::setVolume(float value)
+void Video::SetVolume(float value)
 {
 	agk::SetVideoVolume(value);
 }
 	
-void Video::stop(void)
+void Video::Stop(void)
 {
 	agk::StopVideo();
 }

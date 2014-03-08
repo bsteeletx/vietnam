@@ -1,15 +1,16 @@
 #include "Music.h"
+#include "AGKCore.h"
 #include "agk.h"
 
 Music::Music(void)
 {
-	musicNumber = 0;
+	_musicNumber = 0;
 }
 
 Music::~Music(void)
 {
-	//if(getExists())
-	//	agk::DeleteMusic(musicNumber);
+	//if(GetExists())
+	//	agk::DeleteMusic(_musicNumber);
 }
 
 Music::Music(unsigned short assignedID, Text Filename)
@@ -18,8 +19,8 @@ Music::Music(unsigned short assignedID, Text Filename)
 	{
 		if (assignedID <= 50)
 		{
-			agk::LoadMusic(assignedID, Filename.getCString());
-			musicNumber = assignedID;
+			agk::LoadMusic(assignedID, Filename.GetCString());
+			_musicNumber = assignedID;
 		}
 	}
 }
@@ -27,64 +28,70 @@ Music::Music(unsigned short assignedID, Text Filename)
 Music::Music(Text Filename)
 {
 	if (_Filename(Filename))
-		musicNumber = agk::LoadMusic(Filename.getCString());
+		_musicNumber = agk::LoadMusic(Filename.GetCString());
 }
 
-bool Music::getExists(void)
+void Music::Delete()
 {
-	if (agk::GetMusicExists(musicNumber) == 1)
+	agk::DeleteMusic(_musicNumber);
+}
+
+bool Music::GetExists(void)
+{
+	if (agk::GetMusicExists(_musicNumber) == 1)
 		return true;
 
 	return false;
 }
 
-bool Music::getPlaying(void)
+bool Music::GetPlaying(void)
 {
-	if (agk::GetMusicPlaying() == musicNumber)
+	if (agk::GetMusicPlaying() == _musicNumber)
 		return true;
 
 	return false;
 }
 
-void Music::pause(void)
+void Music::Pause(void)
 {
 	agk::PauseMusic();
 }
 
-void Music::play(void)
+void Music::Play(void)
 {
-	agk::PlayMusic(musicNumber);
+	agk::PlayMusic(_musicNumber);
 }
 
-void Music::resume(void)
+void Music::Resume(void)
 {
 	agk::ResumeMusic();
 }
 
-void Music::setFileVolume(unsigned short volume)
+void Music::SetFileVolume(unsigned short volume)
 {
 	if (volume <= 100)
-		agk::SetMusicFileVolume(musicNumber, volume);
+		agk::SetMusicFileVolume(_musicNumber, volume);
 }
 
-void Music::setSystemVolume(unsigned short volume)
+void Music::SetSystemVolume(unsigned short volume)
 {
 	if (volume <= 100)
 		agk::SetMusicSystemVolume(volume);
 }
 
-void Music::stop(void)
+void Music::Stop(void)
 {
 	agk::StopMusic();
 }
 
 bool Music::_Filename(Text Filename)
 {
-	Text Extension = Filename.right(4);
-	short lengthOfString = Filename.getLength() - 1;
+	AGKCore Conversion;
+	Text Extension = Conversion.Right(Filename, 4);
+	short lengthOfString = Filename.GetLength() - 1;
 
 	//for (int i = 3; i > 0; i--)
-		//tempFilename[i] = Filename.getChar(lengthOfString - 1);
+		//tempFilename[i] = Filename.GetChar(lengthOfString - 1);
 	
 	if (Extension == Text(".wav"))
 		return true;

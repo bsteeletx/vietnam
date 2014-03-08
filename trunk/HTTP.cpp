@@ -3,102 +3,102 @@
 
 HTTP::HTTP()
 {
-	httpID = createConnection();
+	_httpID = _CreateConnection();
 }
 
 HTTP::~HTTP()
 {
-	deleteConnection();
+	//deleteConnection();
 }
 
-void HTTP::close()
+void HTTP::CloseConnection()
 {
-	agk::CloseHTTPConnection(httpID);
+	agk::CloseHTTPConnection(_httpID);
 }
 
-int HTTP::getFile(Text CompleteURLPath, Text LocalStorage, Text PostData)
+void HTTP::DeleteConnection()
 {
-	return agk::GetHTTPFile(httpID, CompleteURLPath.getCString(), LocalStorage.getCString(), PostData.getCString());
+	agk::DeleteHTTPConnection(_httpID);
 }
 
-int HTTP::getFile(Text CompleteURLPath, Text LocalStorage)
+int HTTP::GetFile(Text CompleteURLPath, Text LocalStorage, Text PostData)
 {
-	return agk::GetHTTPFile(httpID, CompleteURLPath.getCString(), LocalStorage.getCString());
+	return agk::GetHTTPFile(_httpID, CompleteURLPath.GetCString(), LocalStorage.GetCString(), PostData.GetCString());
 }
 
-bool HTTP::getFileComplete()
+int HTTP::GetFile(Text CompleteURLPath, Text LocalStorage)
 {
-	if (agk::GetHTTPFileComplete(httpID) == 1)
+	return agk::GetHTTPFile(_httpID, CompleteURLPath.GetCString(), LocalStorage.GetCString());
+}
+
+bool HTTP::GetFileComplete()
+{
+	if (agk::GetHTTPFileComplete(_httpID) == 1)
 		return true;
 
 	return false;
 }
 
-float HTTP::getFileProgress()
+float HTTP::GetFileProgress()
 {
-	return agk::GetHTTPFileProgress(httpID);
+	return agk::GetHTTPFileProgress(_httpID);
 }
 
-Text HTTP::getResponse()
+Text HTTP::GetResponse()
 {
-	return Text(agk::GetHTTPResponse(httpID));
+	return Text(agk::GetHTTPResponse(_httpID));
 }
 
-bool HTTP::getResponseReady()
+bool HTTP::GetResponseReady()
 {
-	if (agk::GetHTTPResponseReady(httpID) == 1)
+	if (agk::GetHTTPResponseReady(_httpID) == 1)
 		return true;
 
 	return false;
 }
 
-int HTTP::sendFile(Text Page, Text PostData, Text LocalFile)
+int HTTP::SendFile(Text Page, Text PostData, Text LocalFile)
 {
-	return agk::SendHTTPFile(httpID, Page.getCString(), PostData.getCString(), LocalFile.getCString());
+	return agk::SendHTTPFile(_httpID, Page.GetCString(), PostData.GetCString(), LocalFile.GetCString());
 }
 
-Text HTTP::sendRequest(Text Page)
+Text HTTP::SendRequest(Text Page)
 {
-	return Text(agk::SendHTTPRequest(httpID, Page.getCString()));
+	return Text(agk::SendHTTPRequest(_httpID, Page.GetCString()));
 }
 
-Text HTTP::sendRequest(Text Page, Text PostData)
+Text HTTP::SendRequest(Text Page, Text PostData)
 {
-	return Text(agk::SendHTTPRequest(httpID, Page.getCString(), PostData.getCString()));
+	return Text(agk::SendHTTPRequest(_httpID, Page.GetCString(), PostData.GetCString()));
 }
 
-int HTTP::sendRequestASync(Text Page, Text PostData)
+int HTTP::SendRequestASync(Text Page, Text PostData)
 {
-	return agk::SendHTTPRequestASync(httpID, Page.getCString(), PostData.getCString());
+	return agk::SendHTTPRequestASync(_httpID, Page.GetCString(), PostData.GetCString());
 }
 
-int HTTP::sendRequestASync(Text Page)
+int HTTP::SendRequestASync(Text Page)
 {
-	return agk::SendHTTPRequestASync(httpID, Page.getCString());
+	return agk::SendHTTPRequestASync(_httpID, Page.GetCString());
 }
 
-int HTTP::setHost(Text Host, bool isSecure)
-{
-	if (isSecure)
-		return agk::SetHTTPHost(httpID, Host.getCString(), 1);
-
-	return agk::SetHTTPHost(httpID, Host.getCString(), 0);
-}
-
-int HTTP::setHost(Text Host, bool isSecure, Text Username, Text Password)
+int HTTP::SetHost(Text Host, bool isSecure)
 {
 	if (isSecure)
-		return agk::SetHTTPHost(httpID, Host.getCString(), 1, Username.getCString(), Password.getCString());
+		return agk::SetHTTPHost(_httpID, Host.GetCString(), 1);
 
-	return agk::SetHTTPHost(httpID, Host.getCString(), 0, Username.getCString(), Password.getCString());
+	return agk::SetHTTPHost(_httpID, Host.GetCString(), 0);
 }
 
-unsigned int HTTP::createConnection()
+int HTTP::SetHost(Text Host, bool isSecure, Text Username, Text Password)
+{
+	if (isSecure)
+		return agk::SetHTTPHost(_httpID, Host.GetCString(), 1, Username.GetCString(), Password.GetCString());
+
+	return agk::SetHTTPHost(_httpID, Host.GetCString(), 0, Username.GetCString(), Password.GetCString());
+}
+
+unsigned int HTTP::_CreateConnection()
 {
 	return agk::CreateHTTPConnection();
-}
-
-void HTTP::deleteConnection()
-{
-	agk::DeleteHTTPConnection(httpID);
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 //#include "Vector.h"
+#include "../Defines.h"
 
 class Point
 {
@@ -13,43 +14,43 @@ public:
 	friend Point operator+ (const Point &Point1, const Point &Point2);
 	friend Point operator- (const Point &Point1, const Point &Point2);
 
-	Point addPoint(Point Additive);
+	Point AddPoint(Point Additive);
 	
-	void floor(void);
+	void Floor(void);
 
-	Point get3DFromScreen(void);
-	float get3DXFromScreen(void);
-	float get3DYFromScreen(void);
-	float get3DZFromScreen(void);
-	float getMaxValue(void);
-	float getMinValue(void);
-	float getX(void);
-	float getY(void);
-	float getZ(void);
-	Point getGridCoords(void);
-	Point getNormalCoords(void);
-	Point getScreenFrom3D(void);
-	float getScreenXFrom3D(void);
-	float getScreenYFrom3D(void);
+	float GetMaxValue(void);
+	float GetMinValue(void);
+	float GetX(void);
+	float GetY(void);
+	float GetZ(void);
+#if GRIDGAME == 1
+	Point GetGridCoords(void);
+	Point GetNormalCoords(void);
+#endif
+	Point GetScreenFrom3D(void);
+	float GetScreenXFrom3D(void);
+	float GetScreenYFrom3D(void);
 
-	void setCoordsAsGridCoords(void);
-	void setCoords(float loc_x, float loc_y, float loc_z = 0.0f);
-	void setMaxValue(float value);
-	void setMinValue(float value);
-	void setX(float loc_x);
-	void setY(float loc_y);
-	void setZ(float loc_z);
+#if GRIDGAME == 1
+	void SetCoordsAsGridCoords(void);
+#endif
+	void SetCoords(float loc_x, float loc_y, float loc_z = 0.0f);
+	void SetMaxValue(float value);
+	void SetMinValue(float value);
+	void SetX(float loc_x);
+	void SetY(float loc_y);
+	void SetZ(float loc_z);
 
 
 protected:
-	float x;
-	float y;
-	float z;
+	float _x;
+	float _y;
+	float _z;
 
 private:
-	float maxValue;
-	float minValue;
+	float _maxValue;
+	float _minValue;
 
-	float containCoord(float coord);
-	void containCoords(float coords[]);
+	float _ContainCoord(float coord);
+	void _ContainCoords(float coords[]);
 };

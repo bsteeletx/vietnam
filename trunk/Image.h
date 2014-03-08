@@ -1,14 +1,15 @@
-#pragma once
+#ifndef _IMAGE_H_
+#define _IMAGE_H_
 
 #include "Memblock.h"
 #include "Point.h"
 #include "Text.h"
-#include "File.h"
+#include "FileRead.h"
 #include <vector>
 
 class Text;
-class File;
 class Memblock;
+class Read;
 
 class Image
 {
@@ -24,58 +25,58 @@ public:
 	Image (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false);
 	Image (Text SubImageFilename, unsigned int parentImage);
 	Image (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename);
-	Image (File FileToInit, Text PathToParent);
+	Image (Read FileToInit, Text PathToParent);
 	Image (Memblock Generator);
 	
 	//operators
 	Image& operator= (const Image& newImage);
 	
-	//methods
-	unsigned int copy(Point Begin, Point End); 
+	//////////////////////General
+	unsigned int Copy(Point Begin, Point End); 
 
-	Text decodeQRCode(void);
-	void deleteAll(void);
-
-	unsigned int encodeQRCode(Text CodedMessage);
-
-	unsigned int getCaptured(void);
-	unsigned int getChosen(void);
-	bool getExists(void);
-	Text getFilename(void);
-	float getHeight(void);
-	unsigned int getID(void);
-	float getWidth(void);
-
-	bool isCapturing(void);
-	bool isChoosing(void);
-
-	void print(float percentSize); 
-
-	void save(Text savedFilename); 
-	void setAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offsetXDest, int offsetYDest); 
-	void setAsQRCode(void);
-	void setMagFilter(bool linear);
-	void setMinFilter(bool linear);
-	void setWrapU(bool repeat);
-	void setWrapV(bool repeat);
-	void showCaptureScreen(void);
-	void showChooseScreen(void);
+	void Delete();
 	
-private:
-	void load(Text Filename, bool blackIsAlpha = false);
-	void load(unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false);
-	void loadSub(unsigned int parentImage, Text SubImageFilename);
-	void loadSub(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename);
+	void Get(); //TODO: Fill out
+	bool GetExists(void);
+	Text GetFilename(void);
+	float GetHeight(void);
+	unsigned int GetID(void);
+	float GetWidth(void);
 
-	bool _Filename(Text filename);
+	void Print(float percentSize); 
+
+	void Save(Text savedFilename); 
+	void SetAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offsetXDest, int offsetYDest); 
+	void SetMagFilter(bool linear);
+	void SetMask(void); //TODO: Fill out
+	void SetMinFilter(bool linear);
+	void SetSavePixels(void); //TODO: Fill out
+	void SetTransparentColor(void); //TODO: Fill out
+	void SetWrapU(bool repeat);
+	void SetWrapV(bool repeat);
+
+	/////////////////////QR
+	Text DecodeQR(); 
+
+	void EncodeQR(); //TODO: Fill out
+		
+private:
 	bool _ImageNumber(unsigned int number);
+	
+	void _Load(Text Filename, bool blackIsAlpha = false);
+	void _Load(unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false);
+	void _LoadSub(unsigned int parentImage, Text SubImageFilename);
+	void _LoadSub(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename);
+
 	//bool _ParentNumber(unsigned int number);
-	static std::vector<Text> ParentImages;
-	static std::vector<Text> NonParentFileNames;
-	static std::vector<unsigned int> parentImageNumbers;
-	static std::vector<unsigned int> nonParentImageNumbers;
+	static std::vector<Text> _ParentImages;
+	static std::vector<Text> _NonParentFileNames;
+	static std::vector<unsigned int> _parentImageNumbers;
+	static std::vector<unsigned int> _nonParentImageNumbers;
 
 protected:
 	bool _ColorChannel(short value);
-	unsigned int imageNumber;
+	bool _Filename(Text filename);
+	unsigned int _imageNumber;
 };
+#endif

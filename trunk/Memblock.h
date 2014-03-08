@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _MEMBLOCK_H_
+#define _MEMBLOCK_H_
 
 #include "Image.h"
 
@@ -12,20 +13,23 @@ public:
 	Memblock(Image Generator);
 	Memblock(unsigned int size);
 	
-	int getByte(unsigned int offset);
-	bool getExists(void);
-	float getFloat(unsigned int offset);
-	unsigned int getID(void);
-	int getInt(unsigned int offset);
-	short getShort(unsigned int offset);
-	unsigned int getSize(void);
+	void Delete();
 
-	void setByte(unsigned int offset, int value);
-	void setFloat(unsigned int offset, float value);
-	void setInt(unsigned int offset, int value);
-	void setShort(unsigned int offset, short value);
+	int GetByte(unsigned int offset);
+	bool GetExists(void);
+	float GetFloat(unsigned int offset);
+	unsigned int GetID(void);
+	int GetInt(unsigned int offset);
+	short GetShort(unsigned int offset);
+	unsigned int GetSize(void);
+
+	void SetByte(unsigned int offset, int value);
+	void SetFloat(unsigned int offset, float value);
+	void SetInt(unsigned int offset, int value);
+	void SetShort(unsigned int offset, short value);
 
 private:
-	unsigned int memBlockID;
+	unsigned int _memBlockID;
 };
 
+#endif

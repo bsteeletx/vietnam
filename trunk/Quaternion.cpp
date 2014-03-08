@@ -3,7 +3,7 @@
 
 Quaternion::Quaternion(void)
 {
-	wRot = xRot = yRot = zRot = 0.0f;
+	_wRot = _xRot = _yRot = _zRot = 0.0f;
 }
 
 
@@ -13,56 +13,56 @@ Quaternion::~Quaternion(void)
 
 Quaternion::Quaternion(float w, float x, float y, float z)
 {
-	wRot = w;
-	xRot = x;
-	yRot = y;
-	zRot = z;
+	_wRot = w;
+	_xRot = x;
+	_yRot = y;
+	_zRot = z;
 }
 
-float Quaternion::getW(void)
+float Quaternion::GetW(void)
 {
-	return wRot;
+	return _wRot;
 }
 
-float Quaternion::getX(void)
+float Quaternion::GetX(void)
 {
-	return xRot;
+	return _xRot;
 }
 
-float Quaternion::getY(void)
+float Quaternion::GetY(void)
 {
-	return yRot;
+	return _yRot;
 }
 
-float Quaternion::getZ(void)
+float Quaternion::GetZ(void)
 {
-	return zRot;
+	return _zRot;
 }
 
-void Quaternion::resetAllTo(float w, float x, float y, float z)
+void Quaternion::ResetAllTo(float w, float x, float y, float z)
 {
-	wRot = w;
-	xRot = x;
-	yRot = y;
-	zRot = z;
+	_wRot = w;
+	_xRot = x;
+	_yRot = y;
+	_zRot = z;
 }
 	
-void Quaternion::setW(float value)
+void Quaternion::SetW(float value)
 {
-	wRot = value;
+	_wRot = value;
 }
 
-void Quaternion::setX(float value)
+void Quaternion::SetX(float value)
 {
-	xRot = value;
+	_xRot = value;
 }
 
-void Quaternion::setY(float value)
+void Quaternion::SetY(float value)
 {
-	yRot = value;
+	_yRot = value;
 }
 
-void Quaternion::setZ(float value)
+void Quaternion::SetZ(float value)
 {
-	zRot = value;
+	_zRot = value;
 }

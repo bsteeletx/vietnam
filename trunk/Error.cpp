@@ -10,12 +10,12 @@ Error::~Error(void)
 {
 }
 
-Text Error::getLast(void)
+Text Error::GetLast(void)
 {
 	return Text(agk::GetLastError());
 }
 
-bool Error::getOccurred(void)
+bool Error::GetOccurred(void)
 {
 	if (agk::GetErrorOccurred() == 1)
 		return true;
@@ -23,17 +23,17 @@ bool Error::getOccurred(void)
 	return false;
 }
 
-void Error::log(Text Error)
+void Error::Log(Text Error)
 {
 	char logMessage[64];
 
-	if (Error.getLength() < 64)
-		strcpy(logMessage, Error.getCString());
+	if (Error.GetLength() < 64)
+		strcpy(logMessage, Error.GetCString());
 
 	agk::Log(logMessage);
 }
 
-void Error::setMode(unsigned short mode)
+void Error::SetMode(unsigned short mode)
 {
 	agk::SetErrorMode(mode);
 }

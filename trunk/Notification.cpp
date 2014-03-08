@@ -13,35 +13,40 @@ Notification::~Notification(void)
 #if (OS == IOS)
 Notification::Notification(Text DateTime, Text Message, Text Data)
 {
-	agk::NotificationCreate(DateTime.getCString(), Message.getCString(), Data.getCString());
+	agk::_Create(DateTime, Message, Data);
 }
-bool Notification::get(void)
+bool Notification::Get(void)
 {
 	return (bool) agk::GetNotification();
 }
 	
-Text Notification::getData(void)
+Text Notification::GetData(void)
 {
 	return Text(agk::GetNotificationData());
 }
 
-int Notification::getType(void)
+int Notification::GetType(void)
 {
 	return agk::GetNotificaitonType();
 }
 
-void Notification::reset(void)
+void Notification::Reset(void)
 {
 	agk::NotificationReset();
 }
 
-void Notification::setImage(Image Object)
+void Notification::SetImage(Image Object)
 {
-	agk::SetNotificationImage(Object.getID());
+	agk::SetNotificationImage(Object.GetID());
 }
 
-void Notification::setText(Text Object)
+void Notification::SetText(Text Object)
 {
-	agk::SetNotificaitonText(Object.getCString());
+	agk::SetNotificaitonText(Object.GetCString());
+}
+
+void Notification::_Create(Text DateTime, Text Message, Text Data)
+{
+	agk::NotificationCreate(DateTime.getCString(), Message.getCString(), Data.getCString());
 }
 #endif

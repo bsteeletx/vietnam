@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _TEXT_H_
+#define _TEXT_H_
 
-#include "Point.h"
-#include "RGBA.h"
-#include "Image.h"
+//#include "Point.h"
+#include "Color.h"
+//#include "Image.h"
 #include <string>
 
 class Image;
@@ -22,94 +23,83 @@ public:
 	bool operator== (Text otherText);
 	bool operator!= (const Text otherText);
 
-	unsigned int countTokens(char delimeter);
+	void Delete();
+		
+	void FixToScreen(bool toScreen);
+	int FoundNeedle(const char needle);
 
-	void deleteAll(void);
-	
-	void fixToScreen(bool toScreen);
-	int foundNeedle(const char needle);
+	char GetChar(unsigned int index);
+	float GetCharAngle(unsigned int index);
+	float GetCharAngleInRad(unsigned int index);
+	unsigned short GetCharColorAlpha(unsigned int index);
+	unsigned short GetCharColorBlue(unsigned int index);
+	unsigned short GetCharColorGreen(unsigned int index);
+	unsigned short GetCharColorRed(unsigned int index);
+	float GetCharX(unsigned int index);
+	float GetCharY(unsigned int index);
+	unsigned short GetColorAlpha(void);
+	unsigned short GetColorBlue(void);
+	unsigned short GetColorGreen(void);
+	unsigned short GetColorRed(void);
+	const char *GetCString(void);
+	unsigned int GetDepth(void);
+	short GetDelimiterIndex(char separator);
+	bool GetExists(void);
+	bool GetHitTest(Point Location);
+	unsigned int GetID(void);
+	unsigned int GetLength(void);
+	float GetLineSpacing(void);
+	unsigned int GetNextID(void);
+	float GetSize(void);
+	float GetSpacing(void);
+	std::string GetString(void);
+	float GetTotalHeight(void);
+	float GetTotalWidth(void);
+	bool GetVisible(void);
+	float GetX();
+	float GetY();
 
-	char getChar(unsigned int index);
-	float getCharAngle(unsigned int index);
-	float getCharAngleInRad(unsigned int index);
-	unsigned short getCharColorAlpha(unsigned int index);
-	unsigned short getCharColorBlue(unsigned int index);
-	unsigned short getCharColorGreen(unsigned int index);
-	unsigned short getCharColorRed(unsigned int index);
-	float getCharX(unsigned int index);
-	float getCharY(unsigned int index);
-	unsigned short getColorAlpha(void);
-	unsigned short getColorBlue(void);
-	unsigned short getColorGreen(void);
-	unsigned short getColorRed(void);
-	const char *getCString(void);
-	unsigned int getDepth(void);
-	short getDelimiterIndex(char separator);
-	bool getExists(void);
-	bool getHitTest(Point Location);
-	unsigned int getID(void);
-	unsigned int getLength(void);
-	float getLineSpacing(void);
-	unsigned int getNextID(void);
-	float getSize(void);
-	float getSpacing(void);
-	std::string getString(void);
-	Text getToken(char delimeter, unsigned int token);
-	float getTotalHeight(void);
-	float getTotalWidth(void);
-	bool getVisible(void);
-	float getX();
-	float getY();
+	void Print(bool newLineAtEnd = true);
+	void PrintC(); //TODO: Fill out
 
-	Text left(unsigned int count);
-	unsigned int len(void);
-	Text lower(void);
-
-	Text mid(unsigned int position, int length);
-
-	void print(bool newLineAtEnd = true);
-
-	Text right(unsigned int count);
-	
-	void setAlignment(unsigned short mode);
-	void setCharAngle(unsigned int index, float angle);
-	void setCharAngleInRad(unsigned int index, float angle);
-	void setCharColor(unsigned int index, RGBA Value);
-	void setCharColorAlpha(unsigned int index, unsigned short alpha);
-	void setCharColorBlue(unsigned int index, unsigned short blue);
-	void setCharColorGreen(unsigned int index, unsigned short green);
-	void setCharColorRed(unsigned int index, unsigned short red);
-	void setCharPosition(unsigned int index, Point Location);
-	void setCharX(unsigned int index, float x);
-	void setCharY(unsigned int index, float y);
-	void setColor(RGBA value);
-	void setColorAlpha(unsigned short alpha);
-	void setColorBlue(unsigned short blue);
-	void setColorGreen(unsigned short green);
-	void setColorRed(unsigned short red);
-	void setDefaultExtendedFontImage(Image Object);
-	void setDefaultMagFilter(bool linear);
-	void setDefaultMinFilter(bool linear);
-	void setDepth(unsigned int depth);
-	void setExtendedFontImage(Image Object);
-	void setFontImage(Image Object);
-	void setLineSpacing(float spacing);
-	void setMaxWidth(float width);
-	void setPosition(Point Location);
-	void setPrintColor(RGBA Value);
-	void setPrintSize(float size);
-	void setPrintSpacing(float space);
-	void setScissor(Point TopLeft, Point BottomRight);
-	void setSize(float size);
-	void setSpacing(float spacing);
-	void setString(const char* string);
-	void setString(std::string string);
-	void setVisible(bool visible);
-	void setX(float x);
-	void setY(float y);
-	bool splitAtDelimeter(Text *Part1, Text *Part2, char delimeter);
-
-	Text upper(void);
+	void SetAlignment(unsigned short mode);
+	void SetCharAngle(unsigned int index, float angle);
+	void SetCharAngleInRad(unsigned int index, float angle);
+	void SetCharColor(unsigned int index, Color CharColor);
+	void SetCharColorAlpha(unsigned int index, unsigned short alpha);
+	void SetCharColorBlue(unsigned int index, unsigned short blue);
+	void SetCharColorGreen(unsigned int index, unsigned short green);
+	void SetCharColorRed(unsigned int index, unsigned short red);
+	void SetCharPosition(unsigned int index, Point Location);
+	void SetCharX(unsigned int index, float x);
+	void SetCharY(unsigned int index, float y);
+	void SetColor(Color TextColor);
+	void SetColorAlpha(unsigned short alpha);
+	void SetColorBlue(unsigned short blue);
+	void SetColorGreen(unsigned short green);
+	void SetColorRed(unsigned short red);
+	void SetDefaultExtendedFontImage(Image Object);
+	void SetDefaultFontImage(); //TODO: Fill out
+	void SetDefaultMagFilter(bool linear);
+	void SetDefaultMinFilter(bool linear);
+	void SetDepth(unsigned int depth);
+	void SetExtendedFontImage(Image Object);
+	void SetFontImage(Image Object);
+	void SetLineSpacing(float spacing);
+	void SetMaxWidth(float width);
+	void SetPosition(Point Location);
+	void SetPrintColor(Color PrintColor);
+	void SetPrintSize(float size);
+	void SetPrintSpacing(float space);
+	void SetScissor(Point TopLeft, Point BottomRight);
+	void SetSize(float size);
+	void SetSpacing(float spacing);
+	void SetString(const char* string);
+	void SetString(std::string string);
+	void SetVisible(bool visible);
+	void SetX(float x);
+	void SetY(float y);
+	bool SplitAtDelimeter(Text *Part1, Text *Part2, char delimeter);
 
 	enum Alignment
 	{
@@ -119,13 +109,14 @@ public:
 	};
 
 protected:
-	bool canBeSeen;
-	unsigned int textNumber;
-	std::string storedString;
+	bool _canBeSeen;
+	unsigned int _textNumber;
+	std::string _storedString;
 	
 	bool _Alignment(unsigned short mode);
-	bool _Color(unsigned short value);
+	bool _ColorCheck(unsigned short value);
 	bool _Depth(unsigned int value);
 	bool _Index(unsigned int value);
 	bool _NotNegativeFloat(float value);
 };
+#endif

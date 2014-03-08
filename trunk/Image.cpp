@@ -2,37 +2,37 @@
 #include "agk.h"
 #include "Text.h"
 
-std::vector<Text> Image::ParentImages;
-std::vector<unsigned int> Image::parentImageNumbers;
-std::vector<Text> Image::NonParentFileNames;
-std::vector<unsigned int> Image::nonParentImageNumbers;
+std::vector<Text> Image::_ParentImages;
+std::vector<unsigned int> Image::_parentImageNumbers;
+std::vector<Text> Image::_NonParentFileNames;
+std::vector<unsigned int> Image::_nonParentImageNumbers;
 
 Image::~Image(void)
 {
-	//if (getExists())
-		//agk::DeleteImage(imageNumber);
+	//if (GetExists())
+		//agk::DeleteImage(_imageNumber);
 }
 
 Image::Image()
 {
-	imageNumber = 0;
+	_imageNumber = 0;
 }
 
 Image::Image(unsigned int copyImageNumber)
 {
-	imageNumber = agk::LoadImage(agk::GetImageFilename(copyImageNumber));
+	_imageNumber = agk::LoadImage(agk::GetImageFilename(copyImageNumber));
 }
 
 Image::Image(unsigned int assignedImageNumber, Text Filename)
 {
-	if (agk::GetFileExists(Filename.getCString()))
-		agk::LoadImage(assignedImageNumber, Filename.getCString());
+	if (agk::GetFileExists(Filename.GetCString()))
+		agk::LoadImage(assignedImageNumber, Filename.GetCString());
 }
 
 Image::Image(Text filename, bool blackIsAlpha)
 {
 	if (_Filename(filename))
-		load(filename, blackIsAlpha);
+		_Load(filename, blackIsAlpha);
 }
 
 Image::Image(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
@@ -40,52 +40,52 @@ Image::Image(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
 	if (_ImageNumber(assignedImageNumber))
 	{
 		if (_Filename(filename))
-			load(assignedImageNumber, filename, blackIsAlpha);
+			_Load(assignedImageNumber, filename, blackIsAlpha);
 	}
 }
 
 Image::Image(Text subImageFilename, unsigned int parentImage)
 {
 	if (_Filename(subImageFilename))
-		loadSub(parentImage, subImageFilename);
+		_LoadSub(parentImage, subImageFilename);
 }
 
 Image::Image(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
 {
 	if (_Filename(subImageFilename))
-		loadSub(parentImage, subImageFilename);
+		_LoadSub(parentImage, subImageFilename);
 }
 
 Image& Image::operator= (const Image& newImage)
 {
-	imageNumber = newImage.imageNumber;
+	_imageNumber = newImage._imageNumber;
 
 	return *this;
 }
 
 Image::Image(Point Begin, Point End)
 {
-	imageNumber = agk::CopyImage(imageNumber, (int) Begin.getX(), (int) Begin.getY(), (int) End.getX(), (int) End.getY());
+	_imageNumber = agk::CopyImage(_imageNumber, (int) Begin.GetX(), (int) Begin.GetY(), (int) End.GetX(), (int) End.GetY());
 }
 
 Image::Image(Text codedText)
 {
-	imageNumber = agk::EncodeQRCode(codedText.getCString(), 2); 
+	_imageNumber = agk::EncodeQRCode(codedText.GetCString(), 2); 
 }
 
-Image::Image(File FileToInit, Text PathToParent)
+Image::Image(Read FileToInit, Text PathToParent)
 {
 	Text ParentImage = PathToParent;
 	Text Filename("");
 	bool alreadyLoaded = false;
 
-	while(!FileToInit.FileEOF())
+	while(!FileToInit.IsEOF())
 	{
-		Text Line = FileToInit.getLine();
+		Text Line = FileToInit.Line();
 		Text Start;
 		Text End;
 
-		Line.splitAtDelimeter(&Start, &End, ':');
+		Line.SplitAtDelimeter(&Start, &End, ':');
 
 		if (Start == Text("PathFile"))
 			Filename = End;
@@ -97,31 +97,31 @@ Image::Image(File FileToInit, Text PathToParent)
 	//no parent image, bad doggy! no treat for you!
 	if (ParentImage == Text(""))
 	{
-		for (unsigned int i = 0; i < NonParentFileNames.size(); i++)
+		for (unsigned int i = 0; i < _NonParentFileNames.size(); i++)
 		{
-			if (NonParentFileNames[i] == Filename)
+			if (_NonParentFileNames[i] == Filename)
 			{
-				imageNumber = nonParentImageNumbers[i];
+				_imageNumber = _nonParentImageNumbers[i];
 				return;
 			}
 		}
 		
-		imageNumber = agk::LoadImage(Filename.getCString());
-		nonParentImageNumbers.push_back(imageNumber);
-		NonParentFileNames.push_back(Filename);
+		_imageNumber = agk::LoadImage(Filename.GetCString());
+		_nonParentImageNumbers.push_back(_imageNumber);
+		_NonParentFileNames.push_back(Filename);
 	}
 	else
 	{
 		//check to see if we've already loaded the parent image in memory
-		for (unsigned int i = 0; i < ParentImages.size(); i++)
+		for (unsigned int i = 0; i < _ParentImages.size(); i++)
 		{
 			//checking each individual element
-			if (ParentImages[i] == ParentImage)
+			if (_ParentImages[i] == ParentImage)
 			{
-				imageNumber = agk::LoadSubImage(parentImageNumbers[i], Filename.getCString());
+				_imageNumber = agk::LoadSubImage(_parentImageNumbers[i], Filename.GetCString());
 				alreadyLoaded = true;
-				nonParentImageNumbers.push_back(imageNumber);
-				NonParentFileNames.push_back(Filename);
+				_nonParentImageNumbers.push_back(_imageNumber);
+				_NonParentFileNames.push_back(Filename);
 				break; //found it, so break out of for
 			}
 
@@ -130,130 +130,135 @@ Image::Image(File FileToInit, Text PathToParent)
 		if (!alreadyLoaded)
 		{
 			//load the parental image into the static variables
-			ParentImages.push_back(ParentImage);
-			parentImageNumbers.push_back(agk::LoadImage(ParentImage.getCString()));
+			_ParentImages.push_back(ParentImage);
+			_parentImageNumbers.push_back(agk::LoadImage(ParentImage.GetCString()));
 			//then load the subimage
-			imageNumber = agk::LoadSubImage(parentImageNumbers.back(), Filename.getCString());
-			nonParentImageNumbers.push_back(imageNumber);
-			NonParentFileNames.push_back(Filename);
+			_imageNumber = agk::LoadSubImage(_parentImageNumbers.back(), Filename.GetCString());
+			_nonParentImageNumbers.push_back(_imageNumber);
+			_NonParentFileNames.push_back(Filename);
 		}
 	}
-	FileToInit.close();
+	FileToInit.Close();
 }
 
 Image::Image(Memblock Generator)
 {
-	agk::CreateImageFromMemblock(Generator.getID());
+	agk::CreateImageFromMemblock(Generator.GetID());
 }
 
-Text Image::decodeQRCode(void)
+Text Image::DecodeQR(void)
 {
-	return agk::DecodeQRCode(imageNumber);
+	return agk::DecodeQRCode(_imageNumber);
 }
 
-bool Image::getExists(void)
+void Image::Delete()
 {
-	if (agk::GetImageExists(imageNumber))
+	agk::DeleteImage(_imageNumber);
+}
+
+bool Image::GetExists(void)
+{
+	if (agk::GetImageExists(_imageNumber))
 		return true;
 	else
 		return false;
 }
 
-Text Image::getFilename(void)
+Text Image::GetFilename(void)
 {
-	return agk::GetImageFilename(imageNumber);
+	return agk::GetImageFilename(_imageNumber);
 }
 
-float Image::getHeight(void)
+float Image::GetHeight(void)
 {
-	return agk::GetImageHeight(imageNumber);
+	return agk::GetImageHeight(_imageNumber);
 }
 
-unsigned int Image::getID(void)
+unsigned int Image::GetID(void)
 {
-	return imageNumber;
+	return _imageNumber;
 }
 
-float Image::getWidth(void)
+float Image::GetWidth(void)
 {
-	return agk::GetImageWidth(imageNumber);
+	return agk::GetImageWidth(_imageNumber);
 }
 
-void Image::print(float percentSize)
+void Image::Print(float percentSize)
 {
-	agk::PrintImage(imageNumber, percentSize);
+	agk::PrintImage(_imageNumber, percentSize);
 }
 
-void Image::save(Text savedFilename)
+void Image::Save(Text savedFilename)
 {
 	if (_Filename(savedFilename))
-		agk::SaveImage(imageNumber, savedFilename.getCString());
+		agk::SaveImage(_imageNumber, savedFilename.GetCString());
 }
 
-void Image::setMagFilter(bool linear)
+void Image::SetMagFilter(bool linear)
 {
 	if (linear)
-		agk::SetImageMagFilter(imageNumber, 1);
+		agk::SetImageMagFilter(_imageNumber, 1);
 	else
-		agk::SetImageMagFilter(imageNumber, 0);
+		agk::SetImageMagFilter(_imageNumber, 0);
 }
 
-void Image::setAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offsetXDest, int offsetYDest)
+void Image::SetAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offSetXDest, int offSetYDest)
 {
 	if (_ImageNumber(imageToMask))
 	{
 		if (_ColorChannel(colorDest))
 		{
 			if (_ColorChannel(colorSrc))
-				agk::SetImageMask(imageToMask, imageNumber, colorDest, colorSrc, offsetXDest, offsetYDest);
+				agk::SetImageMask(imageToMask, _imageNumber, colorDest, colorSrc, offSetXDest, offSetYDest);
 		}
 	}
 }
 
-void Image::setMinFilter(bool linear)
+void Image::SetMinFilter(bool linear)
 {
 	if (linear)
-		agk::SetImageMinFilter(imageNumber, 1);
+		agk::SetImageMinFilter(_imageNumber, 1);
 	else
-		agk::SetImageMinFilter(imageNumber, 0);
+		agk::SetImageMinFilter(_imageNumber, 0);
 }
 
-void Image::setWrapU(bool repeat)
+void Image::SetWrapU(bool repeat)
 {
 	if (repeat)
-		agk::SetImageWrapU(imageNumber, 1);
+		agk::SetImageWrapU(_imageNumber, 1);
 	else
-		agk::SetImageWrapU(imageNumber, 0);
+		agk::SetImageWrapU(_imageNumber, 0);
 }
 
-void Image::setWrapV(bool repeat)
+void Image::SetWrapV(bool repeat)
 {
 	if (repeat)
-		agk::SetImageWrapV(imageNumber, 1);
+		agk::SetImageWrapV(_imageNumber, 1);
 	else
-		agk::SetImageWrapV(imageNumber, 0);
+		agk::SetImageWrapV(_imageNumber, 0);
 }
 
-void Image::load(Text filename, bool blackIsAlpha)
+void Image::_Load(Text filename, bool blackIsAlpha)
 {
-	imageNumber = agk::LoadImage(filename.getCString(), blackIsAlpha);
+	_imageNumber = agk::LoadImage(filename.GetCString(), blackIsAlpha);
 }
 
-void Image::load(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
+void Image::_Load(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
 {
-	agk::LoadImage(assignedImageNumber, filename.getCString(), blackIsAlpha);
-	imageNumber = assignedImageNumber;
+	agk::LoadImage(assignedImageNumber, filename.GetCString(), blackIsAlpha);
+	_imageNumber = assignedImageNumber;
 }
 
-void Image::loadSub(unsigned int parentImage, Text subImageFilename)
+void Image::_LoadSub(unsigned int parentImage, Text subImageFilename)
 {
-	imageNumber = agk::LoadSubImage(parentImage, subImageFilename.getCString());
+	_imageNumber = agk::LoadSubImage(parentImage, subImageFilename.GetCString());
 }
 
-void Image::loadSub(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
+void Image::_LoadSub(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
 {
-	agk::LoadSubImage(assignedImageNumber, parentImage, subImageFilename.getCString());
-	imageNumber = assignedImageNumber;
+	agk::LoadSubImage(assignedImageNumber, parentImage, subImageFilename.GetCString());
+	_imageNumber = assignedImageNumber;
 }
 
 bool Image::_ColorChannel(short value)
@@ -270,10 +275,10 @@ bool Image::_ColorChannel(short value)
 bool Image::_Filename(Text filename)
 {
 	char tempFilename[8] = {NULL};
-	short lengthOfString = filename.getLength() - 1;
+	short lengthOfString = filename.GetLength() - 1;
 
 	for (int i = 3; i > -1; i--)
-		tempFilename[3-i] = filename.getChar(lengthOfString - i);
+		tempFilename[3-i] = filename.GetChar(lengthOfString - i);
 
 	if (strcmp(tempFilename, ".jpg") == 0) //equal
 		return true;

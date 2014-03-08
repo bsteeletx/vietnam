@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _VIDEO_H_
+#define _VIDEO_H_
 
 #include "Point.h"
 #include "Text.h"
@@ -9,20 +10,23 @@ public:
 	Video(Text VideoFilename);
 	~Video(void);
 
-	float getDuration(void);
-	short getError(void);
-	float getHeight(void);
-	bool getPlaying(void);
-	float getPosition(void);
-	float getWidth(void);
+	void Delete();
 
-	void pause(void);
-	void play(void);
+	float GetDuration(void);
+	short GetError(void);
+	float GetHeight(void);
+	bool GetPlaying(void);
+	float GetPosition(void);
+	float GetWidth(void);
 
-	void setDimensions(Point Location, float width, float height);
-	void setVolume(float value);
-	void stop(void);
+	void Pause(void);
+	void Play(void);
+
+	void SetDimensions(Point Location, float width, float height);
+	void SetVolume(float value);
+	void Stop(void);
 private:
-	short error;
+	short _error;
 };
 
+#endif

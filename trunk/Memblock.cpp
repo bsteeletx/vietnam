@@ -3,7 +3,7 @@
 
 Memblock::Memblock(void)
 {
-	memBlockID = 0;
+	_memBlockID = 0;
 }
 
 
@@ -13,68 +13,73 @@ Memblock::~Memblock(void)
 
 Memblock::Memblock(unsigned int size)
 {
-	memBlockID = agk::CreateMemblock(size);
+	_memBlockID = agk::CreateMemblock(size);
 }
 
 Memblock::Memblock(Image Generator)
 {
-	memBlockID = agk::CreateMemblockFromImage(Generator.getID());
+	_memBlockID = agk::CreateMemblockFromImage(Generator.GetID());
 }
 
-int Memblock::getByte(unsigned int offset)
+void Memblock::Delete()
 {
-	return agk::GetMemblockByte(memBlockID, offset);
+	agk::DeleteMemblock(_memBlockID);
 }
 
-bool Memblock::getExists(void)
+int Memblock::GetByte(unsigned int offSet)
 {
-	if (agk::GetMemblockExists(memBlockID))
+	return agk::GetMemblockByte(_memBlockID, offSet);
+}
+
+bool Memblock::GetExists(void)
+{
+	if (agk::GetMemblockExists(_memBlockID))
 		return true;
 
 	return false;
 }
 
-float Memblock::getFloat(unsigned int offset)
+float Memblock::GetFloat(unsigned int offSet)
 {
-	return agk::GetMemblockFloat(memBlockID, offset);
+	return agk::GetMemblockFloat(_memBlockID, offSet);
 }
 
-unsigned int Memblock::getID(void)
+unsigned int Memblock::GetID(void)
 {
-	return memBlockID;
+	return _memBlockID;
 }
 
-int Memblock::getInt(unsigned int offset)
+int Memblock::GetInt(unsigned int offSet)
 {
-	return agk::GetMemblockInt(memBlockID, offset);
+	return agk::GetMemblockInt(_memBlockID, offSet);
 }
 
-short Memblock::getShort(unsigned int offset)
+short Memblock::GetShort(unsigned int offSet)
 {
-	return agk::GetMemblockShort(memBlockID, offset);
+	return agk::GetMemblockShort(_memBlockID, offSet);
 }
 
-unsigned int Memblock::getSize(void)
+unsigned int Memblock::GetSize(void)
 {
-	return agk::GetMemblockSize(memBlockID);
+	return agk::GetMemblockSize(_memBlockID);
 }
 
-void Memblock::setByte(unsigned int offset, int value)
+void Memblock::SetByte(unsigned int offSet, int value)
 {
-	agk::SetMemblockByte(memBlockID, offset, value);
+	agk::SetMemblockByte(_memBlockID, offSet, value);
 }
 
-void Memblock::setFloat(unsigned int offset, float value)
+void Memblock::SetFloat(unsigned int offSet, float value)
 {
-	agk::SetMemblockFloat(memBlockID, offset, value);
+	agk::SetMemblockFloat(_memBlockID, offSet, value);
 }
 
-void Memblock::setInt(unsigned int offset, int value)
+void Memblock::SetInt(unsigned int offSet, int value)
 {
-	agk::SetMemblockInt(memBlockID, offset, value);
+	agk::SetMemblockInt(_memBlockID, offSet, value);
 }
 
-void Memblock::setShort(unsigned int offset, short value)
+void Memblock::SetShort(unsigned int offSet, short value)
 {
-	agk::SetMemblockShort(memBlockID, offset, value);
+	agk::SetMemblockShort(_memBlockID, offSet, value);
 }

@@ -8,8 +8,8 @@ public:
 	Twitter(Text Key, Text Secret);
 	~Twitter(void);
 
-	void message(Text Message);
+	void Message(Text Message);
 	
-	void setup(void);
+	void Setup(void);
 };
 
