@@ -28,7 +28,7 @@ public:
 	bool collidedWith(unsigned int testSpriteNumber);
 
 	void Delete();
-	void Draw(); //TODO: Fill out
+	void Draw();
 
 	void FixToScreen(bool screen = 1);
 

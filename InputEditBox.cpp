@@ -160,6 +160,18 @@ void EditBox::SetDepth(unsigned int depth)
 		agk::SetEditBoxDepth(_boxID, depth);
 }
 
+/* Not Working Yet
+///////////////////////////
+// Sets the extended font image to use for this edit box, 
+// must have been previously loaded with LoadImage(). 
+// Use 0 to return the edit box to its default extended font. 
+// If you do not set this image the edit box will not accept extended characters such as £ é á etc.
+//////////////////////////
+void EditBox::SetExtendedFontImage(unsigned short fontID)
+{
+	agk::SetEditBoxExtendedFontImage(_boxID, fontID);
+}*/
+
 void EditBox::SetFocus(bool focus)
 {
 	if (focus)
@@ -216,6 +228,25 @@ void EditBox::SetTextSize(Text Input)
 {
 	agk::SetEditBoxTextSize(_boxID, Input.GetSize());
 }
+
+#if OS != WINDOWS
+/////////////////////////////
+// Sets whether the edit box will use an alternate text input method if the edit box would be hidden by a virtual keyboard. 
+// This only applies to mobile platforms like iOS and Android and the alternate input method is usually a smaller edit box placed just above the keyboard. 
+// The edit box will still update in real time as if it is being typed into directly, 
+// but since it is covered by the keyboard the user will not see it. 
+// By default this is turned on. 
+// If you wish you can turn it off and move the edit box into view when GetEditBoxHasFocus returns true, 
+// be sure to move it back again when GetEditBoxHasFocus returns false.
+//////////////////////////
+void EditBox::SetUseAlternateInput(bool useAltInput)
+{
+	if (useAltInput)
+		agk::SetEditBoxUseAlternateInput(_boxID, 1);
+	else
+		agk::SetEditBoxUseAlternateInput(_boxID, 0);
+}
+#endif
 
 void EditBox::SetVisible(bool visible)
 {

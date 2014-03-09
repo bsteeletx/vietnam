@@ -2,7 +2,7 @@
 
 #include "File.h"
 #include "Text.h"
-#include "../Defines.h"
+#include "../Source/Defines.h"
 
 class Facebook
 {
@@ -25,7 +25,7 @@ public:
 	Text GetUserID(void);
 	Text GetUserName(void);
 
-	void InviteFriend(); //TODO: Fill out
+	//void InviteFriend(); //Not supported
 
 	void Login(void);
 	void Logout(void);

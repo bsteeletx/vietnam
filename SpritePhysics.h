@@ -49,7 +49,7 @@ public:
 	void SetDamping(float damp);
 	void SetDelete(void);
 	void SetForce(Vector Force);
-	void SetGroup(int group); //TODO: Fill out
+	void SetGroup(int group); 
 	void SetFriction(float friction);
 	void SetImpulse(Vector Impulse);
 	void SetIsBullet(bool isBullet);

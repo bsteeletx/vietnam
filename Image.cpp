@@ -146,10 +146,16 @@ Image::Image(Memblock Generator)
 	agk::CreateImageFromMemblock(Generator.GetID());
 }
 
+Image::Image(Point TopLeft, float width, float height)
+{
+	_Get(TopLeft, width, height);
+}
+
 Text Image::DecodeQR(void)
 {
 	return agk::DecodeQRCode(_imageNumber);
 }
+
 
 void Image::Delete()
 {
@@ -203,16 +209,17 @@ void Image::SetMagFilter(bool linear)
 		agk::SetImageMagFilter(_imageNumber, 0);
 }
 
-void Image::SetAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offSetXDest, int offSetYDest)
+///////////////////////////////////
+// Copies a color channel from one image to another. 
+// You can specify the source and destination channels using the values ColorChannel enum to represent red,green,blue,alpha respectively.
+// This is a slow command and should not be called every frame.
+// The offset value allows you to offset the source image on te destination image so a small source image can be used to mask any part of a large image.
+// Any part of the large image outside the size of the small image will be left unchanged.
+// negative offset values are supported to shift the source image off the top left of the destination image.
+////////////////////////////////////
+void Image::SetMask(unsigned int sourceImageID, ColorChannel DestinationChannel, ColorChannel SourceChannel, Point Offset)
 {
-	if (_ImageNumber(imageToMask))
-	{
-		if (_ColorChannel(colorDest))
-		{
-			if (_ColorChannel(colorSrc))
-				agk::SetImageMask(imageToMask, _imageNumber, colorDest, colorSrc, offSetXDest, offSetYDest);
-		}
-	}
+	agk::SetImageMask(_imageNumber, sourceImageID, DestinationChannel, SourceChannel, Offset.GetX(), Offset.GetY());
 }
 
 void Image::SetMinFilter(bool linear)
@@ -222,6 +229,29 @@ void Image::SetMinFilter(bool linear)
 	else
 		agk::SetImageMinFilter(_imageNumber, 0);
 }
+
+/////////////////////////////
+// By default image pixel data is compressed and saved in RAM so that future image manipulation commands have direct access to the pixel data. 
+// If you do not use the image manipulation commands like CopyImage, SetImageMask, etc, or use them infrequently then you can turn this off to fall back to a slower method of getting the pixel data (from the GPU) and save some memory instead.
+/////////////////////////////
+void Image::SetSavePixels(bool turnOn)
+{
+	if (turnOn)
+		agk::SetImageSavePixels(1);
+	else
+		agk::SetImageSavePixels(0);
+}
+
+////////Not Working Yet
+/*
+/////////////////////////////////
+// Turns a particular color completely transparent in the chosen image. 
+// This is a slow command and should not be called every frame.
+////////////////////////////////
+void Image::SetTransparentColor(Color TransparentColor)
+{
+	agk::SetImageTransparentColor(_imageNumber, TransparentColor.GetRed(), TransparentColor.GetGreen(), TransparentColor.GetBlue());
+} */
 
 void Image::SetWrapU(bool repeat)
 {
@@ -286,6 +316,44 @@ bool Image::_Filename(Text filename)
 		return true;
 
 	return false;
+}
+
+/////////////////////////////////////
+// Grabs a portion of the backbuffer and creates a new image from it. 
+// The position and size values must be in screen coordinates. 
+// Returns the ID of the new image, 
+// this must be deleted when you are done with it. 
+// To use this command effectively you must know how AGK draws to the back buffer. 
+// When Sync is called AGK updates the positions of all objects with Update, 
+// then draws them all to the back buffer with Render, 
+// without clearing it, 
+// then displays the back buffer to the screen with Swap. 
+// It then clears the back buffer and returns to your code, 
+// so if you were to call GetImage immediately after Sync you would get a blank image filled with the current clear color. 
+// Therefore if you want to grab an image of the current scene fully drawn you must call Render then GetImage then ClearScreen to clear the back buffer so Sync doesn't redraw everything over a fully drawn depth buffer. 
+// If you are already using Update, Render, and Swap yourself instead of Sync, 
+// then call GetImage between Render and Swap.
+// This also allows you to do things such as drawing lines to the back buffer, 
+// getting an image of the result and then clearing it so it doesn't effect what is displayed to the screen.
+// Calling GetImage is a slow command and it is not recommended that it be called every frame.
+// Note that the image produced by this command is not guaranteed to have the same width and height as those given to the command, 
+// this is because the image is created from a portion of the screen which has a different size on different devices.
+// For example, with a virtual resolution of 480x360, 
+// you would get an image of the full screen by calling this command with a width of 480 and a height of 360, 
+// but on an iPod this would produce an image of 480x360 pixels, 
+// whilst on an iPad it would be around 1024x768 pixels.
+// This should not effect how you use the image as applying it to a sprite and setting the sprite size to the same 480x360 will make the sprite fill the screen in both cases.
+// It simply means that on the iPad you have a higher quality image to play with.
+// This also applies to the line drawing commands, 
+// drawing a line from 0, 0 to 100, 100 and then getting an image from 0, 0 to 100, 100 will produce a diagonal line image on all devices, 
+// but high resolution screen devices will produce an image of higher quality containing more pixels.
+// Use GetImageWidth and GetImageHeight if you need to know the actual size of the image produced in pixels.
+// When drawing transparent sprites and using GetImage on them AGK has to undo the blending of the sprite with the background color to retrieve an image that can be used again in future transparent sprites.
+// As such you should not call SetClearColor unless you intend to call ClearScreen immediately after it.
+////////////////////////////////////
+void Image::_Get(Point TopLeft, float width, float height)
+{
+	_imageNumber = agk::GetImage(TopLeft.GetX(), TopLeft.GetY(), width, height);
 }
 
 bool Image::_ImageNumber(unsigned int number)

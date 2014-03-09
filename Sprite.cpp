@@ -111,6 +111,16 @@ void Sprite::Delete()
 	agk::DeleteSprite(_spriteNumber);
 }
 
+///////////////////////
+// Immediately draws the sprite to the backbuffer at its current position, size, and rotation. 
+// This is useful if you want to setup a scene for GetImage to capture. 
+// Remember to use ClearScreen to clear any of your own drawing before calling Sync or Render for the actual frame otherwise your drawing may appear twice in the final render.
+///////////////////////
+void Sprite::Draw()
+{
+	agk::DrawSprite(_spriteNumber);
+}
+
 void Sprite::FixToScreen(bool screen)
 {
 	if (screen)

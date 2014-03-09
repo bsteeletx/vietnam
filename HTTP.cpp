@@ -44,6 +44,15 @@ float HTTP::GetFileProgress()
 	return agk::GetHTTPFileProgress(_httpID);
 }
 
+//////////////////////////
+// Returns true if the device is connected to the internet, 
+// false if not.
+///////////////////////
+bool HTTP::GetInternetState()
+{
+	return (bool)agk::GetInternetState();
+}
+
 Text HTTP::GetResponse()
 {
 	return Text(agk::GetHTTPResponse(_httpID));
@@ -55,6 +64,14 @@ bool HTTP::GetResponseReady()
 		return true;
 
 	return false;
+}
+
+///////////////////////////
+// Opens the default browser of the current platform with points it to the page given.
+//////////////////////////
+void HTTP::OpenBrowser(Text URL)
+{
+	agk::OpenBrowser(URL.GetCString());
 }
 
 int HTTP::SendFile(Text Page, Text PostData, Text LocalFile)

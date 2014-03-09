@@ -2,7 +2,8 @@
 
 #include "Point.h"
 #include "Text.h"
-#include "../Defines.h"
+#include "../Source/Defines.h"
+#include <vector>
 
 class Input
 {
@@ -32,7 +33,7 @@ public:
 	float getDirectionY(void);
 	bool GetGeolocationExists(void);
 	bool GetGyrometerExists(void);
-	void GetInclinometerExists(); //TODO: Fill out
+	bool GetInclinometerExists(); 
 	bool GetJoystickExists(void);
 	Point getJoystickLocation(void);
 	float getJoystickX(void);
@@ -41,18 +42,18 @@ public:
 	unsigned int getLastChar(void);
 	bool GetLightSensorExists(void);
 	bool GetMouseExists(void);
-	void GetMultiTouchExists(); //TODO: Fill out
-	void GetNFCExists(); //TODO: Fill out
+	bool GetMultiTouchExists(); 
+	bool GetNFCExists(); 
 	bool GetOrientationSensorExists(void);
 	Point GetRawAccel(void);
 	float GetRawAccelX(void);
 	float GetRawAccelY(void);
 	float GetRawAccelZ(void);
 	float GetRawCompassNorth(bool isMagNorth);
-	void GetRawFirstNFCDevice(void); //TODO: Fill out
-	void GetRawFirstTouchEvent(void); //TODO: Fill out
+	unsigned int GetRawFirstNFCDevice(void); 
+	unsigned int GetRawFirstTouchEvent(bool includeUnknown); 
 	Text GetRawGeoCity(void);
-	void GetRawGeoCountry(void); //TODO: Fill out
+	Text GetRawGeoCountry(void); 
 	float GetRawGeoLatitude(void); 
 	float GetRawGeoLongitude(void);
 	Text GetRawGeoPostalCode(void);
@@ -65,20 +66,20 @@ public:
 	float GetRawInclinoPitch(void);
 	float GetRawInclinoRoll(void);
 	float GetRawInclinoYaw(void);
-	void GetRawJoystickButtonPressed(); //TODO: Fill out
-	void GetRawJoystickButtonReleased(); //TODO: Fill out
-	void GetRawJoystickButtonState(); //TODO: Fill out
-	void GetRawJoystickExists(); //TODO: Fill out
-	void GetRawJoystickRX(); //TODO: Fill out
-	void GetGawJoystickRY(); //TODO: Fill out
-	void GetGawJoystickRZ(); //TODO: Fill out
-	void GetGawJoystickX(); //TODO: Fill out
-	void GetGawJoystickY(); //TODO: Fill out
-	void GetGawJoystickZ(); //TODO: Fill out
+	bool GetRawJoystickButtonPressed(unsigned short joystickID, unsigned short buttonID); 
+	bool GetRawJoystickButtonReleased(unsigned short joystickID, unsigned short buttonID); 
+	bool GetRawJoystickButtonState(unsigned short joystickID, unsigned short buttonID); 
+	bool GetRawJoystickExists(unsigned short joystickID); 
+	float GetRawJoystickRX(unsigned short joystickID); 
+	float GetRawJoystickRY(unsigned short joystickID);
+	float GetRawJoystickRZ(unsigned short joystickID);
+	float GetRawJoystickX(unsigned short joystickID);
+	float GetRawJoystickY(unsigned short joystickID);
+	float GetRawJoystickZ(unsigned short joystickID);
 	bool GetRawKeyPressed(unsigned int key);
 	bool GetRawKeyReleased(unsigned int key);
 	bool GetRawKeyState(unsigned int key);
-	void GetRawLastKey(); //TODO: Fill out
+	int GetRawLastKey(); 
 	float GetRawLightLevel(void);
 	bool GetRawMouseLeftPressed(void);
 	bool GetRawMouseLeftReleased(void);
@@ -86,41 +87,55 @@ public:
 	Point GetRawMouseLocation(void);
 	float GetRawMouseLocationX(void);
 	float GetRawMouseLocationY(void);
-	bool GetRawMouseMiddlePressed(void); //TODO: Fill out this and next 2
+	//Not Working
+	/*bool GetRawMouseMiddlePressed(void); 
 	bool GetRawMouseMiddleReleased(void);
-	bool GetRawMouseMiddleState(void);
+	bool GetRawMouseMiddleState(void);*/
+	//////
 	bool GetRawMouseRightPressed(void);
 	bool GetRawMouseRightReleased(void);
 	bool GetRawMouseRightState(void);
-	void GetRawMouseWheel(); //TODO: Fill out
-	void GetRawMouseWheelDelta(); //TODO: Fill out
-	void GetRawNextTouchEvent(); //TODO: Fill out
-	void GetRawNFCCount(void); //TODO:Fill out
-	void GetRawNFCData(void); //TODO: Fill out
-	void GetRawNFCDataState(void); //TODO: Fill out
-	void GetRawNFCName(void); //TODO: Fill out
-	void GetRawNextNFCDevice(void); //TODO: Fill out
+	//Not working
+	/*float GetRawMouseWheel(); 
+	float GetRawMouseWheelDelta(); */
+	unsigned short GetRawNextTouchEvent(); 
+	/* Not yet functional
+	void GetRawNFCCount(void); 
+	void GetRawNFCData(void); 
+	void GetRawNFCDataState(void); 
+	void GetRawNFCName(void); 
+	void GetRawNextNFCDevice(void);
+	*/
 	float GetRawOrientationW(void);
 	float GetRawOrientationX(void);
 	float GetRawOrientationY(void);
 	float GetRawOrientationZ(void);
-	void GetRawTouchCount(); //TODO: Fill out
-	void GetRawTouchCurrentX(); //TODO: Fill out
-	void GetRawTouchCurrentY(); //TODO: Fill out
-	void GetRawTouchLastX(); //TODO: Fill out
-	void GetRawTouchLastY(); //TODO: Fill out
-	void GetRawTouchReleased(); //TODO: Fill out
-	void GetRawTouchStartX(); //TODO: Fill out
-	void GetRawTouchStartY(); //TODO: Fill out
-	void GetRawTouchTime(); //TODO: Fill out
-	void GetRawTouchType(); //TODO: Fill out
-	void GetRawTouchValue(); //TODO: Fill out
+	unsigned short GetRawTouchCount(bool includeUnkown);
+	Point GetRawTouchCurrentPos(unsigned short touchIndex); 
+	Point GetRawTouchLastPos(unsigned short touchIndex);
+	bool GetRawTouchReleased(unsigned short touchIndex);
+	Point GetRawTouchStartPos(unsigned short touchIndex);
+	float GetRawTouchTime(unsigned short touchIndex);
+	TouchType GetRawTouchType(unsigned short touchIndex);
+	int GetRawTouchValue(unsigned short touchIndex);
 
-	void SendRawNFCData(void); //TODO: Fill out
-	void SetRawJoystickDeadZone(); //TODO: Fill out
+	//void SendRawNFCData(void); //Not functional
+	void SetRawJoystickDeadZone(float value); 
 	void SetRawMousePosition(Point Location);
 	void SetRawMousePosition(float x, float y);
 	void SetRawMouseVisible(bool isVisible);
-	void SetRawTouchValue(void); //TODO: Fill out
+	void SetRawTouchValue(unsigned short touchIndex, int value); 
+
+private:
+	std::vector<unsigned short> _touchIndex;
+	std::vector<unsigned short> _joystickID;
+	std::vector<unsigned short> _buttonID;
+
+	float _GetRawTouchCurrentX(unsigned short touchIndex);
+	float _GetRawTouchCurrentY(unsigned short touchIndex);
+	float _GetRawTouchLastX(unsigned short touchIndex);
+	float _GetRawTouchLastY(unsigned short touchIndex);
+	float _GetRawTouchStartX(unsigned short touchIndex);
+	float _GetRawTouchStartY(unsigned short touchIndex);
 };
 

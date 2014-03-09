@@ -33,10 +33,10 @@ public:
 	void RotateGlobalX(float x);
 	void RotateGlobalY(float y);
 	void RotateGlobalZ(float z);
-	void RotateLocal(Point RotateAmounts); //TODO: Fill in plus next 3
-	void RotateLocalX(float x);
+	void RotateLocal(Point RotateAmounts); 
+	/*void RotateLocalX(float x);
 	void RotateLocalY(float y);
-	void RotateLocalZ(float z);
+	void RotateLocalZ(float z);*//////////Should just use full Rotate
 
 	void SetFOV(float value);
 	void SetLookAt(Point Location, float roll);

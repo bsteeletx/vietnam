@@ -103,6 +103,15 @@ float Animation::GetPlaySpeed(void)
 	return _playSpeed;
 }
 
+////////////////////////////
+// Returns true if the sprite is currently playing an animation, 
+// false if not.
+///////////////////////////
+bool Animation::GetPlaying()
+{
+	return (bool)agk::GetSpritePlaying(_spriteNumber);
+}
+
 void Animation::IncrementFrame(void)
 {
 	if (GetCurrentFrame() + 1 > GetFrameCount())

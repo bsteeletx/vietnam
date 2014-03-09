@@ -17,11 +17,11 @@ public:
 	int GetFile(Text CompleteURLPath, Text LocalStorage);
 	bool GetFileComplete();
 	float GetFileProgress();
-	void GetInternetState(); //TODO: Fill out
+	bool GetInternetState(); 
 	Text GetResponse();
 	bool GetResponseReady();
 
-	void OpenBrowser(); //TODO: Fill out
+	void OpenBrowser(Text URL);
 
 	int SendFile(Text Page, Text PostData, Text LocalFile);
 	Text SendRequest(Text Page);

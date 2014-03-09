@@ -1,7 +1,7 @@
 #pragma once
 
 //#include "Vector.h"
-#include "../Defines.h"
+#include "../Source/Defines.h"
 
 class Point
 {

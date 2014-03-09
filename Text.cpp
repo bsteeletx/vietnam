@@ -320,14 +320,6 @@ float Text::GetY(void)
 	return agk::GetTextY(_textNumber);
 }
 
-void Text::Print(bool newLineAtEnd)
-{
-	if (newLineAtEnd)
-		agk::Print(GetCString());
-	else
-		agk::PrintC(GetCString());
-}
-
 void Text::SetAlignment(unsigned short mode)
 {
 	if (_Alignment(mode))
@@ -426,22 +418,6 @@ void Text::SetColorRed(unsigned short red)
 {
 	if (_ColorCheck(red))
 		agk::SetTextColorAlpha(_textNumber, red);
-}
-
-void Text::SetDefaultMagFilter(bool linear)
-{
-	if (linear)
-		agk::SetDefaultMagFilter(1);
-	else
-		agk::SetDefaultMagFilter(0);
-}
-
-void Text::SetDefaultMinFilter(bool linear)
-{
-	if (linear)
-		agk::SetDefaultMinFilter(1);
-	else
-		agk::SetDefaultMinFilter(0);
 }
 
 void Text::SetDepth(unsigned int depth)

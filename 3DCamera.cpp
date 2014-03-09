@@ -119,6 +119,13 @@ void Camera::RotateGlobalZ(float z)
 	agk::RotateCameraGlobalZ(_cameraID, z);
 }
 
+void Camera::RotateLocal(Point RotateAmounts)
+{
+	agk::RotateCameraLocalX(_cameraID, RotateAmounts.GetX());
+	agk::RotateCameraLocalY(_cameraID, RotateAmounts.GetY());
+	agk::RotateCameraLocalZ(_cameraID, RotateAmounts.GetZ());
+}
+
 void Camera::SetFOV(float value)
 {
 	agk::SetCameraFOV(_cameraID, value);

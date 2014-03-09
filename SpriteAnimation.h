@@ -20,7 +20,7 @@ public:
 	
 	unsigned int GetCurrentFrame(void);
 	unsigned int GetFrameCount(void);
-	void GetPlaying(); //TODO: Fill out
+	bool GetPlaying();
 	float GetPlaySpeed(void);
 	
 	void IncrementFrame(void);

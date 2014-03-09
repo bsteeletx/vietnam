@@ -1,5 +1,5 @@
 #include "RateApp.h"
-#include "../Defines.h"
+#include "../Source/Defines.h"
 #include "agk.h"
 
 RateApp::RateApp()
