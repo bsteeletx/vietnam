@@ -1,27 +1,28 @@
 #pragma once
 
 #include "Text.h"
-#include "../Defines.h"
+#include "../Source/Defines.h"
 
 class InAppPurchase
 {
 public:
-	InAppPurchase(void);
+	InAppPurchase(Text Title, Text AppID, bool isConsumable);
 	~InAppPurchase(void);
 #if (OS != WINDOWS)
 	void Activate(unsigned int ID);
-	void AddProductID(Text productID);
-
+	
 	bool GetAvailable(int ID);
 	bool GetState(void);
 
-	void Restore(void); //TODO: Fill out
-
-	void SetTitle(Text Title);
-	void Setup(void);
+	void Restore(void); 
 
 private:
-	unsigned int purchaseID;
+	unsigned int _purchaseID;
+
+	void _AddProductID(Text productID, bool isConsumable);
+
+	void _SetTitle(Text Title);
+	void _Setup(void);
 #endif
 };
 

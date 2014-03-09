@@ -39,11 +39,7 @@ public:
 	void SetNetworkLocalInt(Text VariableName, int value, bool resetAfterRead);
 	
 	////////////////Setup
-	void HostNetwork(void); //TODO: Fill out
-
 	bool IsNetworkActive(void);
-
-	void JoinNetwork(void); //TODO: Fill out
 
 	void SetNetworkLatency(unsigned short latency);
 	void SetNetworkNoMoreClients(void);

@@ -1,14 +1,15 @@
 #ifndef _IMAGE_H_
 #define _IMAGE_H_
 
-#include "Memblock.h"
 #include "Point.h"
-#include "Text.h"
+#include "Color.h"
 #include "FileRead.h"
+#include "Memblock.h"
 #include <vector>
 
 class Text;
 class Memblock;
+class Color;
 class Read;
 
 class Image
@@ -27,6 +28,7 @@ public:
 	Image (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename);
 	Image (Read FileToInit, Text PathToParent);
 	Image (Memblock Generator);
+	Image(Point TopLeft, float width, float height);
 	
 	//operators
 	Image& operator= (const Image& newImage);
@@ -36,7 +38,6 @@ public:
 
 	void Delete();
 	
-	void Get(); //TODO: Fill out
 	bool GetExists(void);
 	Text GetFilename(void);
 	float GetHeight(void);
@@ -46,21 +47,20 @@ public:
 	void Print(float percentSize); 
 
 	void Save(Text savedFilename); 
-	void SetAsMask(unsigned int imageToMask, short colorDest, short colorSrc, int offsetXDest, int offsetYDest); 
 	void SetMagFilter(bool linear);
-	void SetMask(void); //TODO: Fill out
+	void SetMask(unsigned int sourceImageID, ColorChannel DestinationChannel, ColorChannel SourceChannel, Point Offset); 
 	void SetMinFilter(bool linear);
-	void SetSavePixels(void); //TODO: Fill out
-	void SetTransparentColor(void); //TODO: Fill out
+	void SetSavePixels(bool turnOn);
+	//void SetTransparentColor(Color TransparentColor); //Not working yet
 	void SetWrapU(bool repeat);
 	void SetWrapV(bool repeat);
 
 	/////////////////////QR
 	Text DecodeQR(); 
-
-	void EncodeQR(); //TODO: Fill out
 		
 private:
+	void _Get(Point TopLeft, float width, float height);
+
 	bool _ImageNumber(unsigned int number);
 	
 	void _Load(Text Filename, bool blackIsAlpha = false);

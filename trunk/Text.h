@@ -59,9 +59,6 @@ public:
 	float GetX();
 	float GetY();
 
-	void Print(bool newLineAtEnd = true);
-	void PrintC(); //TODO: Fill out
-
 	void SetAlignment(unsigned short mode);
 	void SetCharAngle(unsigned int index, float angle);
 	void SetCharAngleInRad(unsigned int index, float angle);
@@ -79,9 +76,6 @@ public:
 	void SetColorGreen(unsigned short green);
 	void SetColorRed(unsigned short red);
 	void SetDefaultExtendedFontImage(Image Object);
-	void SetDefaultFontImage(); //TODO: Fill out
-	void SetDefaultMagFilter(bool linear);
-	void SetDefaultMinFilter(bool linear);
 	void SetDepth(unsigned int depth);
 	void SetExtendedFontImage(Image Object);
 	void SetFontImage(Image Object);

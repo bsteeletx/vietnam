@@ -259,6 +259,12 @@ void PhysicsS::SetFriction(float friction)
 		agk::SetSpritePhysicsFriction(_spriteNumber, friction);
 }
 
+/////////////////////////
+// Assigns this sprite to a group for filtering collisions (physics or non physics). 
+// In physics, sprites of the same positive group ID will always collide, 
+// whilst those that share the same negative group ID will never collide. 
+// Those with a group ID of zero (default), or differing group IDs move on to the category filter check.
+//////////////////////////
 void PhysicsS::SetGroup(int group)
 {
 	agk::SetSpriteGroup(_spriteNumber, group);

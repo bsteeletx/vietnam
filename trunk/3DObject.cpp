@@ -254,6 +254,11 @@ void Object::MoveLocalZ(float z)
 	agk::MoveObjectLocalZ(_objectID, z);
 }
 
+unsigned short Object::RayCast(Point StartPos, Point EndPos)
+{
+	return agk::ObjectRayCast(_objectID, StartPos.GetX(), StartPos.GetY(), StartPos.GetZ(), EndPos.GetX(), EndPos.GetY(), EndPos.GetZ());
+}
+
 void Object::RotateGlobal(Point RotationAmounts)
 {
 	RotateGlobalX(RotationAmounts.GetX());
@@ -374,6 +379,11 @@ void Object::SetRotationQuat(float w, float x, float y, float z)
 	agk::SetObjectRotationQuat(_objectID, w, x, y, z);
 }
 
+void Object::SetScale(Point ScaleValues)
+{
+	agk::SetObjectScale(_objectID, ScaleValues.GetX(), ScaleValues.GetY(), ScaleValues.GetZ());
+}
+
 void Object::SetShader(unsigned int shaderID)
 {
 	agk::SetObjectShader(_objectID, shaderID);
@@ -460,4 +470,40 @@ Point Object::GetDistanceFrom(Object Other)
 	Distance.SetZ(GetZ() - Other.GetZ());
 
 	return Distance;
+}
+
+/////////////////////////////////////////////
+// Will check if the ray starting at oldx,oldy,oldz and ending at x,y,z, and of width radius#, collides with the specified object (objID=0 for all). 
+// does not collide with backfaces, 
+// will return the number of the object hit first, 
+// or 0 for no collision. 
+// Sphere casting commands add a width dimension to normal ray casting which can be used to check if a player has hit anything during movement and to position them at the collision point to provide 'sticky' collision, 
+// where the player stops if they hit anything. 
+// The alternative is sliding collision. 
+// see ObjectSphereSlide
+////////////////////////////////////////////
+unsigned short Object::SphereCast(Point StartPos, Point EndPos, float radius, bool checkForAll)
+{
+	if (checkForAll)
+		return agk::ObjectSphereCast(0, StartPos.GetX(), StartPos.GetY(), StartPos.GetZ(), EndPos.GetX(), EndPos.GetY(), EndPos.GetZ(), radius);
+	
+	return agk::ObjectSphereCast(_objectID, StartPos.GetX(), StartPos.GetY(), StartPos.GetZ(), EndPos.GetX(), EndPos.GetY(), EndPos.GetZ(), radius);
+}
+
+///////////////////////////////////
+// This command does the same as SC_sphereCast but over multiple iterations to produce a slide point for use in sliding collisions.
+// SC_sphereCast produces a slide point that must be checked again to make sure this new point does not collide with any objects.
+// This produces another point, 
+// which must be checked and so on.
+// SC_sphereSlide uses a maximum of three iterations to finalize a point that will keep the sphere outside all objects checked.
+// The command GetObjectRayCastNumHits can be used to get the number of iterations used by this command.
+// Details of the collision point, normal, and slide point for each iteration are also available using collision indices 1 to 3 i.e.GetObjectRayCastX(1) (2) or(3).
+// The final collision point, normal and slide point are in index 0, i.e.GetObjectRayCastSlideX(0).
+/////////////////////////////////////////
+unsigned short Object::SphereSlide(Point StartPos, Point EndPos, float radius, bool checkForAll)
+{
+	if (checkForAll)
+		return agk::ObjectSphereSlide(0, StartPos.GetX(), StartPos.GetY(), StartPos.GetZ(), EndPos.GetX(), EndPos.GetY(), EndPos.GetZ(), radius);
+
+	return agk::ObjectSphereSlide(_objectID, StartPos.GetX(), StartPos.GetY(), StartPos.GetZ(), EndPos.GetX(), EndPos.GetY(), EndPos.GetZ(), radius);
 }

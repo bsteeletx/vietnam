@@ -2,10 +2,12 @@
 #define _INPUTEDITBOX_H_
 
 #include "Point.h"
-#include "Image.h"
-#include "Color.h"
-#include "Text.h"
 #include "Input.h"
+#include "Image.h"
+
+//class Image;
+class Text;
+class Color;
 
 class EditBox : Input
 {
@@ -41,7 +43,7 @@ public:
 	void SetCursorColor(Color Values);
 	void SetCursorWidth(float width);
 	void SetDepth(unsigned int depth);
-	void SetExtendedFontImage(void); //TODO: Fill out
+	//void SetExtendedFontImage(unsigned short fontID); //Not working yet
 	void SetFocus(bool focus);
 	void SetFontImage(Image Object);
 	void SetMaxChars(unsigned int max);
@@ -54,7 +56,9 @@ public:
 	void SetText(Text Input);
 	void SetTextColor(Text Input);
 	void SetTextSize(Text Input);
-	void SetUseAlternateInput(void); //TODO: Fill out
+#if OS != WINDOWS
+	void SetUseAlternateInput(bool useAltInput); 
+#endif
 	void SetVisible(bool visible);
 	void SetWrapText(bool wrapText); 
 

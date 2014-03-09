@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Defines.h"
+#include "../Source/Defines.h"
 #include "3DObject.h"
 #include "Text.h"
 #include "Vector.h"

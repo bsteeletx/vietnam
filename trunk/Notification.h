@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Defines.h"
+#include "../Source/Defines.h"
 #include "Image.h"
 #include "Text.h"
 

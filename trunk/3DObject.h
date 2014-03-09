@@ -1,11 +1,14 @@
 #ifndef _3DOBJECT_H_
 #define _3DOBJECT_H_
 
-#include "../Defines.h"
+#include "../Source/Defines.h"
 #include "Image.h"
 #include "Color.h"
 #include "Vector.h"
 #include "Quaternion.h"
+#include "Text.h"
+
+//class Text;
 
 class Object
 {
@@ -58,7 +61,7 @@ public:
 	void MoveLocalY(float y);
 	void MoveLocalZ(float z);
 
-	void RayCast(); //TODO: Fill out
+	unsigned short RayCast(Point StartPos, Point EndPos); 
 	void RotateGlobal(Point RotationAmounts);
 	void RotateGlobalX(float x);
 	void RotateGlobalY(float y);
@@ -83,15 +86,15 @@ public:
 	void SetRotation(float pitch, float yaw, float roll);
 	void SetRotationQuat(Quaternion Values);
 	void SetRotationQuat(float w, float x, float y, float z);
-	void SetScale(float x, float y, float z);	   //TODO: Add functionality
+	void SetScale(Point ScaleValues);
 	void SetShader(unsigned int shaderID);
 	void SetTransparency(TransparencyMode Value);
 	void SetVisible(bool isVisible);
 	void SetX(float x);
 	void SetY(float y);
 	void SetZ(float z);
-	void SphereCast(); //TODO: Fill out
-	void SphereSlide(); //TODO: Fill out
+	unsigned short SphereCast(Point StartPos, Point EndPos, float radius, bool checkForAll = false); 
+	unsigned short SphereSlide(Point StartPos, Point EndPos, float radius, bool checkForAll = false);
 
 protected:
 	unsigned int _objectID;
