@@ -18,14 +18,14 @@ public:
 	//constructors/deconstructors
 	~Image(void);
 	Image(void);
-	Image (unsigned int assignedImageNumber, Text Filename);
+	//Image (unsigned int assignedImageNumber, Text Filename);
 	Image (unsigned int copyImageNumber);
 	Image (Point Begin, Point End);
-	Image (Text EncodedText);
-	Image (Text Filename, bool blackIsAlpha); 
-	Image (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false);
+	Image (Text EncodedText, unsigned short codeForgiveness);
+	Image (Text Filename); 
+	//Image (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false);
 	Image (Text SubImageFilename, unsigned int parentImage);
-	Image (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename);
+	//Image (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename);
 	Image (Read FileToInit, Text PathToParent);
 	Image (Memblock Generator);
 	Image(Point TopLeft, float width, float height);

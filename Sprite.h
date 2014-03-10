@@ -11,10 +11,10 @@ public:
 	~Sprite(void);
 	Sprite(void);
 	Sprite (Color SpriteColor);
-	Sprite (Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber);
-	Sprite (Point Begin, Point End, unsigned int assignedSpriteNumber = 0);
-	Sprite (Text Filename, bool blackIsAlpha = false, unsigned int assignedSpriteNumber = 0); 
-	Sprite (unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber = 0);
+	//Sprite (Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber);
+	Sprite (Point Begin, Point End);
+	Sprite (Text Filename); 
+	Sprite (unsigned int parentImage, Text SubImageFilename);
 	Sprite (Read FileToInit, Text PathToParent);
 			
 	Sprite& operator= (const Sprite& newSprite);

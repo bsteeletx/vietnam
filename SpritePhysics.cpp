@@ -77,6 +77,16 @@ void PhysicsS::ClearShapes(void)
 	agk::ClearSpriteShapes(_spriteNumber);
 }
 
+PhysicsS PhysicsS::Clone()
+{
+	PhysicsS ReturnSprite = PhysicsS();
+
+	ReturnSprite = *this;
+	ReturnSprite._spriteNumber = agk::CloneSprite(_spriteNumber);
+
+	return ReturnSprite;
+}
+
 bool PhysicsS::GetCollision(Sprite TestSprite)
 {
 	if (agk::GetPhysicsCollision(_spriteNumber, TestSprite.GetSpriteNumber()) == 1)
