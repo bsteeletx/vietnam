@@ -12,13 +12,11 @@ VirtualButton::~VirtualButton(void)
 	//	agk::DeleteVirtualButton(_buttonID);
 }
 
-VirtualButton::VirtualButton(unsigned short buttonNumber, Point Location, float size)
+VirtualButton::VirtualButton(Point Location, float size)
 {
-	if (buttonNumber < 13)
-	{
-		if (buttonNumber)
-			agk::AddVirtualButton(buttonNumber, Location.GetX(), Location.GetY(), size);
-	}
+	_buttonID = GetNextButtonID();
+	
+	agk::AddVirtualButton(_buttonID, Location.GetX(), Location.GetY(), size);
 }
 
 void VirtualButton::Delete()

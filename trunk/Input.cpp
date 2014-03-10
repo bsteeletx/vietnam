@@ -3,6 +3,8 @@
 
 Input::Input(void)
 {
+	for (int i = 0; i < 13; i++)
+		_buttonID[i] = false;
 }
 
 
@@ -121,6 +123,17 @@ bool Input::GetMultiTouchExists()
 		return true;
 
 	return false;
+}
+
+unsigned short Input::GetNextButtonID()
+{
+	for (int i = 0; i < 13; i++)
+	{
+		if (!_buttonID[i])
+			return i;
+	}
+
+	return 15;
 }
 
 bool Input::GetNFCExists()
