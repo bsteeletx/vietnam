@@ -23,26 +23,26 @@ Image::Image(unsigned int copyImageNumber)
 	_imageNumber = agk::LoadImage(agk::GetImageFilename(copyImageNumber));
 }
 
-Image::Image(unsigned int assignedImageNumber, Text Filename)
+/*Image::Image(unsigned int assignedImageNumber, Text Filename)
 {
 	if (agk::GetFileExists(Filename.GetCString()))
 		agk::LoadImage(assignedImageNumber, Filename.GetCString());
-}
+} */
 
-Image::Image(Text filename, bool blackIsAlpha)
+Image::Image(Text filename)
 {
 	if (_Filename(filename))
-		_Load(filename, blackIsAlpha);
+		_Load(filename, false);
 }
 
-Image::Image(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
+/*Image::Image(unsigned int assignedImageNumber, Text filename, bool blackIsAlpha)
 {
 	if (_ImageNumber(assignedImageNumber))
 	{
 		if (_Filename(filename))
 			_Load(assignedImageNumber, filename, blackIsAlpha);
 	}
-}
+} */
 
 Image::Image(Text subImageFilename, unsigned int parentImage)
 {
@@ -50,11 +50,11 @@ Image::Image(Text subImageFilename, unsigned int parentImage)
 		_LoadSub(parentImage, subImageFilename);
 }
 
-Image::Image(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
+/*Image::Image(unsigned int assignedImageNumber, unsigned int parentImage, Text subImageFilename)
 {
 	if (_Filename(subImageFilename))
 		_LoadSub(parentImage, subImageFilename);
-}
+} */
 
 Image& Image::operator= (const Image& newImage)
 {
@@ -68,9 +68,9 @@ Image::Image(Point Begin, Point End)
 	_imageNumber = agk::CopyImage(_imageNumber, (int) Begin.GetX(), (int) Begin.GetY(), (int) End.GetX(), (int) End.GetY());
 }
 
-Image::Image(Text codedText)
+Image::Image(Text codedText, unsigned short codeForgiveness)
 {
-	_imageNumber = agk::EncodeQRCode(codedText.GetCString(), 2); 
+	_imageNumber = agk::EncodeQRCode(codedText.GetCString(), codeForgiveness); 
 }
 
 Image::Image(Read FileToInit, Text PathToParent)

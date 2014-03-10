@@ -18,23 +18,23 @@ Sprite::Sprite(Color SpriteColor)
 	SetColor(SpriteColor);
 }
 
-Sprite::Sprite(Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber)
-	: Image(Filename, assignedImageNumber)
+Sprite::Sprite(Text Filename)
+	: Image(Filename)
 {
-	_Create(assignedSpriteNumber);
+	_Create();
 }
 
-Sprite::Sprite(Point Begin, Point End, unsigned int assignedSpriteNumber)
+Sprite::Sprite(Point Begin, Point End)
 	: Image(Begin, End)
 {
-	_Create(assignedSpriteNumber);
+	_Create();
 }
 
-Sprite::Sprite(Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
+/*Sprite::Sprite(Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Image(Filename, blackIsAlpha)
 {
 	_Create(assignedSpriteNumber);
-}
+} */
 
 /*Sprite::Sprite(unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Image(assignedImageNumber, Filename, blackIsAlpha)
@@ -42,10 +42,10 @@ Sprite::Sprite(Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumb
 	_Create(assignedSpriteNumber);
 }*/
 
-Sprite::Sprite(unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
+Sprite::Sprite(unsigned int parentImage, Text SubImageFilename)
 	: Image(SubImageFilename, parentImage)
 {
-	_Create(assignedSpriteNumber);
+	_Create();
 }
 
 /*Sprite::Sprite(unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber)
