@@ -12,7 +12,7 @@ class VirtualButton : Input
 public:
 	VirtualButton();
 	~VirtualButton(void);
-	VirtualButton(unsigned short buttonNumber, Point Location, float size);
+	VirtualButton(Point Location, float size);
 
 	void Delete();
 

@@ -22,27 +22,24 @@ public:
 	void CompleteRawJoystickDetection(void);
 
 	bool GetAccelerometerExists(void);
-	bool getButtonPressed(unsigned short button);
-	bool getButtonReleased(unsigned short button);
-	bool getButtonState(unsigned short button);
+	bool GetButtonPressed(unsigned short button);
+	bool GetButtonReleased(unsigned short button);
+	bool GetButtonState(unsigned short button);
 	bool GetCameraExists(void);
 	bool GetCompassExists(void);
-	float getDirectionAngle(void);
-	float getDirectionSpeed(void);
-	float getDirectionX(void);
-	float getDirectionY(void);
 	bool GetGeolocationExists(void);
 	bool GetGyrometerExists(void);
 	bool GetInclinometerExists(); 
 	bool GetJoystickExists(void);
-	Point getJoystickLocation(void);
-	float getJoystickX(void);
-	float getJoystickY(void);
+	Point GetJoystickLocation(void);
+	float GetJoystickX(void);
+	float GetJoystickY(void);
 	bool GetKeyboardExists(void);
-	unsigned int getLastChar(void);
+	unsigned int GetLastChar(void);
 	bool GetLightSensorExists(void);
 	bool GetMouseExists(void);
 	bool GetMultiTouchExists(); 
+	unsigned short GetNextButtonID();
 	bool GetNFCExists(); 
 	bool GetOrientationSensorExists(void);
 	Point GetRawAccel(void);
@@ -127,9 +124,9 @@ public:
 	void SetRawTouchValue(unsigned short touchIndex, int value); 
 
 private:
-	std::vector<unsigned short> _touchIndex;
-	std::vector<unsigned short> _joystickID;
-	std::vector<unsigned short> _buttonID;
+	bool _touchIndex[8];
+	bool _joystickID[8];
+	bool _buttonID[16];
 
 	float _GetRawTouchCurrentX(unsigned short touchIndex);
 	float _GetRawTouchCurrentY(unsigned short touchIndex);
