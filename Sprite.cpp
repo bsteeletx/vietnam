@@ -417,12 +417,10 @@ void Sprite::SetImage(Image newImage, bool reshape)
 		agk::SetSpriteImage(_spriteNumber, newImage.GetID());
 }
 
-/*void Sprite::SetOffSet(float x, float y)
+void Sprite::SetOffset(Point Offset)
 {
-	agk::SetSpriteOffSet(_spriteNumber, x, y);
-
-	OffSetAmount = Point(x, y);
-} */
+	agk::SetSpriteOffset(_spriteNumber, Offset.GetX(), Offset.GetY());
+} 
 
 void Sprite::SetPosition(float x, float y)
 {
