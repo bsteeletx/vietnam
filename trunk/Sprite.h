@@ -87,7 +87,7 @@ public:
 	void SetFlip(bool horizontal, bool vertical);
 	void setGroup(int group);
 	void SetImage(Image newImage, bool reshape = false);
-	void SetOffset(float x, float y);
+	void SetOffset(Point Offset);
 	virtual void SetPosition(float x, float y);
 	virtual void SetPosition(Point Locaiton);
 	//void SetPositionByOffset(float x, float y);
