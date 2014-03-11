@@ -44,10 +44,9 @@ public:
 	bool GetExists(void);
 	int GetGroup(void);
 	float GetHeight(void);
-	int GetHit(Point HitLocation);
+	bool GetHit(Point HitLocation);
 	int GetHitCategory(int categories, Point HitLocation);
 	int GetHitGroup(Point HitLocation);
-	bool GetHitTest(Point HitLocation);
 	unsigned int GetImageID(void);
 	Point GetOffset(void);
 	int GetPixelFromX(float x); 
