@@ -16,15 +16,15 @@ public:
 	Sprite (Text Filename); 
 	Sprite (unsigned int parentImage, Text SubImageFilename);
 	Sprite (Read FileToInit, Text PathToParent);
-			
+				
 	Sprite& operator= (const Sprite &OtherSprite);
 	Sprite& operator<< (const Image& Object);
 
 	//////////////////Properties
 	//unsigned int clone(void);
 	//unsigned int clone(unsigned int assignedSpriteNumber);
-	//Sprite Clone(void);
-	unsigned int Clone();
+	Sprite& Clone(void);
+	//unsigned int Clone();
 	bool collidedWith(Sprite TestSprite);
 	bool collidedWith(unsigned int testSpriteNumber);
 
