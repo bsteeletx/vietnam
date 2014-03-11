@@ -544,8 +544,8 @@ Sprite &Sprite::Clone(void)
 {
 	Sprite *ReturnSprite = new Sprite();
 	
-	ReturnSprite = this;
-	ReturnSprite->_spriteNumber = agk::CloneSprite(_spriteNumber);
+	//ReturnSprite = this;
+	ReturnSprite->_spriteNumber = agk::CloneSprite(this->_spriteNumber);
 
 	return *ReturnSprite;
 } 
