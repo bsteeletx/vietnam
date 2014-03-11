@@ -246,7 +246,7 @@ float Sprite::GetHeight(void)
 	return agk::GetSpriteHeight(_spriteNumber);
 }
 
-bool Sprite::GetHitTest(Point Location)
+bool Sprite::GetHit(Point Location)
 {
 	if (agk::GetSpriteHitTest(_spriteNumber, Location.GetX(), Location.GetY()) == 1)
 		return true;
