@@ -49,7 +49,7 @@ PhysicsS::PhysicsS (unsigned int parentImage, Text SubImageFilename, short mode)
 PhysicsS::PhysicsS(Sprite Clone)
 : Sprite(Clone)
 {
-	(Sprite)*this = (Sprite)this->Clone();
+	//(Sprite)*this = (Sprite)this->Clone();
 	_SetOn(2);
 }
 
