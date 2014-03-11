@@ -560,6 +560,21 @@ void AGKCore::SetExpansionFileVersion(int version)
 }
 #endif
 
+///////////////////////////
+// Sets the error mode for the AGK from ignore, report, or stop from AGK commands, 
+// e.g. sprite ID doesn't exist in a command that accepts a sprite ID. 
+// Ignoring will make the AGK attempt to carry on, 
+// ignoring the entire command if necessary. 
+// Reporting will make the AGK report the error to an appropriate debug console and carry on. 
+// Stop will force the AGK to report the error as before and then stop by throwing an exception, 
+// which must be caught or the app will terminate. 
+// In the case of tier 1 the exception is caught by the interpreter and, if debugging, displayed in the IDE.
+////////////////////////////
+void AGKCore::SetErrorMode(ErrorMode Mode)
+{
+	agk::SetErrorMode(Mode);
+}
+
 ////////////////
 // Sets whether loaded images having mipmaps generated and used. 
 // Should be called before any images are loaded. 

@@ -24,7 +24,7 @@ public:
 	Image (Text EncodedText, unsigned short codeForgiveness);
 	Image (Text Filename); 
 	//Image (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha = false);
-	Image (Text SubImageFilename, unsigned int parentImage);
+	Image(unsigned int parentImage, Text SubImageFilename);
 	//Image (unsigned int assignedImageumber, unsigned int parentImage, Text SubImageFilename);
 	Image (Read FileToInit, Text PathToParent);
 	Image (Memblock Generator);

@@ -43,7 +43,7 @@ Sprite::Sprite(Point Begin, Point End)
 }*/
 
 Sprite::Sprite(unsigned int parentImage, Text SubImageFilename)
-	: Image(SubImageFilename, parentImage)
+	: Image(parentImage, SubImageFilename)
 {
 	_Create();
 }
@@ -79,20 +79,15 @@ Sprite::Sprite(Read FileToInit, Text PathToParent)
 	FileToInit.Close();
 }
 
-Sprite& Sprite::operator= (const Sprite &NewSprite)
+Sprite& Sprite::operator= (const Sprite &OtherSprite)
 {	
-	if (this != &NewSprite)
+	if (this != &OtherSprite)
 	{
-		if (GetExists())
-			agk::DeleteSprite(_spriteNumber);
-		_spriteNumber = NewSprite._spriteNumber;
-		_imageNumber = NewSprite._imageNumber;
-		//Image NewImage(newSprite.imageNumber);
-		//imageNumber = NewImage.GetImageNumber();
+		this->_spriteNumber = OtherSprite._spriteNumber;
 	}
 
 	return *this;
-}
+} 
 
 Sprite& Sprite::operator<< (const Image& Object)
 {
@@ -481,6 +476,12 @@ void Sprite::SetSnap(bool snap)
 	agk::SetSpriteSnap(_spriteNumber, snap);
 }
 
+void Sprite::SetSpriteNumber(unsigned int number)
+{
+	if (_spriteNumber == 0)
+		_spriteNumber = number;
+}
+
 void Sprite::SetTransparencySetting(short Setting)
 {
 	if (_TransparencySetting(Setting))
@@ -541,7 +542,7 @@ void Sprite::SetYByOffset(float y)
 		this->SetVisible(false);
 }*/
 
-Sprite Sprite::Clone(void)
+/*Sprite Sprite::Clone(void)
 {
 	Sprite ReturnSprite = Sprite();
 	
@@ -549,6 +550,11 @@ Sprite Sprite::Clone(void)
 	ReturnSprite._spriteNumber = agk::CloneSprite(_spriteNumber);
 
 	return ReturnSprite;
+} */
+
+unsigned int Sprite::Clone()
+{
+	return agk::CloneSprite(_spriteNumber);
 }
 
 /*unsigned int Sprite::clone(unsigned int spriteToClone)

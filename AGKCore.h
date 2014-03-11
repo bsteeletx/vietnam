@@ -143,6 +143,7 @@ public:
 #if OS == ANDROID
 	void SetExpansionFileVersion(int version); 
 #endif
+	void SetErrorMode(ErrorMode Mode);
 	void SetGenerateMipmaps(bool generateMipmaps); 
 	void SetSortCreated(bool turnOn); 
 	void SetSortDepth(bool turnOn); 

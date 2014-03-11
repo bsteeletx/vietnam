@@ -44,7 +44,7 @@ Image::Image(Text filename)
 	}
 } */
 
-Image::Image(Text subImageFilename, unsigned int parentImage)
+Image::Image(unsigned int parentImage, Text subImageFilename)
 {
 	if (_Filename(subImageFilename))
 		_LoadSub(parentImage, subImageFilename);
