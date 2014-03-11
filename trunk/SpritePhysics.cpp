@@ -46,6 +46,12 @@ PhysicsS::PhysicsS (unsigned int parentImage, Text SubImageFilename, short mode)
 
 }*/
 
+PhysicsS::PhysicsS(Sprite Clone)
+: Sprite()
+{
+	(Sprite)*this = Clone;
+}
+
 PhysicsS::~PhysicsS()
 {
 }

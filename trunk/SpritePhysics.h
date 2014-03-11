@@ -10,6 +10,7 @@ class PhysicsS :
 public:
 	~PhysicsS(void);
 	PhysicsS(void);
+	PhysicsS(Sprite Clone);
 	PhysicsS(Point Begin, Point End, short mode = 2);
 	PhysicsS(Text Filename, short mode = 2);
 	PhysicsS(unsigned int parentImage, Text SubImageFilename, short mode = 2);

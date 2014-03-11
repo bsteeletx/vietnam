@@ -17,13 +17,14 @@ public:
 	Sprite (unsigned int parentImage, Text SubImageFilename);
 	Sprite (Read FileToInit, Text PathToParent);
 			
-	Sprite& operator= (const Sprite& newSprite);
+	Sprite& operator= (const Sprite &OtherSprite);
 	Sprite& operator<< (const Image& Object);
 
 	//////////////////Properties
 	//unsigned int clone(void);
 	//unsigned int clone(unsigned int assignedSpriteNumber);
-	Sprite Clone(void);
+	//Sprite Clone(void);
+	unsigned int Clone();
 	bool collidedWith(Sprite TestSprite);
 	bool collidedWith(unsigned int testSpriteNumber);
 
@@ -96,6 +97,7 @@ public:
 	void SetScissor(Point TopLeft, Point BottomRight);
 	void SetSize(float width = -1.0f, float height = -1.0f);
 	void SetSnap(bool snap = true);
+	void SetSpriteNumber(unsigned int number);
 	void SetTransparencySetting(short setting);
 	void SetUV(Point UV1, Point UV2, Point UV3, Point UV4);
 	void SetUVBorder(float border = 0.5f);
