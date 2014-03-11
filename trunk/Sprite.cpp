@@ -542,20 +542,20 @@ void Sprite::SetYByOffset(float y)
 		this->SetVisible(false);
 }*/
 
-/*Sprite Sprite::Clone(void)
+Sprite &Sprite::Clone(void)
 {
-	Sprite ReturnSprite = Sprite();
+	Sprite *ReturnSprite = new Sprite();
 	
-	ReturnSprite = *this;
-	ReturnSprite._spriteNumber = agk::CloneSprite(_spriteNumber);
+	ReturnSprite = this;
+	ReturnSprite->_spriteNumber = agk::CloneSprite(_spriteNumber);
 
-	return ReturnSprite;
-} */
+	return *ReturnSprite;
+} 
 
-unsigned int Sprite::Clone()
+/*unsigned int Sprite::Clone()
 {
 	return agk::CloneSprite(_spriteNumber);
-}
+} */
 
 /*unsigned int Sprite::clone(unsigned int spriteToClone)
 {

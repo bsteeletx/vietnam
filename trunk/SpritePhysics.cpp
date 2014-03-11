@@ -47,9 +47,10 @@ PhysicsS::PhysicsS (unsigned int parentImage, Text SubImageFilename, short mode)
 }*/
 
 PhysicsS::PhysicsS(Sprite Clone)
-: Sprite()
+: Sprite(Clone)
 {
-	(Sprite)*this = Clone;
+	(Sprite)*this = (Sprite)this->Clone();
+	_SetOn(2);
 }
 
 PhysicsS::~PhysicsS()
@@ -83,14 +84,14 @@ void PhysicsS::ClearShapes(void)
 	agk::ClearSpriteShapes(_spriteNumber);
 }
 
-PhysicsS PhysicsS::Clone()
+PhysicsS &PhysicsS::Clone()
 {
-	PhysicsS ReturnSprite = PhysicsS();
+	PhysicsS *ReturnSprite = new PhysicsS();
 
-	ReturnSprite = *this;
-	ReturnSprite._spriteNumber = agk::CloneSprite(_spriteNumber);
+	//ReturnSprite = this;
+	ReturnSprite->_spriteNumber = agk::CloneSprite(_spriteNumber);
 
-	return ReturnSprite;
+	return *ReturnSprite;
 }
 
 bool PhysicsS::GetCollision(Sprite TestSprite)

@@ -23,7 +23,7 @@ public:
 
 	void CalculateCOM(void);
 	void ClearShapes(void);
-	PhysicsS Clone();
+	PhysicsS &Clone();
 		
 	float GetAngularVelocity(void);
 	bool GetCollision(Sprite TestSprite);
