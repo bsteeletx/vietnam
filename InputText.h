@@ -17,7 +17,7 @@ public:
 
 	void SetCursorBlinkTime(float value);
 	void SetMaxCharacters(unsigned int value); 
-	void Start(Text InitialText = NULL); 
+	void Start(Text InitialText = ""); 
 	void Stop(); 
 };
 #endif

@@ -15,6 +15,7 @@ public:
 	Text();
 	~Text();
 	Text(const char* textString, bool isVisible = false);
+	Text(char singleChar, bool isVisible = false);
 	//Text(unsigned int assignedTextNumber, const char* textString, bool isVisible = false);
 	Text(std::string textString, bool isVisible = false);
 	

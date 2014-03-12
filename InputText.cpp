@@ -55,7 +55,7 @@ void InputText::SetMaxCharacters(unsigned int value)
 
 void InputText::Start(Text Initial)
 {
-	if (Initial != NULL)
+	if (Initial != "")
 		agk::StartTextInput(Initial.GetCString());
 	else
 		agk::StartTextInput();

@@ -32,6 +32,21 @@ Text::Text(std::string textString, bool isVisible)
 	SetVisible(isVisible);
 }
 
+Text::Text(char singleChar, bool isVisible)
+{
+	AGKCore Converter;
+
+	_canBeSeen = isVisible;
+
+	_storedString = Converter.Chr((unsigned int)singleChar).GetCString();
+
+	if (isVisible)
+	{
+		_textNumber = agk::CreateText(_storedString.c_str());
+		_canBeSeen = true;
+	}
+}
+
 Text::Text(const char* textString, bool isVisible)
 {
 	_canBeSeen = isVisible;
