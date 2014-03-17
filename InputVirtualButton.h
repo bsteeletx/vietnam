@@ -2,10 +2,10 @@
 #define _INPUTVIRTUALBUTTON_H_
 
 #include "Point.h"
-#include "Image.h"
 #include "Color.h"
 #include "Text.h"
 #include "Input.h"
+#include "Sprite.h"
 
 class VirtualButton : Input
 {
@@ -24,8 +24,8 @@ public:
 	void SetActive(bool active);
 	void SetAlpha(unsigned short alpha);
 	void SetColor(Color Values);
-	void SetImageDown(Image Object);
-	void SetImageUp(Image Object);
+	void SetImageDown(Sprite Object);
+	void SetImageUp(Sprite Object);
 	void SetPosition(Point Location);
 	void SetPosition(float x, float y);
 	void SetScreenPosition(Point Location, float size);

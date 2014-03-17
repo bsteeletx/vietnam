@@ -127,7 +127,7 @@ bool Input::GetMultiTouchExists()
 
 unsigned short Input::GetNextButtonID()
 {
-	for (int i = 0; i < 13; i++)
+	for (int i = 1; i < 13; i++)
 	{
 		if (!_buttonID[i])
 			return i;
