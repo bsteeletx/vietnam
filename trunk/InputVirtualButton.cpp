@@ -76,12 +76,12 @@ void VirtualButton::SetColor(Color Values)
 	SetAlpha(Values.GetAlpha());
 }
 
-void VirtualButton::SetImageDown(Image Object)
+void VirtualButton::SetImageDown(Sprite Object)
 {
 	agk::SetVirtualButtonImageDown(_buttonID, Object.GetID());
 }
 
-void VirtualButton::SetImageUp(Image Object)
+void VirtualButton::SetImageUp(Sprite Object)
 {
 	agk::SetVirtualButtonImageUp(_buttonID, Object.GetID());
 }
