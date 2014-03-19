@@ -11,6 +11,20 @@ Physics2D::~Physics2D(void)
 {
 }
 
+void Physics2D::Delete()
+{
+	for (int i = 0; i < _Forces.size(); i++)
+		_Forces[i].Delete();
+
+	for (int i = 0; i < _Joints.size(); i++)
+		_Joints[i].Delete();
+
+	_Forces.empty();
+	_Contacts.empty();
+	_RayCasts.empty();
+	_Joints.empty();
+}
+
 unsigned short Physics2D::GetIslandCount(void)
 {
 	return agk::GetPhysicsIslandCount();

@@ -124,9 +124,13 @@ public:
 	void SetRawTouchValue(unsigned short touchIndex, int value); 
 
 private:
-	bool _touchIndex[8];
-	bool _joystickID[8];
-	bool _buttonID[16];
+	/*static bool _touchIndex[8];
+	static bool _joystickID[8];
+	static bool _buttonID[16];*/
+
+	static std::vector<bool*> _touchIndex;
+	static std::vector<bool*> _joystickID;
+	static std::vector<bool*> _buttonID;
 
 	float _GetRawTouchCurrentX(unsigned short touchIndex);
 	float _GetRawTouchCurrentY(unsigned short touchIndex);

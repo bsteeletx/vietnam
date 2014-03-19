@@ -15,6 +15,8 @@ public:
 	~Physics2D(void);
 
 	//////////////////////General & Debug
+	void Delete();
+
 	unsigned short GetIslandCount(void);
 	float GetSolveTime(void);
 		
