@@ -14,13 +14,13 @@ PhysicsS::PhysicsS() : Sprite()
 PhysicsS::PhysicsS (Point Begin, Point End, short mode)
 	: Sprite(Begin, End)
 {
-	_SetOn(mode);
+	SetOn(mode);
 }
 
 PhysicsS::PhysicsS (Text Filename, short mode)
 	: Sprite(Filename)
 {
-	_SetOn(mode);
+	SetOn(mode);
 }
 
 /*PhysicsS::PhysicsS (unsigned int assignedImageNumber, Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber, short mode)
@@ -32,7 +32,7 @@ PhysicsS::PhysicsS (Text Filename, short mode)
 PhysicsS::PhysicsS (unsigned int parentImage, Text SubImageFilename, short mode)
 	: Sprite(parentImage, SubImageFilename)
 {
-	_SetOn(mode);
+	SetOn(mode);
 }
 
 /*PhysicsS::PhysicsS (unsigned int assignedImageNumber, unsigned int parentImage, Text SubImageFilename, unsigned int assignedSpriteNumber, short mode)
@@ -50,7 +50,7 @@ PhysicsS::PhysicsS(Sprite Clone)
 : Sprite(Clone)
 {
 	//(Sprite)*this = (Sprite)this->Clone();
-	_SetOn(2);
+	SetOn(2);
 }
 
 PhysicsS::~PhysicsS()
@@ -346,12 +346,12 @@ void PhysicsS::SetShapePolygon(short numOfPoints, short pointIndex, Point Locati
 		agk::SetSpriteShapePolygon(_spriteNumber, numOfPoints, pointIndex, Location.GetX(), Location.GetY());
 }
 
-void PhysicsS::_SetOff(void)
+void PhysicsS::SetOff(void)
 {
 	agk::SetSpritePhysicsOff(_spriteNumber);
 }
 
-void PhysicsS::_SetOn(short mode)
+void PhysicsS::SetOn(short mode)
 {
 	if(_Mode(mode))
 		agk::SetSpritePhysicsOn(_spriteNumber, mode);

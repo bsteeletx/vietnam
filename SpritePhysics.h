@@ -57,6 +57,8 @@ public:
 	void SetIsBullet(bool isBullet);
 	void SetIsSensor(bool isSensor);
 	void SetMass(float massInKG);
+	void SetOff(void);
+	void SetOn(short mode = 2);
 	void SetRestitution(float value);
 	void SetTorque(float torque);
 	void SetVelocity(float xVelocity, float yVelocity);
@@ -71,9 +73,6 @@ private:
 	bool _usingPhysics;
 	bool _category[16];
 	bool _collision[16];
-	
-	void _SetOff(void);
-	void _SetOn(short mode = 2);
 
 	bool _Mode(short value = 2);	
 	bool _Shape(short shapeType);
