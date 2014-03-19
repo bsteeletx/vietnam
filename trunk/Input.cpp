@@ -1,10 +1,13 @@
 #include "Input.h"
 #include "agk.h"
 
+std::vector<bool*> Input::_buttonID;
+std::vector<bool*> Input::_joystickID;
+std::vector<bool*> Input::_touchIndex;
+
 Input::Input(void)
 {
-	for (int i = 0; i < 13; i++)
-		_buttonID[i] = false;
+	
 }
 
 
@@ -127,13 +130,11 @@ bool Input::GetMultiTouchExists()
 
 unsigned short Input::GetNextButtonID()
 {
-	for (int i = 1; i < 13; i++)
-	{
-		if (!_buttonID[i])
-			return i;
-	}
-
-	return 15;
+	bool *button = new bool(true);
+		
+	_buttonID.push_back(button);
+	
+	return _buttonID.size();
 }
 
 bool Input::GetNFCExists()
