@@ -57,9 +57,12 @@ void Music::Pause(void)
 	agk::PauseMusic();
 }
 
-void Music::Play(void)
+void Music::Play(bool loop, unsigned int startID, unsigned int endID)
 {
-	agk::PlayMusic(_musicNumber);
+	if (startID == 0 || endID == 0)
+		agk::PlayMusic(_musicNumber, loop, _musicNumber, _musicNumber);
+	else
+		agk::PlayMusic(_musicNumber, loop, startID, endID);
 }
 
 void Music::Resume(void)
@@ -96,6 +99,8 @@ bool Music::_Filename(Text Filename)
 	if (Extension == Text(".wav"))
 		return true;
 	if (Extension == Text(".mp3"))
+		return true;
+	if (Extension == Text(".ogg"))
 		return true;
 
 	return false;

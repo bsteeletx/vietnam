@@ -17,7 +17,7 @@ public:
 	bool GetPlaying(void);
 
 	void Pause(void);
-	void Play(void);
+	void Play(bool loop = true, unsigned int startMusicID = 0, unsigned int endMusicID = 0);
 	
 	void Resume(void);
 
