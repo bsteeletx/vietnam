@@ -19,10 +19,10 @@ void Physics2D::Delete()
 	for (int i = 0; i < _Joints.size(); i++)
 		_Joints[i].Delete();
 
-	_Forces.empty();
-	_Contacts.empty();
-	_RayCasts.empty();
-	_Joints.empty();
+	_Forces.clear();
+	_Contacts.clear();
+	_RayCasts.clear();
+	_Joints.clear();
 }
 
 unsigned short Physics2D::GetIslandCount(void)
