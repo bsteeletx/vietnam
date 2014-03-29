@@ -102,6 +102,8 @@ bool Music::_Filename(Text Filename)
 		return true;
 	if (Extension == Text(".ogg"))
 		return true;
+	if (Extension == Text(".m4a"))
+		return true;
 
 	return false;
 }
