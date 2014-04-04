@@ -12,7 +12,6 @@ public:
 	Sprite(void);
 	Sprite (Color SpriteColor);
 	//Sprite (Text Filename, unsigned int assignedImageNumber, unsigned int assignedSpriteNumber);
-	Sprite (Point Begin, Point End);
 	Sprite (Text Filename); 
 	Sprite (unsigned int parentImage, Text SubImageFilename);
 	Sprite (Read FileToInit, Text PathToParent);
@@ -25,6 +24,7 @@ public:
 	//unsigned int clone(unsigned int assignedSpriteNumber);
 	Sprite& Clone(void);
 	//unsigned int Clone();
+	Sprite* CopySection(Point Begin, Point End);
 	bool collidedWith(Sprite TestSprite);
 	bool collidedWith(unsigned int testSpriteNumber);
 
@@ -130,6 +130,8 @@ protected:
 	float _GetOffsetY(void);
 	float _GetX(void);
 	float _GetY(void);
+
+	Sprite(unsigned int imageID, Point Begin, Point End);
 	
 	
 private:

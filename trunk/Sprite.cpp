@@ -24,12 +24,6 @@ Sprite::Sprite(Text Filename)
 	_Create();
 }
 
-Sprite::Sprite(Point Begin, Point End)
-	: Image(Begin, End)
-{
-	_Create();
-}
-
 /*Sprite::Sprite(Text Filename, bool blackIsAlpha, unsigned int assignedSpriteNumber)
 	: Image(Filename, blackIsAlpha)
 {
@@ -79,6 +73,12 @@ Sprite::Sprite(Read FileToInit, Text PathToParent)
 	FileToInit.Close();
 }
 
+Sprite::Sprite(unsigned int imageID, Point Begin, Point End)
+: Image(imageID, Begin, End)
+{
+	_Create();
+}
+
 Sprite& Sprite::operator= (const Sprite &OtherSprite)
 {	
 	if (this != &OtherSprite)
@@ -99,6 +99,13 @@ Sprite& Sprite::operator<< (const Image& Object)
 	_spriteNumber = agk::CreateSprite(TempImage.GetID());
 	
 	return *this;
+}
+
+Sprite* Sprite::CopySection(Point Begin, Point End)
+{
+	Sprite *NewSprite = new Sprite(this->_imageNumber, Begin, End);
+
+	return NewSprite;
 }
 
 void Sprite::Delete()
@@ -252,6 +259,11 @@ bool Sprite::GetHit(Point Location)
 		return true;
 	else
 		return false;
+}
+
+unsigned int Sprite::GetImageID()
+{
+	return agk::GetSpriteImageID(_spriteNumber);
 }
 
 bool Sprite::GetInBox(Point TopLeft, Point BottomRight)

@@ -11,11 +11,11 @@ PhysicsS::PhysicsS() : Sprite()
 	SetOn(mode);
 }*/
 
-PhysicsS::PhysicsS (Point Begin, Point End, short mode)
-	: Sprite(Begin, End)
+PhysicsS::PhysicsS (unsigned int imageNumber, Point Begin, Point End)
+: Sprite(imageNumber, Begin, End)
 {
-	SetOn(mode);
-}
+	//SetOn(mode);
+} 
 
 PhysicsS::PhysicsS (Text Filename, short mode)
 	: Sprite(Filename)
@@ -92,6 +92,15 @@ PhysicsS &PhysicsS::Clone()
 	ReturnSprite->_spriteNumber = agk::CloneSprite(_spriteNumber);
 
 	return *ReturnSprite;
+}
+
+PhysicsS *PhysicsS::CopySection(unsigned int imageNumber, Point Begin, Point End, short mode)
+{
+	PhysicsS *NewObject = new PhysicsS(imageNumber, Begin, End);
+
+	NewObject->SetOn(mode);
+
+	return NewObject;
 }
 
 bool PhysicsS::GetCollision(Sprite TestSprite)

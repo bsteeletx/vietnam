@@ -13,11 +13,15 @@ public:
 	Vector& operator= (const Vector& newVector);
 	/*friend bool operator== (Vector& First, Vector& Second);
 	friend bool operator!= (Vector& First, Vector& Second);*/
+
+	bool ContainsPoint(Point Check);
+
 	Point GetDirection(void);
 	Point GetEndPoint(void);
 	float GetEndPointX(void);
 	float GetEndPointY(void);
 	float GetEndPointZ(void);
+	Point GetMidPoint(void);
 	Point GetStartPoint(void);
 	float GetStartPointX(void);
 	float GetStartPointY(void);

@@ -16,11 +16,11 @@ Animation::Animation(unsigned int width, unsigned int height, unsigned int count
 	_Set(_spriteNumber, width, height, count);
 }
 
-Animation::Animation(unsigned int width, unsigned int height, unsigned int count, Point Begin, Point End)
+/*Animation::Animation(unsigned int width, unsigned int height, unsigned int count, Point Begin, Point End)
 	: Sprite(Begin, End)
 {
 	_Set(_spriteNumber, width, height, count);
-}
+} */
 
 Animation::Animation(unsigned int width, unsigned int height, unsigned int count, unsigned int parentImage, Text SubImageFilename)
 	: Sprite(parentImage, SubImageFilename)

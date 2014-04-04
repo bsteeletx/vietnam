@@ -63,9 +63,9 @@ Image& Image::operator= (const Image& newImage)
 	return *this;
 }
 
-Image::Image(Point Begin, Point End)
+Image::Image(unsigned int imageNumber, Point Begin, Point End)
 {
-	_imageNumber = agk::CopyImage(_imageNumber, (int) Begin.GetX(), (int) Begin.GetY(), (int) End.GetX(), (int) End.GetY());
+	_imageNumber = agk::CopyImage(imageNumber, (int) Begin.GetX(), (int) Begin.GetY(), (int) End.GetX(), (int) End.GetY());
 }
 
 Image::Image(Text codedText, unsigned short codeForgiveness)

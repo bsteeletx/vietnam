@@ -16,6 +16,11 @@ unsigned int AGKCore::Asc(char alpha)
 	return agk::Asc(single);
 }
 
+float AGKCore::ATan(float value)
+{
+	return agk::ATan(value);
+}
+
 Text AGKCore::Bin(int value)
 {
 	return Text(agk::Bin(value));

@@ -29,12 +29,12 @@ public:
 	Image (Read FileToInit, Text PathToParent);
 	Image (Memblock Generator);
 	Image(Point TopLeft, float width, float height);
+	Image (unsigned int imageNumber, Point Begin, Point End);
 	
 	//operators
 	Image& operator= (const Image& newImage);
 	
 	//////////////////////General
-	unsigned int Copy(Point Begin, Point End); 
 
 	void Delete();
 	

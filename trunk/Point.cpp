@@ -24,6 +24,17 @@ Point::~Point(void)
 {
 }
 
+Point& Point::operator= (const Point& NewPoint)
+{
+	_x = NewPoint._x;
+	_y = NewPoint._y;
+	_z = NewPoint._z;
+	_minValue = NewPoint._minValue;
+	_maxValue = NewPoint._maxValue;
+
+	return *this;
+}
+
 bool Point::operator== (Point ComparePoint)
 {
 	if (_x != ComparePoint.GetX())
