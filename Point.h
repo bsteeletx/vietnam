@@ -11,6 +11,7 @@ public:
 	~Point(void);
 
 	bool operator== (const Point ComparePoint);
+	Point& operator= (const Point& NewPoint);
 	friend Point operator+ (const Point &Point1, const Point &Point2);
 	friend Point operator- (const Point &Point1, const Point &Point2);
 

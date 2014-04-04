@@ -11,7 +11,6 @@ public:
 	~PhysicsS(void);
 	PhysicsS(void);
 	PhysicsS(Sprite Clone);
-	PhysicsS(Point Begin, Point End, short mode = 2);
 	PhysicsS(Text Filename, short mode = 2);
 	PhysicsS(unsigned int parentImage, Text SubImageFilename, short mode = 2);
 	
@@ -24,6 +23,7 @@ public:
 	void CalculateCOM(void);
 	void ClearShapes(void);
 	PhysicsS &Clone();
+	PhysicsS *CopySection(unsigned int imageNumber, Point Begin, Point End, short mode = 2);
 		
 	float GetAngularVelocity(void);
 	bool GetCollision(Sprite TestSprite);
@@ -68,6 +68,9 @@ public:
 	void SetShapePolygon(short numOfPoints, short pointIndex, Point Location);
 
 	void togglePhysics(void);
+
+protected:
+	PhysicsS(unsigned int imageNumber, Point Begin, Point End);
 
 private:
 	bool _usingPhysics;

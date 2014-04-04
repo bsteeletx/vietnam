@@ -1,7 +1,10 @@
 #include "Vector.h"
+#include <algorithm>
 
 Vector::Vector(void)
 {
+	_Start = Point();
+	_Finish = Point();
 }
 
 Vector::Vector(Point Begin, Point End)
@@ -49,6 +52,45 @@ bool operator!= (Vector& First, Vector& Second)
 	return true;
 }*/
 
+bool Vector::ContainsPoint(Point Check)
+{
+	const float FUZZINESS = 3.0f;
+	Point LeftMostPoint = Point();
+	Point RightMostPoint = Point();
+	//AGKCore Maths;
+	
+
+	if (_Start.GetX() <= _Finish.GetX())
+	{
+		LeftMostPoint = _Start;
+		RightMostPoint = _Finish;
+	}
+	else
+	{
+		LeftMostPoint = _Finish;
+		RightMostPoint = _Start;
+	}
+	
+	if (Check.GetX() + FUZZINESS < LeftMostPoint.GetX() || RightMostPoint.GetX() < Check.GetX() - FUZZINESS)
+		return false;
+	else if (Check.GetY() + FUZZINESS < std::min(LeftMostPoint.GetY(), RightMostPoint.GetY()) || std::max(LeftMostPoint.GetY(), RightMostPoint.GetY()) < Check.GetY() - FUZZINESS)
+		return false;
+
+	float deltaX = RightMostPoint.GetX() - LeftMostPoint.GetX();
+	float deltaY = RightMostPoint.GetY() - LeftMostPoint.GetY();
+
+	if (deltaX == 0 || deltaY == 0)
+		return true;
+	
+	float slope = deltaY / deltaX;
+	float offset = LeftMostPoint.GetY() - LeftMostPoint.GetX() * slope;
+	float calculatedY = Check.GetX() * slope + offset;
+
+	bool lineContains = Check.GetY() - FUZZINESS <= calculatedY && calculatedY <= Check.GetY() + FUZZINESS;
+
+	return lineContains;
+}
+
 Point Vector::GetDirection(void)
 {
 	return Point(GetEndPointX() - GetStartPointX(), GetEndPointY() - GetStartPointY(), GetEndPointZ() - GetStartPointZ());
@@ -72,6 +114,15 @@ float Vector::GetEndPointY(void)
 float Vector::GetEndPointZ(void)
 {
 	return _Finish.GetZ();
+}
+
+Point Vector::GetMidPoint()
+{
+	float midX = (_Start.GetX() + _Finish.GetX()) / 2.0f;
+	float midY = (_Start.GetY() + _Finish.GetY()) / 2.0f;
+	float midZ = (_Start.GetZ() + _Finish.GetZ()) / 2.0f;
+
+	return Point(midX, midY, midZ);
 }
 
 Point Vector::GetStartPoint(void)
